@@ -15,7 +15,7 @@ import javax.ejb.Stateful;
  * @author alex
  */
 @Stateful
-public class ConferenceSearch implements ConferenceSearchRemote {
+public class ConferenceSearch  {
 
     public List<String> conferenceList = new ArrayList<String>();
     
@@ -25,7 +25,7 @@ public class ConferenceSearch implements ConferenceSearchRemote {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
-    @Override
+    
     public List<String> getConferenceList() {
                
         return conferenceList;
@@ -41,7 +41,7 @@ public class ConferenceSearch implements ConferenceSearchRemote {
         conferenceList.add("Software Engineering Conference");
     }
 
-    @Override
+    
     public void addConference(String name) {
         conferenceList.add(name);
     }
