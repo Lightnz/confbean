@@ -8,7 +8,6 @@ package org.bonn.ooka.controller;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  *
@@ -17,29 +16,23 @@ import java.util.List;
 @Named(value = "conferenceController")
 @SessionScoped
 public class ConferenceController implements Serializable {
-    private List liste;
-    
 
     /**
      * Creates a new instance of ConferenceController
      */
     public ConferenceController() {
+              
+        
+        
     }
     
-   //Name der zu registrierenden Konferenz
-   private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String startParticipantMask(){
+            return Pages.PARTICIPENT_INDEX_PAGE;
+        }
+        
+        public String startOrganizerMask(){
+            return Pages.ORGANIZER_INDEX_PAGE;
+        }
     
-    public String doRegister(){
-        liste = null; //TODO gefüllt über einen EJB Zugriff (neue Seite mit neuer Konferenzliste)
-        return Pages.RESULT_PAGE;
-    }
     
 }

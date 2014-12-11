@@ -9,42 +9,47 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
+import org.bonn.ooka.conference.dao.ConferenceDAO;
+import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dtos.Konferenz;
 
 /**
  *
  * @author alex
  */
 @Stateful
-public class ConferenceSearch  {
+public class ConferenceSearch implements ConferenceSearchLocal  {
 
-    public List<String> conferenceList = new ArrayList<String>();
+    private FakeDB dao;
+
+    public ConferenceSearch() {
+        this.dao = new FakeDB();
+    }
     
-    
-      
-    
+    @Override
+    public List<Konferenz> getConferencesIncludingString(String name) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Konferenz> getAllConferences() {
+        
+        return dao.getKonferenzen();
+    }
+
+
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
 
-    
-    public List<String> getConferenceList() {
-               
-        return conferenceList;
-    }
-    
-    
-    
-    
-    @PostConstruct        
-    private void prefillExampleList(){
-        conferenceList.add("Object Oriented Component Architecture Conference");
-        conferenceList.add("Java EE Conference");
-        conferenceList.add("Software Engineering Conference");
-    }
+   
 
     
-    public void addConference(String name) {
-        conferenceList.add(name);
-    }
+  
+    
+    
+    
+    
+  
 
     
     

@@ -11,8 +11,12 @@ package org.bonn.ooka.controller;
  */
 public class Pages {
     
-    public static final String RESULT_PAGE = "result";
-    public static final String INDEX_PAGE = "index";
-    public static final String CONFIRM_PAGE = "confirm";
+    public static final String PARTICIPENT_INDEX_PAGE = "participantMask";
+    public static final String PARTICIPENT_RESULT_PAGE = "participantResult";
+    public static final String PARTICIPENT_CONFIRM_PAGE = "participantConfirm";
+    
+    public static final String ORGANIZER_INDEX_PAGE = "organizerMask";
+    public static final String ORGANIZER_RESULT_PAGE = "organizerResult";
+    public static final String ORGANIZER_CONFIRM_PAGE = "organizerConfirm";
     
 }

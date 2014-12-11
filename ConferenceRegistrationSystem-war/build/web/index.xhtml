@@ -6,12 +6,13 @@
         <title>Conference Registration System</title>
     </h:head>
     <h:body>
-        <h3> Conference Registration System </h3>
-        <h:form acceptcharset="ISO-8859-1">
-        <h:outputLabel value="Verfügbare Konferenzen:"> </h:outputLabel>
-        <h:inputText value="#{conferenceController.name}"></h:inputText>
-        <p></p>
-        <h:commandButton value="Registrieren" action="#{conferenceController.doRegister()}"></h:commandButton>
+        <h:form>
+            <h3> Conference Registration System </h3>
+
+            <h:commandButton value="Participant Mask" action="#{conferenceController.startParticipantMask()}"/>
+            <br/><br/>
+            <h:commandButton value="Organizer Mask" action="#{conferenceController.startOrganizerMask()}"/>
+        
         </h:form>
     </h:body>
 </html>

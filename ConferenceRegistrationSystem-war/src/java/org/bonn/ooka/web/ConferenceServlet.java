@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import org.bonn.ooka.conference.ejb.ConferenceSearchRemote;
+import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 
 /**
  *
@@ -36,7 +37,11 @@ public class ConferenceServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    private ConferenceSearchRemote conferenceSearch;
+    @EJB
+    private ConferenceSearchLocal conferenceSearch;
+    
+    
+    
     private List<String> conferenceList;
     
     
@@ -64,9 +69,9 @@ public class ConferenceServlet extends HttpServlet {
             out.println("</html>");
             
             //probeweise aenderung d. Liste nach jedem Zugriff:
-            conferenceSearch.addConference("ADDED CONFERENCE");
+            //conferenceSearch.addConference("ADDED CONFERENCE");
             
-            conferenceList = conferenceSearch.getConferenceList();
+            //conferenceList = conferenceSearch.getConferenceList();
             
             
             
@@ -125,6 +130,8 @@ public class ConferenceServlet extends HttpServlet {
         return "Short description";
     }// </editor-fold>
     
+    
+    /* aktuell über @EJB gelöst
     @PostConstruct
     private void initConferenceEJB(){
         try {
@@ -140,6 +147,7 @@ public class ConferenceServlet extends HttpServlet {
         conferenceList = conferenceSearch.getConferenceList();
     
 }
+    */
     
     
 
