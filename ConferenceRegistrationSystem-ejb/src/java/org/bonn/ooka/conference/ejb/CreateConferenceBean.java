@@ -7,7 +7,7 @@ package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.Stateless;
 import javax.ejb.LocalBean;
-import org.bonn.ooka.conference.dao.ConferenceDAO;
+//import org.bonn.ooka.conference.dao.ConferenceDAO;
 import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 
@@ -20,11 +20,11 @@ import org.bonn.ooka.conference.dtos.Konferenz;
 public class CreateConferenceBean {
     
     //TODO: Stattdessen Inject benutzen
-    ConferenceDAO conferenceDAO;
+    //ConferenceDAO conferenceDAO;
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
-    
+    /*
     public void addKonferenz(Konferenz k){
         //TODO: Stattdessen Inject benutzen
         if(conferenceDAO==null)
@@ -32,9 +32,11 @@ public class CreateConferenceBean {
         conferenceDAO.addKonferenz(k);
     }
     
+    
     //TODO: Stattdessen Inject benutzen
     public void setDAO(ConferenceDAO dao){
         conferenceDAO = dao;
     }
+    */
     
 }

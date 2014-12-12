@@ -6,15 +6,17 @@
 package org.bonn.ooka.controller;
 
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 
 /**
  *
  * @author alex
  */
 @Named(value = "conferenceController")
-@SessionScoped
+@RequestScoped
 public class ConferenceController implements Serializable {
 
     /**
@@ -30,7 +32,7 @@ public class ConferenceController implements Serializable {
             return Pages.PARTICIPENT_INDEX_PAGE;
         }
         
-        public String startOrganizerMask(){
+    public String startOrganizerMask(){
             return Pages.ORGANIZER_INDEX_PAGE;
         }
     

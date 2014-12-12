@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateful;
-import org.bonn.ooka.conference.dao.ConferenceDAO;
 import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 
@@ -20,21 +19,18 @@ import org.bonn.ooka.conference.dtos.Konferenz;
 @Stateful
 public class ConferenceSearch implements ConferenceSearchLocal  {
 
-    private FakeDB dao;
+    
 
     public ConferenceSearch() {
-        this.dao = new FakeDB();
+        
     }
     
-    @Override
-    public List<Konferenz> getConferencesIncludingString(String name) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     @Override
     public List<Konferenz> getAllConferences() {
         
-        return dao.getKonferenzen();
+        return FakeDB.getKonferenzen();
     }
 
 

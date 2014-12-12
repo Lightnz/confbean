@@ -17,6 +17,10 @@ import java.util.List;
 public class Konferenz implements Serializable{
     
 	int ID;
+
+    public int getID() {
+        return ID;
+    }
         int slots;
 	Veranstalter veranstalter;
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
