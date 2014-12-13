@@ -17,10 +17,7 @@ import java.util.List;
 public class Konferenz implements Serializable{
     
 	int ID;
-
-    public int getID() {
-        return ID;
-    }
+        int bewertung;
         int slots;
 	Veranstalter veranstalter;
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
@@ -31,6 +28,10 @@ public class Konferenz implements Serializable{
 		this.veranstalter = veranstalter;
 		this.titel=titel;
 	}
+
+        public int getID() {
+            return ID;
+        }
 	
 	public Veranstalter getVeranstalter(){
 		return veranstalter;
@@ -59,6 +60,14 @@ public class Konferenz implements Serializable{
         
         public int getSlots(){
             return slots;
+        }
+        
+        public void setBewertung(int bewertung){
+            this.bewertung=bewertung;
+        }
+        
+        public int getBewertung(){
+            return bewertung;
         }
 	
 }

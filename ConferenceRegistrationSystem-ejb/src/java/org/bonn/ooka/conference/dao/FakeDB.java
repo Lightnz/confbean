@@ -19,6 +19,7 @@ public class FakeDB {
     
     private static List<Konferenz> konferenzen;
     private static List<Teilnehmer> teilnehmerglobal;
+    private static List<Veranstalter> veranstalterglobal;
 
     
     
@@ -40,12 +41,36 @@ public class FakeDB {
     }
     
     
-    public static void addKonferenz(Konferenz k){
-        if(k.getSlots()<100 || k.getVeranstalter().getRep()>5)
+    public static boolean addKonferenz(Konferenz k){
+        if(k.getSlots()<100 || k.getVeranstalter().getRep()>5){
             konferenzen.add(k);
+            return true;
+        }
         else
-            //TODO: vernünftigen Output..
-            System.out.println("Die Reputation des Veranstalters ist für die Größe dieser Veranstaltung nicht ausreichend!");
+            return false;
+    }
+    
+    public static int getNextKonferenzID(){
+        int max=0;
+        for(Konferenz k : konferenzen){
+            if(k.getID()>max)
+                max = k.getID();
+        }
+        max++;
+        return max;
+    }
+    
+    public static void addVeranstalter(Veranstalter v){
+        veranstalterglobal.add(v);
+    }
+    
+    public static Veranstalter getVeranstalter(int i){
+        for(Veranstalter v : veranstalterglobal){
+            if(v.getID()==i){
+                return v;
+            }
+        }
+        return null;
     }
     
     /**
@@ -60,6 +85,15 @@ public class FakeDB {
         
         
         return konferenzen;
+    }
+    
+    public static List<Konferenz> getKonferenzenOf(Veranstalter v){
+        List<Konferenz> konf = new ArrayList<Konferenz>();
+        for(Konferenz k : konferenzen){
+            if(k.getVeranstalter().getID()==v.getID())
+                konf.add(k);
+        }
+        return konf;
     }
     
     public static List<Teilnehmer> getTeilnehmerGlobal() {
@@ -88,6 +122,9 @@ public class FakeDB {
         Veranstalter v1 = new Veranstalter(0, "Peter AG");
         Veranstalter v2 = new Veranstalter(1, "Horst AG");
         Veranstalter v3 = new Veranstalter(2, "Horst und Peter Group");
+        addVeranstalter(v1);
+        addVeranstalter(v2);
+        addVeranstalter(v3);
         addKonferenz(new Konferenz(v1, "Wieso Peter gut und Horst schlecht ist - Teil 1", 1, 500));
         addKonferenz(new Konferenz(v2, "Wieso Horst besser ist als Peter - Teil 1", 2, 100));
         addKonferenz(new Konferenz(v3, "Peter AG und Horst AG, Beste Freunde", 3, 200));
