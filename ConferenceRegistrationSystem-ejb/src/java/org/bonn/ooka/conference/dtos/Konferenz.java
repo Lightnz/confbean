@@ -27,6 +27,8 @@ public class Konferenz implements Serializable{
 	public Konferenz(Veranstalter veranstalter, String titel, int ID, int slots){
 		this.veranstalter = veranstalter;
 		this.titel=titel;
+                this.ID = ID;
+                this.slots=slots;
 	}
 
         public int getID() {
@@ -44,6 +46,10 @@ public class Konferenz implements Serializable{
 	public List<Teilnehmer> getTeilnehmer(){
 		return teilnehmerliste;
 	}
+        
+        public int getTeilnehmerZahl(){
+            return teilnehmerliste.size();
+        }
 	
 	public void addPublikation(Publikation p){
 		publikationen.add(p);
@@ -56,6 +62,10 @@ public class Konferenz implements Serializable{
                 //TODO: vernünftigen Output..
                 System.out.println("Maximale Teilnehmerzahl erreicht!");
             }
+        }
+        
+        public void setSlots(int slots){
+            this.slots=slots;
         }
         
         public int getSlots(){

@@ -15,6 +15,7 @@ import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJB;
+import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
 
 /**
  *
@@ -28,7 +29,7 @@ public class OrganizerController implements Serializable {
     ConferenceSearchLocal searchService;
     
     @EJB
-    private CreateConferenceEJB creationService;
+    CreateConferenceEJBLocal creationService;
     
     private Veranstalter veranstalter = FakeDB.getVeranstalter(2);
     
@@ -36,18 +37,41 @@ public class OrganizerController implements Serializable {
     
     private List<Konferenz> erstellteKonferenzen = FakeDB.getKonferenzenOf(veranstalter);
     
-    public List<Konferenz> getErstellteKonferenzen(){
-        return erstellteKonferenzen;
-    }
-    
+    /**
+     * Titel der anzulegenden Konferenz
+     */
     private String titel;
     
+    /**
+     * Maximale Anzahl an Teilnehmer an der anzulegenden Konferenz
+     */
     private String anzahl;
 
     /**
      * Creates a new instance of OrganizerController
      */
     public OrganizerController() {
+    }
+    
+    public String getTitel(){
+        return titel;
+    }
+    
+    public String getAnzahl(){
+        return anzahl;
+    }
+    
+    public void setTitel(String titel){
+        this.titel=titel;
+    }
+    
+    public void setAnzahl(String anzahl){
+        this.anzahl=anzahl;
+    }
+            
+    
+    public List<Konferenz> getErstellteKonferenzen(){
+        return erstellteKonferenzen;
     }
     
     public Veranstalter getVeranstalter(){
@@ -61,7 +85,6 @@ public class OrganizerController implements Serializable {
     public String doCreate(){
         Konferenz konferenz = new Konferenz(veranstalter, titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl));
         creationResult = creationService.createConference(konferenz);
-                
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
     

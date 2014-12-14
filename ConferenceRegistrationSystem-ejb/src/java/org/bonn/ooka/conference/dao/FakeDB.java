@@ -17,10 +17,10 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
  */
 public class FakeDB {
     
-    private static List<Konferenz> konferenzen;
+    private static List<Konferenz> konferenzen = new ArrayList<Konferenz>();
     private static List<Teilnehmer> teilnehmerglobal;
-    private static List<Veranstalter> veranstalterglobal;
-
+    private static List<Veranstalter> veranstalterglobal = new ArrayList<Veranstalter>();
+    private static boolean dummiesErstellt = false;
     
     
     public FakeDB(){
@@ -44,13 +44,19 @@ public class FakeDB {
     public static boolean addKonferenz(Konferenz k){
         if(k.getSlots()<100 || k.getVeranstalter().getRep()>5){
             konferenzen.add(k);
+            System.out.println("Konferenz angelegt");
             return true;
         }
+        
         else
+            System.out.println("Konferenz nicht angelegt");
             return false;
     }
     
     public static int getNextKonferenzID(){
+        if(!dummiesErstellt){
+            createDummies();
+        }
         int max=0;
         for(Konferenz k : konferenzen){
             if(k.getID()>max)
@@ -65,6 +71,9 @@ public class FakeDB {
     }
     
     public static Veranstalter getVeranstalter(int i){
+        if(!dummiesErstellt){
+            createDummies();
+        }
         for(Veranstalter v : veranstalterglobal){
             if(v.getID()==i){
                 return v;
@@ -78,8 +87,7 @@ public class FakeDB {
      * @return
      */
     public static List<Konferenz> getKonferenzen(){
-        if (konferenzen == null){
-            
+        if(!dummiesErstellt){
             createDummies();
         }
         
@@ -88,6 +96,9 @@ public class FakeDB {
     }
     
     public static List<Konferenz> getKonferenzenOf(Veranstalter v){
+        if(!dummiesErstellt){
+            createDummies();
+        }
         List<Konferenz> konf = new ArrayList<Konferenz>();
         for(Konferenz k : konferenzen){
             if(k.getVeranstalter().getID()==v.getID())
@@ -97,7 +108,7 @@ public class FakeDB {
     }
     
     public static List<Teilnehmer> getTeilnehmerGlobal() {
-        if (teilnehmerglobal == null){
+        if(!dummiesErstellt){
             createDummies();
         }
         
@@ -141,6 +152,8 @@ public class FakeDB {
         konferenzen.get(0).addTeilnehmer(t2);
         
         konferenzen.get(2).addTeilnehmer(t3);
+        
+        dummiesErstellt = true;
         
     }
     

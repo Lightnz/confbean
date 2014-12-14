@@ -25,6 +25,14 @@
                      <h:outputText value="#{item.titel}"></h:outputText>
 
                 </p:column>
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Teilnehmer" />
+                    </f:facet>
+                     <h:outputText value="#{item.getTeilnehmerZahl()} von #{item.slots}"></h:outputText>
+
+                </p:column>
             </p:dataTable>
             
             <p/>
@@ -32,7 +40,7 @@
                 
             <br/><br/>
             
-            <p:commandButton value="Konferenz erstellen" action="#{organizerController.showConferenceCreation()}"/>
+            <p:commandLink value="Konferenz erstellen" action="#{organizerController.showConferenceCreation()}"/>
                 
         
         </h:form>
