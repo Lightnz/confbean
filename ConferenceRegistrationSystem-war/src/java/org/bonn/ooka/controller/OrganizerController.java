@@ -14,7 +14,6 @@ import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
-import org.bonn.ooka.conference.ejb.CreateConferenceEJB;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
 
 /**
@@ -83,9 +82,13 @@ public class OrganizerController implements Serializable {
     }
     
     public String doCreate(){
-        Konferenz konferenz = new Konferenz(veranstalter, titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl));
+        /*System.out.println("OrganizerController.doCreate wird ausgeführt.");
+        Konferenz konferenz = new Konferenz(this.veranstalter, this.titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl));
         creationResult = creationService.createConference(konferenz);
+        */
+        
         return Pages.ORGANIZER_CONFIRM_PAGE;
+        
     }
     
     public String showConferenceCreation(){

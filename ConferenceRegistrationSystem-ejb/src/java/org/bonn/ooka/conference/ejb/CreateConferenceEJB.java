@@ -5,7 +5,7 @@
  */
 package org.bonn.ooka.conference.ejb;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
 import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Veranstalter;
@@ -14,7 +14,7 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
  *
  * @author Fabian
  */
-@Stateless
+@Stateful
 public class CreateConferenceEJB implements CreateConferenceEJBLocal {
 
     @Override

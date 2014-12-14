@@ -17,9 +17,9 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
  */
 public class FakeDB {
     
-    private static List<Konferenz> konferenzen = new ArrayList<Konferenz>();
+    private static List<Konferenz> konferenzen;
     private static List<Teilnehmer> teilnehmerglobal;
-    private static List<Veranstalter> veranstalterglobal = new ArrayList<Veranstalter>();
+    private static List<Veranstalter> veranstalterglobal;
     private static boolean dummiesErstellt = false;
     
     
@@ -42,15 +42,17 @@ public class FakeDB {
     
     
     public static boolean addKonferenz(Konferenz k){
-        if(k.getSlots()<100 || k.getVeranstalter().getRep()>5){
+        
+        if(k.getSlots()>200 && k.getVeranstalter().getRep()<5){
+            System.out.println("Konferenz nicht angelegt");
+            return false;
+        }
+        else
+        {            
             konferenzen.add(k);
             System.out.println("Konferenz angelegt");
             return true;
         }
-        
-        else
-            System.out.println("Konferenz nicht angelegt");
-            return false;
     }
     
     public static int getNextKonferenzID(){
@@ -128,7 +130,7 @@ public class FakeDB {
         teilnehmerglobal.add(t3);
         teilnehmerglobal.add(t4);
         
-        
+        veranstalterglobal = new ArrayList<Veranstalter>();
         konferenzen = new ArrayList<Konferenz>();
         Veranstalter v1 = new Veranstalter(0, "Peter AG");
         Veranstalter v2 = new Veranstalter(1, "Horst AG");
@@ -136,16 +138,16 @@ public class FakeDB {
         addVeranstalter(v1);
         addVeranstalter(v2);
         addVeranstalter(v3);
-        addKonferenz(new Konferenz(v1, "Wieso Peter gut und Horst schlecht ist - Teil 1", 1, 500));
-        addKonferenz(new Konferenz(v2, "Wieso Horst besser ist als Peter - Teil 1", 2, 100));
-        addKonferenz(new Konferenz(v3, "Peter AG und Horst AG, Beste Freunde", 3, 200));
+        addKonferenz(new Konferenz(v1, "Wieso Peter gut und Horst schlecht ist - Teil 1", 0, 500));
+        addKonferenz(new Konferenz(v2, "Wieso Horst besser ist als Peter - Teil 1", 1, 100));
+        addKonferenz(new Konferenz(v3, "Peter AG und Horst AG, Beste Freunde", 2, 200));
         //Dekrementiere die Reputation von Veranstalter 1, sodass sie die kritische Marke von 5 unterschreitet...
         for(int i=0; i<6; i++)
             v1.decRep();
         //Die nun einzufügende Konferenz sollte nicht angelegt werden, da Reputation zu niedrig...
-        addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 4, 300));
+        addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 300));
         //Diese aber schon...
-        addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 4, 99));
+        addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 99));
         
         //ein paar Teilnehmer zuordnen
         konferenzen.get(0).addTeilnehmer(t1);

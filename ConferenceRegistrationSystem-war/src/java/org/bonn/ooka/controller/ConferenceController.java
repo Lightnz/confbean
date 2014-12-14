@@ -7,16 +7,14 @@ package org.bonn.ooka.controller;
 
 import javax.inject.Named;
 import java.io.Serializable;
-import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
+import javax.enterprise.context.SessionScoped;
 
 /**
  *
  * @author alex
  */
 @Named(value = "conferenceController")
-@RequestScoped
+@SessionScoped
 public class ConferenceController implements Serializable {
 
     /**
