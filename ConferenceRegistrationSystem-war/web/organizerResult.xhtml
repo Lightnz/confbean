@@ -11,11 +11,17 @@
         <h1>Organizer Portal</h1>
         <h3>Erstellen sie eine Konferenz:</h3>
         <h:form acceptcharset="ISO-8859-1">
+            <h:panelGrid columns="3">
             <h:outputLabel value="Konferenztitel:"> </h:outputLabel>
-            <h:inputText value="#{organizerController.titel}"> </h:inputText>          
+            <h:inputText value="#{organizerController.titel}"> </h:inputText>     
+            <p/>
             <h:outputLabel value="Teilnehmeranzahl:"> </h:outputLabel>
             <h:inputText value="#{organizerController.anzahl}"> </h:inputText>
-            <h:commandLink value="Erstellen" action="#{organizerController.doCreate()}"/>
+            <p/>
+            <p/>     
+            <br/><br/>
+            <p:commandButton value="Erstellen" action="#{organizerController.doCreate()}"></p:commandButton>
+            </h:panelGrid>
         </h:form>
     </h:body>
 </html>

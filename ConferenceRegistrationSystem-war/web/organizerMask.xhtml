@@ -16,6 +16,7 @@
         <p/>
         
         <h:form acceptcharset="ISO-8859-1">
+            
             <p:dataTable value="#{organizerController.erstellteKonferenzen}" var="item">
                  <p:column>
 
@@ -37,12 +38,9 @@
             
             <p/>
             <p/>
-                
-            <br/><br/>
             
-            <p:commandLink value="Konferenz erstellen" action="#{organizerController.showConferenceCreation()}"/>
-                
-        
+            <p:commandButton value="Konferenz Erstellen" action="#{organizerController.showConferenceCreation()}"></p:commandButton>
+            
         </h:form>
     </h:body>
 </html>

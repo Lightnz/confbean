@@ -68,7 +68,6 @@ public class OrganizerController implements Serializable {
     public void setAnzahl(String anzahl){
         this.anzahl=anzahl;
     }
-            
     
     public List<Konferenz> getErstellteKonferenzen(){
         return erstellteKonferenzen;
@@ -85,11 +84,18 @@ public class OrganizerController implements Serializable {
     public String doCreate(){
         Konferenz konferenz = new Konferenz(veranstalter, titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl));
         creationResult = creationService.createConference(konferenz);
+        refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
     
     public String showConferenceCreation(){
+        anzahl = "";
+        titel = "";
         return Pages.ORGANIZER_RESULT_PAGE;
+    }
+    
+    public void refreshConferences(){
+        erstellteKonferenzen = FakeDB.getKonferenzenOf(veranstalter);
     }
     
 }

@@ -7,9 +7,7 @@ package org.bonn.ooka.controller;
 
 import javax.inject.Named;
 import java.io.Serializable;
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 
 /**
  *
