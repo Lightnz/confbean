@@ -20,7 +20,7 @@ public class Veranstalter implements Serializable {
     public Veranstalter(int ID, String name){
         this.name = name;
         this.ID=ID;
-        rep = 10;
+        this.rep = 10;
     }
     
     public String getName(){
