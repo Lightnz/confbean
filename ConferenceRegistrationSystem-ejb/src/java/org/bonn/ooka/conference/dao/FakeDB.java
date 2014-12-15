@@ -165,10 +165,11 @@ public class FakeDB {
         addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 99));
         
         //ein paar Teilnehmer zuordnen
-        konferenzen.get(0).addTeilnehmer(t1);
-        konferenzen.get(0).addTeilnehmer(t2);
+        registerParticipantToConference(t1, konferenzen.get(0));
+        registerParticipantToConference(t2, konferenzen.get(0));
+        registerParticipantToConference(t3, konferenzen.get(2));
+        registerParticipantToConference(t4, konferenzen.get(1));
         
-        konferenzen.get(2).addTeilnehmer(t3);
         
         dummiesErstellt = true;
         

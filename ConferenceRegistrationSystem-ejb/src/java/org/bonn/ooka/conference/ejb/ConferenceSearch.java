@@ -8,7 +8,7 @@ package org.bonn.ooka.conference.ejb;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 
@@ -16,7 +16,7 @@ import org.bonn.ooka.conference.dtos.Konferenz;
  *
  * @author alex
  */
-@Stateful
+@Stateless
 public class ConferenceSearch implements ConferenceSearchLocal  {
 
     
