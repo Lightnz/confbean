@@ -14,8 +14,8 @@ import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
-import org.bonn.ooka.conference.ejb.CreateConferenceEJB;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
+import org.bonn.ooka.conference.ejb.EditConferenceEJBLocal;
 
 /**
  *
@@ -30,6 +30,9 @@ public class OrganizerController implements Serializable {
     
     @EJB
     CreateConferenceEJBLocal creationService;
+    
+    @EJB
+    EditConferenceEJBLocal editService;
     
     private Veranstalter veranstalter = FakeDB.getVeranstalter(2);
     
@@ -46,6 +49,8 @@ public class OrganizerController implements Serializable {
      * Maximale Anzahl an Teilnehmer an der anzulegenden Konferenz
      */
     private String anzahl;
+    
+    private Konferenz conferenceToEdit;
 
     /**
      * Creates a new instance of OrganizerController
@@ -61,12 +66,20 @@ public class OrganizerController implements Serializable {
         return anzahl;
     }
     
+    public Konferenz getConferenceToEdit(){
+        return conferenceToEdit;
+    }
+    
     public void setTitel(String titel){
         this.titel=titel;
     }
     
     public void setAnzahl(String anzahl){
         this.anzahl=anzahl;
+    }
+    
+    public void setConferenceToEdit(Konferenz conferenceToEdit){
+        this.conferenceToEdit = conferenceToEdit;
     }
     
     public List<Konferenz> getErstellteKonferenzen(){
@@ -88,10 +101,28 @@ public class OrganizerController implements Serializable {
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
     
+    public String doChange(){
+        creationResult = editService.editConference(conferenceToEdit);
+        refreshConferences();
+        return Pages.ORGANIZER_CONFIRM_PAGE;
+    }
+    
+    public String doDelete(Konferenz conferenceToDelete){
+        creationResult = editService.deleteConference(conferenceToDelete);
+        refreshConferences();
+        return Pages.ORGANIZER_CONFIRM_PAGE;
+    }
+    
     public String showConferenceCreation(){
         anzahl = "";
         titel = "";
         return Pages.ORGANIZER_RESULT_PAGE;
+    }
+    
+    public String showConferenceEdit(Konferenz konferenz){
+        conferenceToEdit = konferenz;
+        
+        return Pages.ORGANIZER_EDIT_PAGE;
     }
     
     public void refreshConferences(){

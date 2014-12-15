@@ -23,7 +23,7 @@ public class CreateConferenceEJB implements CreateConferenceEJBLocal {
         if(FakeDB.addKonferenz(konferenz))
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' wurde erfolgreich erstellt.";
         else{
-            return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' darf aufgrund negativer Bewertungen nicht mehr als 100 Teilnehmer groß sein. Die Konferenz wurde nicht erstllt.";
+            return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' darf aufgrund negativer Bewertungen nicht mehr als 200 Teilnehmer groß sein. Die Konferenz wurde nicht erstellt.";
         }
     }
     

@@ -44,15 +44,30 @@ public class FakeDB {
     public static boolean addKonferenz(Konferenz k){
         
         if(k.getSlots()>200 && k.getVeranstalter().getRep()<5){
-            System.out.println("Konferenz nicht angelegt");
             return false;
         }
         else
         {            
             konferenzen.add(k);
-            System.out.println("Konferenz angelegt");
             return true;
         }
+    }
+    
+    public static boolean editKonferenz(Konferenz k){
+        boolean ret = false;
+        for(Konferenz konf : konferenzen){
+            if(konf.getID() == k.getID()){
+                if(deleteKonferenz(konf))
+                    return konferenzen.add(k);
+                else
+                    return false;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean deleteKonferenz(Konferenz k){
+        return konferenzen.remove(k);
     }
     
     public static int getNextKonferenzID(){

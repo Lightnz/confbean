@@ -18,5 +18,6 @@ public class Pages {
     public static final String ORGANIZER_INDEX_PAGE = "organizerMask";
     public static final String ORGANIZER_RESULT_PAGE = "organizerResult";
     public static final String ORGANIZER_CONFIRM_PAGE = "organizerConfirm";
+    public static final String ORGANIZER_EDIT_PAGE = "organizerEdit";
     
 }

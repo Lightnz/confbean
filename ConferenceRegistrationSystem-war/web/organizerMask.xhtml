@@ -34,6 +34,22 @@
                      <h:outputText value="#{item.getTeilnehmerZahl()} von #{item.slots}"></h:outputText>
 
                 </p:column>
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Ändern" />
+                    </f:facet>
+                     <p:commandButton value="Ändern" action="#{organizerController.showConferenceEdit(item)}"></p:commandButton>
+
+                </p:column>
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Entfernen" />
+                    </f:facet>
+                     <p:commandButton value="Entfernen" action="#{organizerController.doDelete(item)}"></p:commandButton>
+
+                </p:column>
             </p:dataTable>
             
             <p/>

@@ -42,6 +42,10 @@ public class Konferenz implements Serializable{
 	public String getTitel(){
 		return titel;
 	}
+        
+        public void setTitel(String titel){
+            this.titel=titel;
+        }
 	
 	public List<Teilnehmer> getTeilnehmer(){
 		return teilnehmerliste;
