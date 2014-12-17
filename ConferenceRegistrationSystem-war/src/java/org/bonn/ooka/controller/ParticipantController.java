@@ -31,7 +31,7 @@ public class ParticipantController implements Serializable {
     private ConferenceRegisterEJBLocal registerService;
     
     //TODO: User vorher im Login in die Session laden
-    private Teilnehmer teilnehmer = FakeDB.getTeilnehmerGlobal().get(3);
+    private Teilnehmer teilnehmer = FakeDB.getTeilnehmerGlobal().get(1);
     
     private String registerResult;
     

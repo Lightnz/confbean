@@ -8,6 +8,7 @@ package org.bonn.ooka.conference.dtos;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,16 +24,22 @@ public class Konferenz implements Serializable{
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
 	String titel;
 	List<Publikation> publikationen = new ArrayList<Publikation>();
+        Date date;
 	
-	public Konferenz(Veranstalter veranstalter, String titel, int ID, int slots){
+	public Konferenz(Veranstalter veranstalter, String titel, int ID, int slots, Date date){
 		this.veranstalter = veranstalter;
 		this.titel=titel;
                 this.ID = ID;
                 this.slots=slots;
+                this.date=date;
 	}
 
         public int getID() {
             return ID;
+        }
+        
+        public String getDatum(){
+            return date.toString();
         }
 	
 	public Veranstalter getVeranstalter(){
@@ -58,6 +65,10 @@ public class Konferenz implements Serializable{
 	public void addPublikation(Publikation p){
 		publikationen.add(p);
 	}
+        
+        public List<Publikation> getPublikationen(){
+            return publikationen;
+        }
         
         public void addTeilnehmer(Teilnehmer t){
             if(teilnehmerliste.size()<slots){

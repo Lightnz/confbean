@@ -27,9 +27,39 @@
 
                 </p:column>
                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Publikationen" />
+                    </f:facet>
+                    <p:dataTable value="#{item.getPublikationen()}" var="itempub">
+                        <p:column>
+
+                            <f:facet name="header">
+                              <h:outputText value="Titel" />
+                            </f:facet>
+                            <h:outputText value="#{itempub.titel}"></h:outputText>
+
+                        </p:column>
+                    
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Gutachter" />
+                            </f:facet>
+                            <h:outputText value="#{itempub.gutachter.name}"></h:outputText>
+                        </p:column>
+                        
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="Gutachter Ändern" />
+                            </f:facet>
+                     <p:commandButton value="Ändern" action="#{organizerController.showSetConsultant(itempub)}"></p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:column>
+                <p:column>
 
                     <f:facet name="header">
                         <h:outputText value="Teilnehmer" />
+                        <f:attribute name="width" value="10%"/>
                     </f:facet>
                      <h:outputText value="#{item.getTeilnehmerZahl()} von #{item.slots}"></h:outputText>
 
@@ -37,7 +67,17 @@
                 <p:column>
 
                     <f:facet name="header">
+                        <h:outputText value="Datum" />
+                        <f:attribute name="width" value="10%"/>
+                    </f:facet>
+                     <h:outputText value="#{item.getDatum()}"></h:outputText>
+
+                </p:column>
+                <p:column>
+
+                    <f:facet name="header">
                         <h:outputText value="Ändern" />
+                        <f:attribute name="width" value="10%"/>
                     </f:facet>
                      <p:commandButton value="Ändern" action="#{organizerController.showConferenceEdit(item)}"></p:commandButton>
 
@@ -46,6 +86,7 @@
 
                     <f:facet name="header">
                         <h:outputText value="Entfernen" />
+                        <f:attribute name="width" value="10%"/>
                     </f:facet>
                      <p:commandButton value="Entfernen" action="#{organizerController.doDelete(item)}"></p:commandButton>
 
@@ -53,9 +94,10 @@
             </p:dataTable>
             
             <p/>
-            <p/>
             
             <p:commandButton value="Konferenz Erstellen" action="#{organizerController.showConferenceCreation()}"></p:commandButton>
+            
+            
             
         </h:form>
     </h:body>

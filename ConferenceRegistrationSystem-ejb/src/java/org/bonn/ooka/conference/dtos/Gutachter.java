@@ -15,14 +15,28 @@ import java.util.TreeMap;
  */
 public class Gutachter implements Serializable {
 	
-	Map<Integer, Gutachten> gutachtenliste = new TreeMap<Integer, Gutachten>();
-	
-	public void addGutachten(Gutachten g){
-		gutachtenliste.put(g.getID(), g);
-	}
-	
-	public void removeGutachten(int ID){
-		gutachtenliste.remove(ID);
-	}
+    private String name;
+    private int id;
+    
+    public Gutachter(int id, String name){
+        this.id=id;
+        this.name=name;
+    }
+    
+    public void setID(int id){
+        this.id=id;
+    }
+    
+    public int getID(){
+        return id;
+    }
+    
+    public void setName(String name){
+        this.name=name;
+    }
+    
+    public String getName(){
+        return name;
+    }
 	
 }

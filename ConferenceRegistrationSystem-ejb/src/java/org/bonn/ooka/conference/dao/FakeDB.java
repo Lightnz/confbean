@@ -5,9 +5,13 @@
  */
 package org.bonn.ooka.conference.dao;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
@@ -20,7 +24,9 @@ public class FakeDB {
     private static List<Konferenz> konferenzen;
     private static List<Teilnehmer> teilnehmerglobal;
     private static List<Veranstalter> veranstalterglobal;
+    private static List<Gutachter> gutachterglobal;
     private static boolean dummiesErstellt = false;
+    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
     
     public FakeDB(){
@@ -53,6 +59,10 @@ public class FakeDB {
         }
     }
     
+    public static Gutachter getDefaultGutachter(){
+        return gutachterglobal.get(0);
+    }
+    
     public static boolean editKonferenz(Konferenz k){
         boolean ret = false;
         for(Konferenz konf : konferenzen){
@@ -64,6 +74,15 @@ public class FakeDB {
             }
         }
         return false;
+    }
+    
+    public static boolean addPublikationTo(Publikation p, Konferenz k){
+        k.addPublikation(p);
+        return true;
+    }
+    
+    public static List<Publikation> getPublikationenOf(Konferenz k){
+        return k.getPublikationen();
     }
     
     public static boolean deleteKonferenz(Konferenz k){
@@ -133,7 +152,29 @@ public class FakeDB {
         return teilnehmerglobal;
     }
     
+    public static List<Gutachter> getAllGutachter(){
+        return gutachterglobal;
+    }
+    
+    public static boolean addGutachterTo(Gutachter gutachter, Publikation publikation){
+        for(Konferenz konf : konferenzen){
+            for(Publikation pub : konf.getPublikationen()){
+                if(pub==publikation){
+                    pub.setGutachter(gutachter);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     private static void createDummies(){
+        
+        gutachterglobal = new ArrayList<Gutachter>();
+        Gutachter g1 = new Gutachter(0, "Johnny Bravo");
+        Gutachter g2 = new Gutachter(1, "Sascha Alda");
+        gutachterglobal.add(g1);
+        gutachterglobal.add(g2);
         
         teilnehmerglobal = new ArrayList<Teilnehmer>();
         Teilnehmer t1 = new Teilnehmer(0, "Alex Laitenberger");
@@ -153,22 +194,42 @@ public class FakeDB {
         addVeranstalter(v1);
         addVeranstalter(v2);
         addVeranstalter(v3);
-        addKonferenz(new Konferenz(v1, "Wieso Peter gut und Horst schlecht ist - Teil 1", 0, 500));
-        addKonferenz(new Konferenz(v2, "Wieso Horst besser ist als Peter - Teil 1", 1, 100));
-        addKonferenz(new Konferenz(v3, "Peter AG und Horst AG, Beste Freunde", 2, 200));
+        Konferenz k1, k2, k3, k4, k5;
+        k1=null;
+        k2=null;
+        k3=null;
+        k4=null;
+        k5=null;
+        try{
+            k1 = new Konferenz(v1, "Wieso Peter gut und Horst schlecht ist - Teil 1", 0, 500, formatter.parse("2015-01-11"));
+            k2 = new Konferenz(v2, "Wieso Horst besser ist als Peter - Teil 1", 1, 100, formatter.parse("2015-2-22"));
+            k3 = new Konferenz(v3, "Peter AG und Horst AG, Beste Freunde", 2, 200, formatter.parse("2015-03-21"));
+            k4 = new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 300, formatter.parse("2015-04-01"));
+            k5 = new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 99, formatter.parse("2015-05-05"));
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        addKonferenz(k1);
+        addKonferenz(k2);
+        addKonferenz(k3);
         //Dekrementiere die Reputation von Veranstalter 1, sodass sie die kritische Marke von 5 unterschreitet...
         for(int i=0; i<6; i++)
             v1.decRep();
         //Die nun einzufügende Konferenz sollte nicht angelegt werden, da Reputation zu niedrig...
-        addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 300));
+        addKonferenz(k4);
         //Diese aber schon...
-        addKonferenz(new Konferenz(v1, "Keep friends close but keep enemies closer", 3, 99));
+        addKonferenz(k5);
         
         //ein paar Teilnehmer zuordnen
         registerParticipantToConference(t1, konferenzen.get(0));
         registerParticipantToConference(t2, konferenzen.get(0));
         registerParticipantToConference(t3, konferenzen.get(2));
         registerParticipantToConference(t4, konferenzen.get(1));
+        
+        addPublikationTo(new Publikation(t1, "Peters Vorzüge", 1), k1);
+        addPublikationTo(new Publikation(t2, "Horsts Vorzüge", 3), k2);
+        addPublikationTo(new Publikation(t2, "Scheinheilige Konferenzen", 2), k3);
+        addPublikationTo(new Publikation(t1, "Feindliche Spionage", 4), k5);
         
         
         dummiesErstellt = true;

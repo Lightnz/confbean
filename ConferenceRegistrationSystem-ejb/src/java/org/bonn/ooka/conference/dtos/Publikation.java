@@ -5,19 +5,22 @@
  */
 package org.bonn.ooka.conference.dtos;
 
+import org.bonn.ooka.conference.dao.FakeDB;
+
 /**
  *
  * @author Fabian
  */
 public class Publikation {
 	
-	private Autor autor;
+	private Teilnehmer autor;
 	private String titel;
 	private int ID;
 	private boolean visible;
+        private Gutachter gutachter;
 	
 
-	public Publikation(Autor autor, String titel, int ID){
+	public Publikation(Teilnehmer autor, String titel, int ID){
 		this.autor=autor;
 		this.titel=titel;
 		this.ID=ID;
@@ -28,13 +31,32 @@ public class Publikation {
 		return titel;
 	}
 	
-	public Autor getAutor(){
+        public void setTitel(String titel){
+                this.titel=titel;
+        }
+        
+        public void setAutor(Teilnehmer autor){
+            this.autor=autor;
+        }
+        
+	public Teilnehmer getAutor(){
 		return autor;
 	}
+        
+        public Gutachter getGutachter(){
+            if(gutachter==null)
+                return FakeDB.getDefaultGutachter();
+            return gutachter;
+        }
+        
+        public void setGutachter(Gutachter gutachter){
+            this.gutachter=gutachter;
+        }
 	
 	public int getID(){
 		return ID;
 	}
+        
 	
 	public void setVisible(){
 		visible=true;

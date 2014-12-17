@@ -8,10 +8,17 @@ package org.bonn.ooka.controller;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
@@ -34,9 +41,15 @@ public class OrganizerController implements Serializable {
     @EJB
     EditConferenceEJBLocal editService;
     
+    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    
     private Veranstalter veranstalter = FakeDB.getVeranstalter(2);
     
+    private Publikation publikationToEdit;
+    
     private String creationResult;
+    
+    private List<Gutachter> gutachterListe = FakeDB.getAllGutachter();
     
     private List<Konferenz> erstellteKonferenzen = FakeDB.getKonferenzenOf(veranstalter);
     
@@ -49,6 +62,11 @@ public class OrganizerController implements Serializable {
      * Maximale Anzahl an Teilnehmer an der anzulegenden Konferenz
      */
     private String anzahl;
+    
+    /**
+     * Datum für anzulegende Konferenz
+     */
+    private String datum;
     
     private Konferenz conferenceToEdit;
 
@@ -66,6 +84,10 @@ public class OrganizerController implements Serializable {
         return anzahl;
     }
     
+    public String getDatum(){
+        return datum;
+    }
+    
     public Konferenz getConferenceToEdit(){
         return conferenceToEdit;
     }
@@ -78,8 +100,16 @@ public class OrganizerController implements Serializable {
         this.anzahl=anzahl;
     }
     
+    public void setDatum(String datum){
+        this.datum=datum;
+    }
+    
     public void setConferenceToEdit(Konferenz conferenceToEdit){
         this.conferenceToEdit = conferenceToEdit;
+    }
+    
+    public List<Gutachter> getGutachterListe(){
+        return gutachterListe;
     }
     
     public List<Konferenz> getErstellteKonferenzen(){
@@ -95,7 +125,13 @@ public class OrganizerController implements Serializable {
     }
     
     public String doCreate(){
-        Konferenz konferenz = new Konferenz(veranstalter, titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl));
+        Date date = null;
+        try {
+            date = formatter.parse(datum);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrganizerController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Konferenz konferenz = new Konferenz(veranstalter, titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl), date);
         creationResult = creationService.createConference(konferenz);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
@@ -109,6 +145,17 @@ public class OrganizerController implements Serializable {
     
     public String doDelete(Konferenz conferenceToDelete){
         creationResult = editService.deleteConference(conferenceToDelete);
+        refreshConferences();
+        return Pages.ORGANIZER_CONFIRM_PAGE;
+    }
+    
+    public String showSetConsultant(Publikation publikation){
+        publikationToEdit = publikation;
+        return Pages.ORGANIZER_SET_CONSULTANT_PAGE;
+    }
+    
+    public String doSetConsultant(Gutachter gutachter){
+        creationResult = editService.addGutachterToPublikation(gutachter, publikationToEdit);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }

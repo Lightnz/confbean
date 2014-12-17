@@ -6,7 +6,9 @@
 package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.Local;
+import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Publikation;
 
 /**
  *
@@ -18,5 +20,10 @@ public interface EditConferenceEJBLocal {
     String editConference(Konferenz konferenz);
     
     String deleteConference(Konferenz konferenz);
+    
+    String addPublikationToConference(Publikation publikation, Konferenz konferenz);
+    
+    String addGutachterToPublikation(Gutachter gutachter, Publikation publikation);
+
     
 }
