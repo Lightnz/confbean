@@ -8,17 +8,36 @@ package org.bonn.ooka.conference.dtos;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author Fabian
  */
+@Entity
 public class Teilnehmer implements Serializable {
     
-    private String name;
+    @Id
+    @GeneratedValue
     private Integer id;
-    private List<Konferenz> angemeldeteKonferenzen;
+    private String name;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<Konferenz> angemeldeteKonferenzen = new ArrayList<Konferenz>();
 
+    public Teilnehmer(){
+        
+    }
+    
+    public Teilnehmer(Integer id, String name){
+        this.name = name;
+        this.id = id;
+    }
+    
     public List<Konferenz> getAngemeldeteKonferenzen() {
         return angemeldeteKonferenzen;
     }
@@ -31,22 +50,12 @@ public class Teilnehmer implements Serializable {
         this.angemeldeteKonferenzen.add(konferenz);
     }
     
-    
-
-    
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public Teilnehmer(Integer id, String name){
-        this.name = name;
-        this.id = id;
-        this.angemeldeteKonferenzen = new ArrayList<Konferenz>();
-                
     }
     
     

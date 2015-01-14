@@ -8,15 +8,26 @@ package org.bonn.ooka.conference.dtos;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Fabian
  */
+@Entity
 public class Gutachter implements Serializable {
 	
-    private String name;
+    @Id
+    @GeneratedValue
     private int id;
+    private String name;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Teilnehmer user;
+    
     
     public Gutachter(int id, String name){
         this.id=id;

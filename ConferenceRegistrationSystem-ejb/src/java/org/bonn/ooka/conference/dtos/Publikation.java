@@ -5,18 +5,29 @@
  */
 package org.bonn.ooka.conference.dtos;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import org.bonn.ooka.conference.dao.FakeDB;
 
 /**
  *
  * @author Fabian
  */
+@Entity
 public class Publikation {
 	
+        @Id
+        @GeneratedValue
+	private int ID;
+        @OneToOne(cascade = CascadeType.ALL)
 	private Teilnehmer autor;
 	private String titel;
-	private int ID;
 	private boolean visible;
+        @OneToOne(cascade = CascadeType.ALL)
         private Gutachter gutachter;
 	
 

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Konferenz;
 
 /**
@@ -19,8 +21,6 @@ import org.bonn.ooka.conference.dtos.Konferenz;
 @Stateless
 public class ConferenceSearch implements ConferenceSearchLocal  {
 
-    
-
     public ConferenceSearch() {
         
     }
@@ -29,9 +29,10 @@ public class ConferenceSearch implements ConferenceSearchLocal  {
 
     @Override
     public List<Konferenz> getAllConferences() {
-        
         return FakeDB.getKonferenzen();
     }
+    
+    
 
 
     // Add business logic below. (Right-click in editor and choose
