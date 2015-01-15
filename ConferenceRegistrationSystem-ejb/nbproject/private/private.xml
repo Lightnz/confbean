@@ -3,16 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/EditConferenceEJB.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Konferenz.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Veranstalter.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/LoginSessionBeanLocal.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dao/JPADao.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/CreateConferenceEJB.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Publikation.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Gutachter.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/CreateConferenceEJBLocal.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/conf/persistence.xml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Teilnehmer.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/LoginSessionBean.java</file>
         </group>
     </open-files>
 </project-private>

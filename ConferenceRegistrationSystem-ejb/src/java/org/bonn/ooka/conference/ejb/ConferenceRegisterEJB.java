@@ -6,7 +6,6 @@
 package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.Stateless;
-import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 
@@ -22,7 +21,7 @@ public class ConferenceRegisterEJB implements ConferenceRegisterEJBLocal {
     @Override
     public String registerToConference(Teilnehmer teilnehmer, Konferenz konferenz) {
         
-        FakeDB.registerParticipantToConference(teilnehmer, konferenz);
+        teilnehmer.addConference(konferenz);
         
         
         //TODO: dem Teilnehmer eine Konferenz hinzufügen

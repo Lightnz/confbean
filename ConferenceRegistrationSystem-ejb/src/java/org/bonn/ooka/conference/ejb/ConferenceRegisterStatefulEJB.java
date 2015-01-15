@@ -6,8 +6,9 @@
 package org.bonn.ooka.conference.ejb;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 
@@ -19,6 +20,8 @@ import org.bonn.ooka.conference.dtos.Teilnehmer;
 public class ConferenceRegisterStatefulEJB implements ConferenceRegisterStatefulEJBLocal {
 
     private Teilnehmer user;
+    @EJB
+    private JPADao dao;
 
     public Teilnehmer getUser() {
         return user;
@@ -27,10 +30,8 @@ public class ConferenceRegisterStatefulEJB implements ConferenceRegisterStateful
     
     @Override
     public String registerToConference(Konferenz konferenz) {
-        FakeDB.registerParticipantToConference(this.user, konferenz);
+        this.user.addConference(konferenz);
         
-        
-                
         return user.getName() + ", Sie wurden erfolgreich zur Konferenz "+ konferenz.getTitel() + " hinzugefügt. Viel Spaß!";
     }
 
@@ -42,9 +43,8 @@ public class ConferenceRegisterStatefulEJB implements ConferenceRegisterStateful
     
     @Override
     public boolean login(int userID) {
-        this.user= FakeDB.getTeilnehmerGlobal().get(userID);
-        
-        
+        this.user = dao.find(Teilnehmer.class, userID);
+
         return false;
     }
 

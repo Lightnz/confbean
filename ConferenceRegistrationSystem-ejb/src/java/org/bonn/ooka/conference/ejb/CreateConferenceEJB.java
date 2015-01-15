@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Veranstalter;
@@ -30,7 +29,7 @@ public class CreateConferenceEJB implements CreateConferenceEJBLocal {
     @Override
     public String createConference(Konferenz konferenz){
         
-        if(dao.create(konferenz))
+        if(dao.createAndUpdate(konferenz))
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' wurde erfolgreich erstellt.";
         else{
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' darf aufgrund negativer Bewertungen nicht mehr als 200 Teilnehmer groß sein. Die Konferenz wurde nicht erstellt.";

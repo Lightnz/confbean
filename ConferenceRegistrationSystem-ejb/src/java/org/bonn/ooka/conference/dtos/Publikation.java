@@ -5,20 +5,23 @@
  */
 package org.bonn.ooka.conference.dtos;
 
+import java.io.Serializable;
+import javax.ejb.EJB;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import org.bonn.ooka.conference.dao.FakeDB;
+import javax.persistence.Table;
+import org.bonn.ooka.conference.dao.JPADao;
 
 /**
  *
  * @author Fabian
  */
 @Entity
-public class Publikation {
+@Table(name = "publikation", schema="confsys")
+public class Publikation implements Serializable{
 	
         @Id
         @GeneratedValue
@@ -29,12 +32,17 @@ public class Publikation {
 	private boolean visible;
         @OneToOne(cascade = CascadeType.ALL)
         private Gutachter gutachter;
+        @OneToOne(cascade = CascadeType.ALL)
+        private Gutachten gutachten;
 	
+        public Publikation(){
+            
+        }
 
-	public Publikation(Teilnehmer autor, String titel, int ID){
+	public Publikation(Teilnehmer autor, String titel, Gutachten gutachten){
 		this.autor=autor;
 		this.titel=titel;
-		this.ID=ID;
+                this.gutachten=gutachten;
 		visible=false;
 	}
 	
@@ -55,13 +63,12 @@ public class Publikation {
 	}
         
         public Gutachter getGutachter(){
-            if(gutachter==null)
-                return FakeDB.getDefaultGutachter();
             return gutachter;
         }
         
-        public void setGutachter(Gutachter gutachter){
+        public boolean setGutachter(Gutachter gutachter){
             this.gutachter=gutachter;
+            return true;
         }
 	
 	public int getID(){

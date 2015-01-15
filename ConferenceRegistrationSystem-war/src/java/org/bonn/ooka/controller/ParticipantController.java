@@ -10,7 +10,7 @@ import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.EJB;
-import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.ejb.ConferenceRegisterEJBLocal;
@@ -30,8 +30,11 @@ public class ParticipantController implements Serializable {
     @EJB
     private ConferenceRegisterEJBLocal registerService;
     
+    @EJB
+    private JPADao dao;
+    
     //TODO: User vorher im Login in die Session laden
-    private Teilnehmer teilnehmer = FakeDB.getTeilnehmerGlobal().get(1);
+    private Teilnehmer teilnehmer = dao.find(Teilnehmer.class, 1);
     
     private String registerResult;
     

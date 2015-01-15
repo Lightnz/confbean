@@ -13,25 +13,28 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Fabian
  */
 @Entity
+@Table(name = "gutachter", schema="confsys")
 public class Gutachter implements Serializable {
 	
     @Id
     @GeneratedValue
     private int id;
-    private String name;
     @OneToOne(cascade = CascadeType.ALL)
     private Teilnehmer user;
     
+    public Gutachter(){
+        
+    }
     
-    public Gutachter(int id, String name){
-        this.id=id;
-        this.name=name;
+    public Gutachter(Teilnehmer user){
+        this.user=user;
     }
     
     public void setID(int id){
@@ -41,13 +44,9 @@ public class Gutachter implements Serializable {
     public int getID(){
         return id;
     }
-    
-    public void setName(String name){
-        this.name=name;
-    }
-    
-    public String getName(){
-        return name;
-    }
 	
+    public Teilnehmer getTeilnehmer(){
+        return user;
+    }
+    
 }

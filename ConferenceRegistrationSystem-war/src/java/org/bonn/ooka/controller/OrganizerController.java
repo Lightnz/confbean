@@ -14,9 +14,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Inject;
-import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
@@ -24,6 +25,8 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
 import org.bonn.ooka.conference.ejb.EditConferenceEJBLocal;
+import org.bonn.ooka.conference.ejb.LoginSessionBeanLocal;
+import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
 import org.postgresql.util.ByteConverter;
 
 /**
@@ -43,17 +46,23 @@ public class OrganizerController implements Serializable {
     @EJB
     EditConferenceEJBLocal editService;
     
+    @EJB
+    QueryUsersEJBLocal userService;
+    
+    @EJB
+    LoginSessionBeanLocal loginSession;
+    
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
-    private Veranstalter veranstalter = FakeDB.getVeranstalter(2);
+    private Veranstalter veranstalter;
     
     private Publikation publikationToEdit;
     
     private String creationResult;
     
-    private List<Gutachter> gutachterListe = FakeDB.getAllGutachter();
+    private List<Gutachter> gutachterListe;
     
-    private List<Konferenz> erstellteKonferenzen = FakeDB.getKonferenzenOf(veranstalter);
+    private List<Konferenz> erstellteKonferenzen;
     
     /**
      * Titel der anzulegenden Konferenz
@@ -63,7 +72,7 @@ public class OrganizerController implements Serializable {
     /**
      * Maximale Anzahl an Teilnehmer an der anzulegenden Konferenz
      */
-    private String anzahl;
+    private int anzahl;
     
     /**
      * Datum für anzulegende Konferenz
@@ -78,11 +87,18 @@ public class OrganizerController implements Serializable {
     public OrganizerController() {
     }
     
+    @PostConstruct
+    public void init(){
+        veranstalter = loginSession.getVeranstalter();
+        gutachterListe = userService.getUsers(Gutachter.class);
+        erstellteKonferenzen =  veranstalter.getKonferenzen();
+    }
+    
     public String getTitel(){
         return titel;
     }
     
-    public String getAnzahl(){
+    public int getAnzahl(){
         return anzahl;
     }
     
@@ -98,7 +114,7 @@ public class OrganizerController implements Serializable {
         this.titel=titel;
     }
     
-    public void setAnzahl(String anzahl){
+    public void setAnzahl(int anzahl){
         this.anzahl=anzahl;
     }
     
@@ -133,7 +149,8 @@ public class OrganizerController implements Serializable {
         } catch (ParseException ex) {
             Logger.getLogger(OrganizerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Konferenz konferenz = new Konferenz(veranstalter, titel, FakeDB.getNextKonferenzID(), Integer.parseInt(anzahl), date);
+        Konferenz konferenz = new Konferenz(veranstalter, titel, anzahl, date);
+        veranstalter.addKonferenz(konferenz);
         creationResult = creationService.createConference(konferenz);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
@@ -163,8 +180,9 @@ public class OrganizerController implements Serializable {
     }
     
     public String showConferenceCreation(){
-        anzahl = "";
+        anzahl = 0;
         titel = "";
+        datum = "";
         return Pages.ORGANIZER_RESULT_PAGE;
     }
     
@@ -175,7 +193,7 @@ public class OrganizerController implements Serializable {
     }
     
     public void refreshConferences(){
-        erstellteKonferenzen = FakeDB.getKonferenzenOf(veranstalter);
+        erstellteKonferenzen = veranstalter.getKonferenzen();
     }
     
 }

@@ -6,49 +6,53 @@
 package org.bonn.ooka.conference.dtos;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author Fabian
  */
+@Entity
+@Table(name = "gutachten", schema="confsys")
 public class Gutachten implements Serializable {
     
-    private Publikation publikation;
+    @Id
+    @GeneratedValue
     private int ID;
     private String kommentar;
     private boolean akzeptiert=false;
+    
+    public Gutachten(){
+        
+    }
 	
-	public Gutachten(Publikation publikation, int ID){
-		this.publikation=publikation;
-		this.ID=ID;
-	}
+    public int getID(){
+	return ID;
+    }
 	
-	public Publikation getPublikation(){
-		return publikation;
+    public void kommentieren(String kommentar){
+	if(kommentar==null){
+            this.kommentar=kommentar;
+	} else{
+            kommentar+="\nErgänzender Kommentar:"+kommentar;
 	}
+    }
 	
-	public int getID(){
-		return ID;
-	}
+    public String getKommentar(){
+	return kommentar;
+    }
 	
-	public void kommentieren(String kommentar){
-		if(kommentar==null){
-			this.kommentar=kommentar;
-		} else{
-			kommentar+="\nErgänzender Kommentar:"+kommentar;
-		}
-	}
+    public void annehmen(){
+	akzeptiert = true;
+    }
 	
-	public String getKommentar(){
-		return kommentar;
-	}
-	
-	public void annehmen(){
-		akzeptiert = true;
-	}
-	
-	public void ablehnen(){
-		akzeptiert = false;
-	}
+    public void ablehnen(){
+	akzeptiert = false;
+    }
 	
 }

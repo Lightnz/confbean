@@ -7,7 +7,6 @@ package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import org.bonn.ooka.conference.dao.FakeDB;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
@@ -25,7 +24,7 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
     
     @Override
     public String editConference(Konferenz konferenz){
-        if(dao.create(konferenz))
+        if(dao.createAndUpdate(konferenz))
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' wurde erfolgreich geändert.";
         else
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' konnte nicht geändert werden. Entweder wurde die Zielkonferenz nicht gefunden oder sie dürfen keine Konferenzen mit über 200 Teilnehmern erstellen.";
@@ -41,7 +40,7 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
     
     @Override
     public String addPublikationToConference(Publikation publikation, Konferenz konferenz){
-        if(FakeDB.addPublikationTo(publikation, konferenz))
+        if(konferenz.addPublikation(publikation))
             return konferenz.getVeranstalter().getName() + ", ihre Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Konferenz '"+konferenz.getTitel()+"' hinzugefügt.";
         else
             return konferenz.getVeranstalter().getName() + ", es ist beim Hinzufügen ihrer Publikation '"+ publikation.getTitel() + "' zu einem Fehler gekommen.";
@@ -49,8 +48,8 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
     
     @Override
     public String addGutachterToPublikation(Gutachter gutachter, Publikation publikation){
-        if(FakeDB.addGutachterTo(gutachter, publikation))
-            return "Ihrer Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Gutachter '"+gutachter.getName()+"' hinzugefügt.";
+        if(publikation.setGutachter(gutachter))
+            return "Ihrer Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Gutachter '"+gutachter.getTeilnehmer().getName()+"' hinzugefügt.";
         else
             return "Es ist beim Hinzufügen eines Gutachters zu ihrer Publikation '"+ publikation.getTitel() + "' zu einem Fehler gekommen.";
     

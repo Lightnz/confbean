@@ -14,12 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author Fabian
  */
 @Entity
+@Table(name = "teilnehmer", schema="confsys")
 public class Teilnehmer implements Serializable {
     
     @Id

@@ -20,6 +20,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -29,6 +30,7 @@ import javax.persistence.Transient;
  * @author Fabian
  */
 @Entity
+@Table(name = "konferenz", schema="confsys")
 public class Konferenz implements Serializable{
         
         @Id
@@ -50,10 +52,9 @@ public class Konferenz implements Serializable{
             
         }
 	
-	public Konferenz(Veranstalter veranstalter, String titel, int ID, int slots, Date date){
+	public Konferenz(Veranstalter veranstalter, String titel, int slots, Date date){
 		this.veranstalter = veranstalter;
 		this.titel=titel;
-                //this.ID = ID;
                 this.slots=slots;
                 this.date=date;
 	}
@@ -86,8 +87,9 @@ public class Konferenz implements Serializable{
             return teilnehmerliste.size();
         }
 	
-	public void addPublikation(Publikation p){
+	public boolean addPublikation(Publikation p){
 		publikationen.add(p);
+                return true;
 	}
         
         public List<Publikation> getPublikationen(){
