@@ -3,35 +3,45 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.bonn.ooka.conference.ejb;
+package org.bonn.ooka.sessionbeans;
 
+import java.io.Serializable;
 import javax.ejb.Stateful;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
+import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
  *
  * @author Fabian
  */
-@Stateful
+@Named("loginData")
 @SessionScoped
-public class LoginSessionBean implements LoginSessionBeanLocal {
+public class LoginData implements Serializable{
 
     private Veranstalter veranstalter;
     
-    @Override
+    private Teilnehmer teilnehmer;
+    
+    public Teilnehmer getTeilnehmer(){
+        return teilnehmer;
+    }
+    
+    public void setTeilnehmer(Teilnehmer teilnehmer){
+        this.teilnehmer=teilnehmer;
+    }
+    
     public Veranstalter getVeranstalter(){
         return veranstalter;
     }
     
-    @Override
     public void setVeranstalter(Veranstalter veranstalter){
         this.veranstalter=veranstalter;
     }
     
-    
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+    public void terminate(){
+        this.terminate();
+    }
+
 }

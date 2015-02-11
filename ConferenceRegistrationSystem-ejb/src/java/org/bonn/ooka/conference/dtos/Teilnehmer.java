@@ -50,6 +50,8 @@ public class Teilnehmer implements Serializable {
 
     public void addConference(Konferenz konferenz) {
         this.angemeldeteKonferenzen.add(konferenz);
+        List<Konferenz> tmp = angemeldeteKonferenzen;
+        angemeldeteKonferenzen = tmp;
     }
     
     public String getName() {

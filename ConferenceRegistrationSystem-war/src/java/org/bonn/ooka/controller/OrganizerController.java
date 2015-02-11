@@ -5,8 +5,6 @@ package org.bonn.ooka.controller;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,8 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
+import javax.enterprise.context.ApplicationScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
-import org.bonn.ooka.conference.dao.JPADao;
+import javax.inject.Named;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
@@ -25,15 +28,14 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
 import org.bonn.ooka.conference.ejb.EditConferenceEJBLocal;
-import org.bonn.ooka.conference.ejb.LoginSessionBeanLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
-import org.postgresql.util.ByteConverter;
+import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
  *
  * @author Fabian
  */
-@Named(value = "organizerController")
+@Named("organizerController")
 @SessionScoped
 public class OrganizerController implements Serializable {
     
@@ -49,8 +51,8 @@ public class OrganizerController implements Serializable {
     @EJB
     QueryUsersEJBLocal userService;
     
-    @EJB
-    LoginSessionBeanLocal loginSession;
+    @Inject
+    LoginData loginData;
     
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     
@@ -89,7 +91,7 @@ public class OrganizerController implements Serializable {
     
     @PostConstruct
     public void init(){
-        veranstalter = loginSession.getVeranstalter();
+        veranstalter = loginData.getVeranstalter();
         gutachterListe = userService.getUsers(Gutachter.class);
         erstellteKonferenzen =  veranstalter.getKonferenzen();
     }

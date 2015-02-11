@@ -11,6 +11,8 @@ package org.bonn.ooka.controller;
  */
 public class Pages {
     
+    public static final String CONFSYS_MAINPAGE = "index";
+    
     public static final String PARTICIPENT_INDEX_PAGE = "participantMask";
     public static final String PARTICIPENT_RESULT_PAGE = "participantResult";
     public static final String PARTICIPENT_CONFIRM_PAGE = "participantConfirm";

@@ -5,22 +5,26 @@
  */
 package org.bonn.ooka.controller;
 
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import org.bonn.ooka.conference.dao.JPADao;
+import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.ejb.ConferenceRegisterEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
+import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
  *
  * @author alex
  */
-@Named(value = "participantController")
+@Named("participantController")
 @SessionScoped
 public class ParticipantController implements Serializable {
 
@@ -33,8 +37,11 @@ public class ParticipantController implements Serializable {
     @EJB
     private JPADao dao;
     
+    @Inject
+    LoginData loginData;
+    
     //TODO: User vorher im Login in die Session laden
-    private Teilnehmer teilnehmer = dao.find(Teilnehmer.class, 1);
+    private Teilnehmer teilnehmer;
     
     private String registerResult;
     
@@ -42,7 +49,17 @@ public class ParticipantController implements Serializable {
     
     private List<Konferenz> konferenzliste;
     
-    private List<Konferenz> angemeldeteKonferenzen = teilnehmer.getAngemeldeteKonferenzen();
+    private List<Konferenz> angemeldeteKonferenzen;
+    
+    public ParticipantController(){
+        
+    }
+    
+    @PostConstruct
+    public void init(){
+        teilnehmer = loginData.getTeilnehmer();
+        angemeldeteKonferenzen = teilnehmer.getAngemeldeteKonferenzen();
+    }
 
     public List<Konferenz> getAngemeldeteKonferenzen() {
         return angemeldeteKonferenzen;
@@ -90,12 +107,6 @@ public class ParticipantController implements Serializable {
     public String showAllConferences(){
         this.konferenzliste = searchService.getAllConferences();
         return Pages.PARTICIPENT_RESULT_PAGE;
-    }
-    
-    /**
-     * Creates a new instance of ParticipantController
-     */
-    public ParticipantController() {
     }
     
 }
