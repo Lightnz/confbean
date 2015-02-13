@@ -15,8 +15,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.bonn.ooka.conference.dtos.Gutachter;
+import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
+import org.bonn.ooka.conference.ejb.CreateReviewEJBLocal;
+import org.bonn.ooka.conference.ejb.PublicationSearchLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
 import org.bonn.ooka.sessionbeans.LoginData;
 
@@ -31,12 +35,29 @@ public class ConferenceController implements Serializable {
     @EJB
     QueryUsersEJBLocal userService;
     
+    @EJB
+    PublicationSearchLocal publicationService;
+    
     @Inject
     LoginData loginData;
     
     List<Veranstalter> veranstalterliste;
     
     List<Teilnehmer> teilnehmerliste;
+    
+    List<Gutachter> gutachterliste;
+    
+    List<Publikation> publikationsliste;
+    
+    Publikation publicationToBeViewed;
+    
+    public Publikation getPublicationToBeViewed(){
+        return publicationToBeViewed;
+    }
+    
+    public void setPublicationToBeViewed(Publikation publicationToBeViewed){
+        this.publicationToBeViewed=publicationToBeViewed;
+    }
     
     public List<Veranstalter> getVeranstalterliste(){
         veranstalterliste = userService.getUsers(Veranstalter.class);    
@@ -46,6 +67,16 @@ public class ConferenceController implements Serializable {
     public List<Teilnehmer> getTeilnehmerliste(){
         teilnehmerliste = userService.getUsers(Teilnehmer.class);    
         return teilnehmerliste;
+    }
+    
+    public List<Gutachter> getGutachterliste(){
+        gutachterliste = userService.getUsers(Gutachter.class);    
+        return gutachterliste;
+    }
+    
+    public List<Publikation> getPublikationsliste(){
+        publikationsliste = publicationService.getAllPublications();    
+        return publikationsliste;
     }
     
     /**
@@ -72,10 +103,24 @@ public class ConferenceController implements Serializable {
             return Pages.ORGANIZER_INDEX_PAGE;
         }
     
+    public String startConsultantMask(Gutachter gutachter){
+        loginData.setGutachter(gutachter);
+        return Pages.CONSULTANT_INDEX_PAGE;
+    }
+    
+    public String startConsultantMask(){
+        return Pages.CONSULTANT_INDEX_PAGE;
+    }
+    
     public String startMainpage(){
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         //return "/home.xhtml?faces-redirect=true";
         return Pages.CONFSYS_MAINPAGE;
+    }
+    
+    public String startPublicationMask(Publikation publikation){
+        publicationToBeViewed=publikation;
+        return Pages.PUBLICATION_VIEW;
     }
     
 }

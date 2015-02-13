@@ -8,6 +8,7 @@ package org.bonn.ooka.conference.dtos;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -43,8 +46,10 @@ public class Konferenz implements Serializable{
         @ManyToMany(mappedBy = "angemeldeteKonferenzen", cascade = CascadeType.ALL)
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
 	String titel;
-        @Transient
+        @OneToMany(mappedBy = "konferenz", cascade = CascadeType.ALL)
 	List<Publikation> publikationen = new ArrayList<Publikation>();
+        @Transient
+        boolean registerflag;
         @Temporal(TemporalType.DATE)
         Date date;
         
@@ -63,8 +68,14 @@ public class Konferenz implements Serializable{
             return ID;
         }
         
-        public String getDatum(){
-            return date.toString();
+        public String getDate(){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            String time = sdf.format(date);
+            return time;
+        }
+        
+        public Date getDatum(){
+            return date;
         }
 	
 	public Veranstalter getVeranstalter(){
@@ -105,12 +116,20 @@ public class Konferenz implements Serializable{
             }
         }
         
+        public void removeTeilnehmer(Teilnehmer t){
+            teilnehmerliste.remove(t);
+        }
+        
         public void setSlots(int slots){
             this.slots=slots;
         }
         
         public int getSlots(){
             return slots;
+        }
+        
+        public String getRemainingSlots(){
+            return teilnehmerliste.size()+"/"+slots;
         }
         
         public void setBewertung(int bewertung){

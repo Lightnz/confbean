@@ -44,7 +44,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Gutachter" />
                             </f:facet>
-                            <h:outputText value="#{itempub.gutachter.name}"></h:outputText>
+                            <h:outputText value="#{itempub.gutachten.gutachter.name}"></h:outputText>
                         </p:column>
                         
                         <p:column>
@@ -70,7 +70,7 @@
                         <h:outputText value="Datum" />
                         <f:attribute name="width" value="10%"/>
                     </f:facet>
-                     <h:outputText value="#{item.getDatum()}"></h:outputText>
+                     <h:outputText value="#{item.getDate()}"></h:outputText>
 
                 </p:column>
                 <p:column>

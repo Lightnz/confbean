@@ -32,20 +32,38 @@
 
                 </p:column>
                   
+                  <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Datum" />
+                    </f:facet>
+                    <h:outputText value="#{item.getDate()}"></h:outputText>
+
+                </p:column>
                                   
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Action" />
+                        <h:outputText value="Verfügbare Plätze" />
+                    </f:facet>
+                    <h:outputText value="#{item.getRemainingSlots()}"></h:outputText>
+
+                </p:column>
+                
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Registrieren" />
                     </f:facet>
                     <h:commandLink value="Registrieren" action="#{participantController.doRegister(item)}"/>
 
                 </p:column>
                 
-                
-                
             </p:dataTable>
                 
+            
+            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}"/>  
+              
           </h:form>
         
     </h:body>

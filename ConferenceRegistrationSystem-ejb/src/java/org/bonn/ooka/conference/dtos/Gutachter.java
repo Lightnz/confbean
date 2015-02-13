@@ -26,15 +26,24 @@ public class Gutachter implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Teilnehmer user;
+    //@OneToOne(cascade = CascadeType.ALL)
+    //private Teilnehmer user;
+    private String name;
     
     public Gutachter(){
         
     }
     
-    public Gutachter(Teilnehmer user){
-        this.user=user;
+    //public Gutachter(Teilnehmer user){
+    //    this.user=user;
+    //}
+    
+    public void setName(String name){
+        this.name=name;
+    }
+    
+    public String getName(){
+        return name;
     }
     
     public void setID(int id){
@@ -45,8 +54,8 @@ public class Gutachter implements Serializable {
         return id;
     }
 	
-    public Teilnehmer getTeilnehmer(){
-        return user;
-    }
+    //public Teilnehmer getTeilnehmer(){
+    //    return user;
+    //}
     
 }

@@ -11,6 +11,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.bonn.ooka.conference.dao.JPADao;
@@ -26,14 +28,14 @@ public class Publikation implements Serializable{
         @Id
         @GeneratedValue
 	private int ID;
-        @OneToOne(cascade = CascadeType.ALL)
+        @OneToOne(cascade = CascadeType.MERGE)
 	private Teilnehmer autor;
 	private String titel;
-	private boolean visible;
-        @OneToOne(cascade = CascadeType.ALL)
-        private Gutachter gutachter;
         @OneToOne(cascade = CascadeType.ALL)
         private Gutachten gutachten;
+        private String text;
+        @ManyToOne(cascade = CascadeType.ALL)
+        private Konferenz konferenz;
 	
         public Publikation(){
             
@@ -43,8 +45,23 @@ public class Publikation implements Serializable{
 		this.autor=autor;
 		this.titel=titel;
                 this.gutachten=gutachten;
-		visible=false;
 	}
+        
+        public Konferenz getKonferenz(){
+            return konferenz;
+        }
+        
+        public void setKonferenz(Konferenz konferenz){
+            this.konferenz=konferenz;
+        }
+        
+        public String getText(){
+            return text;
+        }
+        
+        public void setText(String text){
+            this.text=text;
+        }
 	
 	public String getTitel(){
 		return titel;
@@ -61,27 +78,18 @@ public class Publikation implements Serializable{
 	public Teilnehmer getAutor(){
 		return autor;
 	}
-        
-        public Gutachter getGutachter(){
-            return gutachter;
-        }
-        
-        public boolean setGutachter(Gutachter gutachter){
-            this.gutachter=gutachter;
-            return true;
-        }
 	
 	public int getID(){
 		return ID;
 	}
         
 	
-	public void setVisible(){
-		visible=true;
+	public void setGutachten(Gutachten gutachten){
+		this.gutachten=gutachten;
 	}
 	
-	public boolean getVisible(){
-		return visible;
+	public Gutachten getGutachten(){
+		return gutachten;
 	}
 
 }

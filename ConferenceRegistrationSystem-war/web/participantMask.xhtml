@@ -11,6 +11,7 @@
         <h1>Participant Portal</h1>
         
         Herzlich Willkommen, #{participantController.teilnehmer.name}!
+        Current Time: #{participantController.currentTime}
         <p/>
         Sie sind bisher zu folgenden Konferenzen angemeldet: 
         <p/>
@@ -18,18 +19,65 @@
         <h:form acceptcharset="ISO-8859-1">
             <p:dataTable value="#{participantController.angemeldeteKonferenzen}" var="item">
                  <p:column>
-
                     <f:facet name="header">
                         <h:outputText value="Konferenz" />
                     </f:facet>
                      <h:outputText value="#{item.titel}"></h:outputText>
-
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Datum" />
+                    </f:facet>
+                     <h:outputText value="#{item.getDate()}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Verfügbare Slots" />
+                    </f:facet>
+                     <h:outputText value="#{item.getRemainingSlots()}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Abmelden" />
+                    </f:facet>
+                    <p:commandButton value="Abmelden" action="#{participantController.doUnregister(item)}"/>
+                </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Paper erstellen" />
+                    </f:facet>
+                    <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p/>
+        Ihre vergangenen Konferenzen:
+        <p/>
+        <h:form acceptcharset="ISO-8859-1">
+            <p:dataTable value="#{participantController.vergangeneKonferenzen}" var="item">
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Konferenz" />
+                    </f:facet>
+                     <h:outputText value="#{item.titel}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Datum" />
+                    </f:facet>
+                     <h:outputText value="#{item.getDate()}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Paper erstellen" />
+                    </f:facet>
+                    <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}"/>
                 </p:column>
             </p:dataTable>
             
             <p/>
             <p/>
-                
+            
             <br/><br/>
             
             <p:commandButton value="Verfügbare Konferenzen anzeigen" action="#{participantController.showAllConferences()}"/>

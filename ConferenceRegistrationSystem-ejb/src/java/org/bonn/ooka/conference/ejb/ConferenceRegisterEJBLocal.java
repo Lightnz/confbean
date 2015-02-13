@@ -18,4 +18,6 @@ public interface ConferenceRegisterEJBLocal {
 
     String registerToConference(Teilnehmer teilnehmer, Konferenz konferenz);
     
+    String unregisterFromConference(Teilnehmer teilnehmer, Konferenz konferenz);
+    
 }

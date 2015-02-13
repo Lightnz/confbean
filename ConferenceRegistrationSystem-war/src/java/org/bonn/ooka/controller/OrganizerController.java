@@ -54,7 +54,7 @@ public class OrganizerController implements Serializable {
     @Inject
     LoginData loginData;
     
-    private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     
     private Veranstalter veranstalter;
     

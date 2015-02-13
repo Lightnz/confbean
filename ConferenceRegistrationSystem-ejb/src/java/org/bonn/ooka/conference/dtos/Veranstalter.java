@@ -12,6 +12,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -30,6 +32,7 @@ public class Veranstalter implements Serializable {
     private int rep;
     @OneToMany(mappedBy = "veranstalter", cascade = CascadeType.ALL)
     private List<Konferenz> konferenzen = new ArrayList<Konferenz>();
+    /**/
     
     public Veranstalter(){
         
@@ -51,6 +54,10 @@ public class Veranstalter implements Serializable {
     
     public List<Konferenz> getKonferenzen(){
         return konferenzen;
+    }
+    
+    public void setKonferenzen(List<Konferenz> konferenzen){
+        this.konferenzen=konferenzen;
     }
     
     public void addKonferenz(Konferenz konferenz){

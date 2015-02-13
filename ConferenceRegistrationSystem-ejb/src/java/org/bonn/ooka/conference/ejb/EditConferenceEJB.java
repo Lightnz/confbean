@@ -48,11 +48,10 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
     
     @Override
     public String addGutachterToPublikation(Gutachter gutachter, Publikation publikation){
-        if(publikation.setGutachter(gutachter))
-            return "Ihrer Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Gutachter '"+gutachter.getTeilnehmer().getName()+"' hinzugefügt.";
+        if(publikation.getGutachten().setGutachter(gutachter))
+            return "Der Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Gutachter '"+gutachter.getName()+"' hinzugefügt.";
         else
             return "Es ist beim Hinzufügen eines Gutachters zu ihrer Publikation '"+ publikation.getTitel() + "' zu einem Fehler gekommen.";
-    
     }
     
 }

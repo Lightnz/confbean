@@ -8,6 +8,7 @@ package org.bonn.ooka.conference.ejb;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
+import org.bonn.ooka.conference.dtos.Publikation;
 
 /**
  *
@@ -22,4 +23,15 @@ public class CreatePaperEJB implements CreatePaperEJBLocal {
     
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    @Override
+    public String createPaper(Publikation publikation){
+        //TODO schöner schreiben.
+        if(dao.createAndUpdate(publikation)){
+            return publikation.getAutor().getName()+", ihre Publikation "+publikation.getTitel()+" zur Konferenz '"+publikation.getKonferenz()+"' wurde erfolgreich zur Überprüfung eingereicht!";
+        }else{
+            return publikation.getAutor().getName()+", ihre Publikation "+publikation.getTitel()+" zur Konferenz '"+publikation.getKonferenz()+"' konnte nicht erfolgreich zur Überprüfung eingereicht werden. <p/>Bitte versuchen sie es zu einem späteren Zeitpunkt erneut.";
+        }
+    }
+    
 }

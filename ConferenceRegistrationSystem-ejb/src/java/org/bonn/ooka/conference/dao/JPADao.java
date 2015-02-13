@@ -37,8 +37,14 @@ public class JPADao {
         return true;
     }
     
+    public <E> boolean update(E entity){
+        this.em.merge(entity);
+        return true;
+    }
+    
     public <E> boolean delete(E entity){
-        this.em.remove(entity);
+        E toBeRemoved = this.em.merge(entity);
+        this.em.remove(toBeRemoved);
         return true;
     }
     

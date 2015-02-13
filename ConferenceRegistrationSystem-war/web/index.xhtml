@@ -43,6 +43,38 @@
                 </p:column>
             </p:dataTable>
             
+            <p:dataTable value="#{conferenceController.gutachterliste}" var="item">
+                 <p:column>
+                     <f:facet name="header">
+                        <h:outputText value="Gutachter" />
+                    </f:facet>
+                    <h:outputText value="#{item.name}"></h:outputText>
+
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Login" />
+                    </f:facet>
+                    <p:commandButton value="Consultant Mask" action="#{conferenceController.startConsultantMask(item)}"/>
+                </p:column>
+            </p:dataTable>
+            
+            <p:dataTable value="#{conferenceController.publikationsliste}" var="item">
+                 <p:column>
+                     <f:facet name="header">
+                        <h:outputText value="Publikation" />
+                    </f:facet>
+                    <h:outputText value="#{item.titel}"></h:outputText>
+
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Einsehen" />
+                    </f:facet>
+                    <p:commandButton value="Einsehen" action="#{conferenceController.startPublicationMask(item)}"/>
+                </p:column>
+            </p:dataTable>
+            
         </h:form>
     </h:body>
 </html>

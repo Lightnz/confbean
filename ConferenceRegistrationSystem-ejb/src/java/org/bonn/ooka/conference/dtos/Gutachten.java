@@ -26,16 +26,45 @@ public class Gutachten implements Serializable {
     private int ID;
     private String kommentar;
     private boolean akzeptiert=false;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Publikation publikation;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Gutachter gutachter;
     
     public Gutachten(){
         
+    }
+    
+    public Gutachter getGutachter(){
+        return gutachter;
+    }
+    
+    public boolean setGutachter(Gutachter gutachter){
+        this.gutachter=gutachter;
+        return true;
+    }
+    
+    public Publikation getPublikation(){
+        return publikation;
+    }
+    
+    public void setPublikation(Publikation publikation){
+        this.publikation=publikation;
+    }
+    
+    public void setAkzeptiert(boolean akzeptiert){
+        this.akzeptiert=akzeptiert;
+    }
+    
+    public boolean getAkzeptiert(){
+        return akzeptiert;
     }
 	
     public int getID(){
 	return ID;
     }
 	
-    public void kommentieren(String kommentar){
+    public void setKommentar(String kommentar){
 	if(kommentar==null){
             this.kommentar=kommentar;
 	} else{
@@ -45,14 +74,6 @@ public class Gutachten implements Serializable {
 	
     public String getKommentar(){
 	return kommentar;
-    }
-	
-    public void annehmen(){
-	akzeptiert = true;
-    }
-	
-    public void ablehnen(){
-	akzeptiert = false;
     }
 	
 }

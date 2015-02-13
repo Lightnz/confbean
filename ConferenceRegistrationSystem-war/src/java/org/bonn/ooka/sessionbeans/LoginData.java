@@ -9,6 +9,7 @@ import java.io.Serializable;
 import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
@@ -24,6 +25,8 @@ public class LoginData implements Serializable{
     
     private Teilnehmer teilnehmer;
     
+    private Gutachter gutachter;
+    
     public Teilnehmer getTeilnehmer(){
         return teilnehmer;
     }
@@ -38,6 +41,14 @@ public class LoginData implements Serializable{
     
     public void setVeranstalter(Veranstalter veranstalter){
         this.veranstalter=veranstalter;
+    }
+    
+    public Gutachter getGutachter(){
+        return gutachter;
+    }
+    
+    public void setGutachter(Gutachter gutachter){
+        this.gutachter=gutachter;
     }
     
     public void terminate(){

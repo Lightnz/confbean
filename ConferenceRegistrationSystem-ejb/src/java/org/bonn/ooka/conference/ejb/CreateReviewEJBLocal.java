@@ -6,15 +6,17 @@
 package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.Local;
-import org.bonn.ooka.conference.dtos.Publikation;
+import org.bonn.ooka.conference.dtos.Gutachten;
+import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
  *
  * @author Fabian
  */
 @Local
-public interface CreatePaperEJBLocal {
+public interface CreateReviewEJBLocal {
     
-    String createPaper(Publikation publikation);
+    String createReview(Gutachten gutachten);
     
 }
