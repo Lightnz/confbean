@@ -24,7 +24,7 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
     
     @Override
     public String editConference(Konferenz konferenz){
-        if(dao.createAndUpdate(konferenz))
+        if(dao.update(konferenz))
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' wurde erfolgreich geändert.";
         else
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' konnte nicht geändert werden. Entweder wurde die Zielkonferenz nicht gefunden oder sie dürfen keine Konferenzen mit über 200 Teilnehmern erstellen.";

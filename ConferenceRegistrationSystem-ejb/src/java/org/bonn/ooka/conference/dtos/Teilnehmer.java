@@ -25,12 +25,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "teilnehmer", schema="confsys")
-public class Teilnehmer implements Serializable {
+public class Teilnehmer extends Benutzer {
     
-    @Id
-    @GeneratedValue
-    private Integer id;
-    private String name;
     @ManyToMany(cascade = CascadeType.MERGE)
      @JoinTable(
       name="teiln_konf",
@@ -72,10 +68,6 @@ public class Teilnehmer implements Serializable {
         return vergangeneKonferenzen;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
     public boolean addConference(Konferenz konferenz) {
         if(konferenz.teilnehmerliste.size()<=konferenz.getSlots()){
             this.angemeldeteKonferenzen.add(konferenz);
@@ -94,14 +86,5 @@ public class Teilnehmer implements Serializable {
         konferenz.removeTeilnehmer(this);
         return true;
     }
-    
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    
     
 }

@@ -11,13 +11,12 @@
         <h1>Conference Portal</h1>
         <h3>Publikation:</h3>
         <h:form acceptcharset="ISO-8859-1">
-            <h:panelGrid columns="3">
-            <h:outputLabel value="Publikationstitel"> </h:outputLabel>    
+            <h:panelGrid columns="2">
+            <h:outputLabel value="Publikationstitel"> </h:outputLabel>
+            <h:outputText value="#{conferenceController.publicationToBeViewed.titel}"> </h:outputText>  
             <p/>
-            <h:outputText value="#{conferenceController.publicationToBeViewed.titel}"> </h:outputText>     
             <p/>
             <h:outputLabel value="Text"> </h:outputLabel>
-            <p/>
             <h:outputText value="#{conferenceController.publicationToBeViewed.text}"> </h:outputText>
             <p/>     
             <br/><br/>

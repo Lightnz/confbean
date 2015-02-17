@@ -7,13 +7,17 @@
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/ConferenceController.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/consultantMask.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/ConsultantController.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/sessionbeans/LoginData.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/organizerMask.xhtml</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/publicationReader.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/OrganizerController.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/organizerSetConsultant.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/participantMask.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/organizerResult.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/index.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/participantResult.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/consultantRating.xhtml</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/loginError.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/ParticipantController.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/Pages.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/participantConfirm.xhtml</file>

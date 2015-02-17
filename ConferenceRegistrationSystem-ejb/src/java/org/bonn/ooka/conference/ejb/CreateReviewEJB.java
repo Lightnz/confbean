@@ -26,7 +26,7 @@ public class CreateReviewEJB implements CreateReviewEJBLocal {
     @Override
     public String createReview(Gutachten gutachten){
         
-        if(dao.createAndUpdate(gutachten))
+        if(dao.update(gutachten))
             return gutachten.getGutachter().getName() + ", ihr Gutachten zu Publikation '" + gutachten.getPublikation().getTitel() + "' wurde erfolgreich erstellt.";
         else{
             return gutachten.getGutachter().getName() + ", ihr Gutachten zu Publikation'" + gutachten.getPublikation().getTitel() + "' konnte nicht erstellt werden.";

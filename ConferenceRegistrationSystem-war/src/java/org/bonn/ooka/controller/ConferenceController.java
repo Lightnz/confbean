@@ -15,13 +15,17 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.bonn.ooka.conference.dtos.Benutzer;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.CreateReviewEJBLocal;
+import org.bonn.ooka.conference.ejb.LoginEJB;
+import org.bonn.ooka.conference.ejb.LoginEJBLocal;
 import org.bonn.ooka.conference.ejb.PublicationSearchLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
+import org.bonn.ooka.conference.ejb.RegisterEJBLocal;
 import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
@@ -38,6 +42,12 @@ public class ConferenceController implements Serializable {
     @EJB
     PublicationSearchLocal publicationService;
     
+    @EJB
+    LoginEJBLocal loginService;
+    
+    @EJB
+    RegisterEJBLocal registerService;
+    
     @Inject
     LoginData loginData;
     
@@ -50,6 +60,92 @@ public class ConferenceController implements Serializable {
     List<Publikation> publikationsliste;
     
     Publikation publicationToBeViewed;
+    
+    String username;
+    
+    String password;
+    
+    String rolle;
+    
+    String[] rollen={"Teilnehmer", "Veranstalter", "Gutachter"};
+
+    public String getRolle() {
+        return rolle;
+    }
+
+    public void setRolle(String rolle) {
+        this.rolle = rolle;
+    }
+
+    public String[] getRollen() {
+        return rollen;
+    }
+
+    public void setRollen(String[] rollen) {
+        this.rollen = rollen;
+    }
+    
+    public String login(){
+        Benutzer user = loginService.login(username, password);
+        if(user!=null){
+            if(user instanceof Teilnehmer){
+                return startParticipantMask((Teilnehmer)user);
+            }
+            if(user instanceof Veranstalter){
+                return startOrganizerMask((Veranstalter)user);
+            }
+            if(user instanceof Gutachter){
+                return startConsultantMask((Gutachter)user);
+            }
+        }
+        return Pages.ERROR_PAGE;
+    }
+    
+    public String openRegisterPage(){
+        return Pages.REGISTER_PAGE;
+    }
+    
+    public String doRegister(){
+        if("Teilnehmer".equals(rolle)){
+            Benutzer teilnehmer = new Teilnehmer();
+            teilnehmer.setName(username);
+            teilnehmer.setPassword(password);
+            if(registerService.registerUser(teilnehmer)){
+                return Pages.REGISTER_SUCCESS;
+            }
+        }else if("Veranstalter".equals(rolle)){
+            Benutzer veranstalter = new Veranstalter();
+            veranstalter.setName(username);
+            veranstalter.setPassword(password);
+            if(registerService.registerUser(veranstalter)){
+                return Pages.REGISTER_SUCCESS;
+            }
+        }else if("Gutachter".equals(rolle)){
+            Benutzer gutachter = new Gutachter();
+            gutachter.setName(username);
+            gutachter.setPassword(password);
+            if(registerService.registerUser(gutachter)){
+                return Pages.REGISTER_SUCCESS;
+            }
+        }
+        return Pages.ERROR_PAGE;
+    }
+    
+    public void setUsername(String username){
+        this.username=username;
+    }
+    
+    public void setPassword(String password){
+        this.password=password;
+    }
+    
+    public String getUsername(){
+        return username;
+    }
+    
+    public String getPassword(){
+        return username;
+    }
     
     public Publikation getPublicationToBeViewed(){
         return publicationToBeViewed;

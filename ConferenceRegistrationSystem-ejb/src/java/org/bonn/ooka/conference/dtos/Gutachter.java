@@ -5,14 +5,7 @@
  */
 package org.bonn.ooka.conference.dtos;
 
-import java.io.Serializable;
-import java.util.Map;
-import java.util.TreeMap;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,14 +14,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "gutachter", schema="confsys")
-public class Gutachter implements Serializable {
+public class Gutachter extends Benutzer {
 	
-    @Id
-    @GeneratedValue
-    private int id;
     //@OneToOne(cascade = CascadeType.ALL)
     //private Teilnehmer user;
-    private String name;
     
     public Gutachter(){
         
@@ -37,14 +26,6 @@ public class Gutachter implements Serializable {
     //public Gutachter(Teilnehmer user){
     //    this.user=user;
     //}
-    
-    public void setName(String name){
-        this.name=name;
-    }
-    
-    public String getName(){
-        return name;
-    }
     
     public void setID(int id){
         this.id=id;

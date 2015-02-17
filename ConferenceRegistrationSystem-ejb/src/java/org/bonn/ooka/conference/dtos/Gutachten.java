@@ -26,9 +26,9 @@ public class Gutachten implements Serializable {
     private int ID;
     private String kommentar;
     private boolean akzeptiert=false;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Publikation publikation;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Gutachter gutachter;
     
     public Gutachten(){

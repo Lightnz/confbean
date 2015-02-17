@@ -23,12 +23,8 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "veranstalter", schema="confsys")
-public class Veranstalter implements Serializable {
+public class Veranstalter extends Benutzer {
     
-    @Id
-    @GeneratedValue
-    private int ID;
-    private String name;
     private int rep;
     @OneToMany(mappedBy = "veranstalter", cascade = CascadeType.ALL)
     private List<Konferenz> konferenzen = new ArrayList<Konferenz>();
@@ -36,20 +32,6 @@ public class Veranstalter implements Serializable {
     
     public Veranstalter(){
         
-    }
-    
-    public Veranstalter(int ID, String name){
-        this.name = name;
-        this.ID=ID;
-        this.rep = 10;
-    }
-    
-    public String getName(){
-        return name;
-    }
-    
-    public int getID(){
-        return ID;
     }
     
     public List<Konferenz> getKonferenzen(){

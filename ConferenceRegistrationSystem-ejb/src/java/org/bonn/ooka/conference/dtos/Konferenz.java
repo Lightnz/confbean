@@ -41,12 +41,12 @@ public class Konferenz implements Serializable{
 	int ID;
         int bewertung;
         int slots;
-        @ManyToOne(cascade = CascadeType.ALL)
+        @ManyToOne
 	Veranstalter veranstalter;
-        @ManyToMany(mappedBy = "angemeldeteKonferenzen", cascade = CascadeType.ALL)
+        @ManyToMany(mappedBy = "angemeldeteKonferenzen", cascade = CascadeType.REFRESH)
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
 	String titel;
-        @OneToMany(mappedBy = "konferenz", cascade = CascadeType.ALL)
+        @OneToMany(mappedBy = "konferenz", cascade = CascadeType.REMOVE)
 	List<Publikation> publikationen = new ArrayList<Publikation>();
         @Transient
         boolean registerflag;

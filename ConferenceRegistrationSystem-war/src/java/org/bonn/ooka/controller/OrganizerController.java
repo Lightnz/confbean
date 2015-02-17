@@ -152,8 +152,8 @@ public class OrganizerController implements Serializable {
             Logger.getLogger(OrganizerController.class.getName()).log(Level.SEVERE, null, ex);
         }
         Konferenz konferenz = new Konferenz(veranstalter, titel, anzahl, date);
-        veranstalter.addKonferenz(konferenz);
         creationResult = creationService.createConference(konferenz);
+        veranstalter.addKonferenz(konferenz);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
@@ -166,6 +166,7 @@ public class OrganizerController implements Serializable {
     
     public String doDelete(Konferenz conferenceToDelete){
         creationResult = editService.deleteConference(conferenceToDelete);
+        veranstalter.removeKonferenz(conferenceToDelete);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }

@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>My Conference Creation System</title>
+    </h:head>
+    <h:body>
+        <h1>Conference Portal</h1>
+        <h3>Registrierung</h3>
+        <h:form acceptcharset="ISO-8859-1">
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+            <p:panelGrid columns="2">
+            <p:outputLabel value="Name"> </p:outputLabel>
+            <p:inputText value="#{conferenceController.username}" required="true"> </p:inputText>
+            <p:outputLabel value="Passwort"> </p:outputLabel>
+            <p:password value="#{conferenceController.password}" required="true"> </p:password>
+            <p:outputLabel for="role" value="Rolle" />
+            <p:selectOneMenu id="role" value="#{conferenceController.rolle}" style="width:150px" required="true">
+                <f:selectItem itemLabel="Auswählen..." itemValue="" noSelectionOption="true" />
+                <f:selectItems value="#{conferenceController.rollen}" />
+            </p:selectOneMenu>
+            <p/>
+            <p/>
+            <p:commandButton value="Registrieren" update="growl" action="#{conferenceController.doRegister()}" icon="ui-icon-check" />
+            </p:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+

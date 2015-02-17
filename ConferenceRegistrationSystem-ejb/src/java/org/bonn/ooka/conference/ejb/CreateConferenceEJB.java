@@ -29,7 +29,7 @@ public class CreateConferenceEJB implements CreateConferenceEJBLocal {
     @Override
     public String createConference(Konferenz konferenz){
         
-        if(dao.createAndUpdate(konferenz))
+        if(dao.create(konferenz))
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' wurde erfolgreich erstellt.";
         else{
             return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' darf aufgrund negativer Bewertungen nicht mehr als 200 Teilnehmer groß sein. Die Konferenz wurde nicht erstellt.";
