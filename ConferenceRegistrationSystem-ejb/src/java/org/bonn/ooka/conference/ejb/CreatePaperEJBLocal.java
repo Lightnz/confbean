@@ -17,4 +17,5 @@ public interface CreatePaperEJBLocal {
     
     String createPaper(Publikation publikation);
     
+    String updatePaper(Publikation publikation);
 }

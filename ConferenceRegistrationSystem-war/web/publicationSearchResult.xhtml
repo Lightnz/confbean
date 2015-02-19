@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Conference System</title>
+        <title>My Conference Registration System</title>
     </h:head>
     <h:body>
         <h:form>
@@ -21,47 +21,61 @@
         </p:toolbar>
         <p:sticky target="tb" />
         </h:form>
-        <h:form>
         
-            <h1> Conference System </h1>
- 
-            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-            
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputLabel for="username" value="Username:" />
-                    <p:inputText id="username" value="#{conferenceController.username}" label="username" />
-
-                    <h:outputLabel for="password" value="Password:" />
-                    <p:password id="password" value="#{conferenceController.password}" label="password" />
-
-                    <f:facet name="footer">
-                        <p:commandButton value="Login" update="growl" action="#{conferenceController.login}" icon="ui-icon-check"/>
-                        <p:commandButton value="Register" action="#{conferenceController.openRegisterPage}" icon="fa fa-bolt"/>
-                    </f:facet> 
-                    
-                </h:panelGrid>
-        </h:form>
-            
-                        
-            
-            <h:form>    
-            <p:dataTable value="#{conferenceController.publikationsliste}" var="item">
+        <h1>Participant Portal</h1>
+        <h3>Gefundene Publikationen</h3>
+        
+          <h:form>
+        
+              <p:dataTable value="#{participantController.publikationsSuchErgebnis}" var="item">
                  <p:column>
-                     <f:facet name="header">
-                        <h:outputText value="Publikation" />
+
+                    <f:facet name="header">
+                        <h:outputText value="Publikationstitel" />
                     </f:facet>
-                    <h:outputText value="#{item.titel}"></h:outputText>
+                     <h:outputText value="#{item.titel}"></h:outputText>
 
                 </p:column>
+                  
                 <p:column>
+
                     <f:facet name="header">
-                        <h:outputText value="Einsehen" />
+                        <h:outputText value="Autor" />
                     </f:facet>
-                    <p:commandButton value="Einsehen" action="#{conferenceController.startPublicationMask(item)}"/>
+                    <h:outputText value="#{item.autor.name}"></h:outputText>
+
                 </p:column>
+                  
+                  <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="zu Konferenz" />
+                    </f:facet>
+                    <h:outputText value="#{item.konferenz.titel}"></h:outputText>
+
+                </p:column>
+                                  
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Ansehen" />
+                    </f:facet>
+                    <h:commandLink value="Ansehen" action="#{participantController.showPublication(item)}"/>
+
+                </p:column>
+                
             </p:dataTable>
+                
             
+            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>  
+              
         </h:form>
+        <p/>
+        <p/>
+        <h:form>
+            <p:clock />
+        </h:form>
+        
     </h:body>
 </html>
 

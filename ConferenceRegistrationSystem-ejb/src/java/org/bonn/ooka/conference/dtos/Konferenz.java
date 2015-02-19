@@ -38,14 +38,14 @@ public class Konferenz implements Serializable{
         
         @Id
         @GeneratedValue
-	int ID;
+        int id;
+        String titel;
         int bewertung;
         int slots;
         @ManyToOne
 	Veranstalter veranstalter;
         @ManyToMany(mappedBy = "angemeldeteKonferenzen", cascade = CascadeType.REFRESH)
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
-	String titel;
         @OneToMany(mappedBy = "konferenz", cascade = CascadeType.REMOVE)
 	List<Publikation> publikationen = new ArrayList<Publikation>();
         @Transient
@@ -59,19 +59,31 @@ public class Konferenz implements Serializable{
 	
 	public Konferenz(Veranstalter veranstalter, String titel, int slots, Date date){
 		this.veranstalter = veranstalter;
-		this.titel=titel;
+                this.titel=titel;
                 this.slots=slots;
                 this.date=date;
 	}
-
-        public int getID() {
-            return ID;
-        }
         
         public String getDate(){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             String time = sdf.format(date);
             return time;
+        }
+        
+        public int getId(){
+            return id;
+        }
+
+        public void setId(int id){
+            this.id=id;
+        }
+
+        public String getTitel(){
+            return titel;
+        }
+
+        public void setTitel(String titel){
+            this.titel=titel;
         }
         
         public Date getDatum(){
@@ -81,14 +93,6 @@ public class Konferenz implements Serializable{
 	public Veranstalter getVeranstalter(){
 		return veranstalter;
 	}
-	
-	public String getTitel(){
-		return titel;
-	}
-        
-        public void setTitel(String titel){
-            this.titel=titel;
-        }
 	
 	public List<Teilnehmer> getTeilnehmer(){
 		return teilnehmerliste;

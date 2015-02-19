@@ -21,17 +21,52 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
 @SessionScoped
 public class LoginData implements Serializable{
 
-    private Veranstalter veranstalter;
+    private Veranstalter veranstalter = new Veranstalter();
     
-    private Teilnehmer teilnehmer;
+    private Teilnehmer teilnehmer = new Teilnehmer();
     
-    private Gutachter gutachter;
+    private Gutachter gutachter = new Gutachter();
+   
+    /*private boolean veranstalterLoggedIn = false;
+   
+    private boolean teilnehmerLoggedIn = false;
+   
+    private boolean gutachterLoggedIn = false;
+
+    public boolean isVeranstalterLoggedIn() {
+        return veranstalterLoggedIn;
+    }
+
+    public void setVeranstalterLoggedIn(boolean veranstalterLoggedIn) {
+        this.veranstalterLoggedIn = veranstalterLoggedIn;
+    }
+
+    public boolean isTeilnehmerLoggedIn() {
+        return teilnehmerLoggedIn;
+    }
+
+    public void setTeilnehmerLoggedIn(boolean teilnehmerLoggedIn) {
+        this.teilnehmerLoggedIn = teilnehmerLoggedIn;
+    }
+
+    public boolean isGutachterLoggedIn() {
+        return gutachterLoggedIn;
+    }
+
+    public void setGutachterLoggedIn(boolean gutachterLoggedIn) {
+        this.gutachterLoggedIn = gutachterLoggedIn;
+    }*/
+
+    public boolean isLoggedIn() {
+        return teilnehmer.isLoggedIn()||veranstalter.isLoggedIn()||veranstalter.isLoggedIn();
+    }
     
     public Teilnehmer getTeilnehmer(){
         return teilnehmer;
     }
     
     public void setTeilnehmer(Teilnehmer teilnehmer){
+        teilnehmer.setLoggedIn(true);
         this.teilnehmer=teilnehmer;
     }
     
@@ -40,6 +75,7 @@ public class LoginData implements Serializable{
     }
     
     public void setVeranstalter(Veranstalter veranstalter){
+        veranstalter.setLoggedIn(true);
         this.veranstalter=veranstalter;
     }
     
@@ -48,11 +84,8 @@ public class LoginData implements Serializable{
     }
     
     public void setGutachter(Gutachter gutachter){
+        gutachter.setLoggedIn(true);
         this.gutachter=gutachter;
-    }
-    
-    public void terminate(){
-        this.terminate();
     }
 
 }

@@ -27,14 +27,14 @@ public class Publikation implements Serializable{
 	
         @Id
         @GeneratedValue
-	private int ID;
+        int id;
+        String titel;
         @OneToOne(cascade = CascadeType.MERGE)
 	private Teilnehmer autor;
-	private String titel;
         @OneToOne(cascade = CascadeType.ALL)
         private Gutachten gutachten;
         private String text;
-        @ManyToOne(cascade = CascadeType.ALL)
+        @ManyToOne(cascade = CascadeType.REMOVE)
         private Konferenz konferenz;
 	
         public Publikation(){
@@ -43,9 +43,25 @@ public class Publikation implements Serializable{
 
 	public Publikation(Teilnehmer autor, String titel, Gutachten gutachten){
 		this.autor=autor;
-		this.titel=titel;
+                this.titel=titel;
                 this.gutachten=gutachten;
 	}
+        
+       public int getId(){
+            return id;
+        }
+
+        public void setId(int id){
+            this.id=id;
+        }
+
+        public String getTitel(){
+            return titel;
+        }
+
+        public void setTitel(String titel){
+            this.titel=titel;
+        }
         
         public Konferenz getKonferenz(){
             return konferenz;
@@ -62,14 +78,6 @@ public class Publikation implements Serializable{
         public void setText(String text){
             this.text=text;
         }
-	
-	public String getTitel(){
-		return titel;
-	}
-	
-        public void setTitel(String titel){
-                this.titel=titel;
-        }
         
         public void setAutor(Teilnehmer autor){
             this.autor=autor;
@@ -78,11 +86,6 @@ public class Publikation implements Serializable{
 	public Teilnehmer getAutor(){
 		return autor;
 	}
-	
-	public int getID(){
-		return ID;
-	}
-        
 	
 	public void setGutachten(Gutachten gutachten){
 		this.gutachten=gutachten;

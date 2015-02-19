@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Transient;
 
 /**
  *
@@ -25,6 +26,16 @@ public abstract class Benutzer implements Serializable{
     int id;
     protected String name;
     protected String password;
+    @Transient
+    protected boolean loggedIn = false;
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
 
     public String getName() {
         return name;

@@ -14,10 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
-import javax.enterprise.context.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -59,6 +55,8 @@ public class OrganizerController implements Serializable {
     private Veranstalter veranstalter;
     
     private Publikation publikationToEdit;
+    
+    private Publikation publicationToBeViewed;
     
     private String creationResult;
     
@@ -106,6 +104,14 @@ public class OrganizerController implements Serializable {
     
     public String getDatum(){
         return datum;
+    }
+
+    public Publikation getPublicationToBeViewed() {
+        return publicationToBeViewed;
+    }
+
+    public void setPublicationToBeViewed(Publikation publicationToBeViewed) {
+        this.publicationToBeViewed = publicationToBeViewed;
     }
     
     public Konferenz getConferenceToEdit(){
@@ -197,6 +203,11 @@ public class OrganizerController implements Serializable {
     
     public void refreshConferences(){
         erstellteKonferenzen = veranstalter.getKonferenzen();
+    }
+    
+    public String showPublication(Publikation publikation){
+        publicationToBeViewed=publikation;
+        return Pages.PUBLICATION_VIEW;
     }
     
 }

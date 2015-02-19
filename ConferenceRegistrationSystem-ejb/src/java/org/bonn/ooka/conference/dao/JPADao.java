@@ -18,7 +18,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.bonn.ooka.conference.dtos.Benutzer;
 import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
@@ -65,6 +67,18 @@ public class JPADao {
         TypedQuery<E> query = em.createQuery(criteria);
         
         return query.getResultList();
+    }
+    
+    //TODO: in extra DAO auslagern
+    public List<Publikation> findPublikationByName(String s){
+        List<Publikation> resultList = em.createQuery("select p from Publikation p where p.titel like :titel", Publikation.class).setParameter("titel", "%"+s+"%").getResultList();
+        return resultList;
+    }
+
+    //TODO: in extra DAO auslagern
+    public List<Konferenz> findKonferenzByName(String s){
+        List<Konferenz> resultList = em.createQuery("select k from Konferenz k where k.titel like :titel", Konferenz.class).setParameter("titel", "%"+s+"%").getResultList();
+        return resultList;
     }
     
     public <E> E getDefault(Class<E> type){

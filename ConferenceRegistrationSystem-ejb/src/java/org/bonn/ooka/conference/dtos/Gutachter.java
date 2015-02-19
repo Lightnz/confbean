@@ -7,6 +7,7 @@ package org.bonn.ooka.conference.dtos;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -21,18 +22,6 @@ public class Gutachter extends Benutzer {
     
     public Gutachter(){
         
-    }
-    
-    //public Gutachter(Teilnehmer user){
-    //    this.user=user;
-    //}
-    
-    public void setID(int id){
-        this.id=id;
-    }
-    
-    public int getID(){
-        return id;
     }
 	
     //public Teilnehmer getTeilnehmer(){

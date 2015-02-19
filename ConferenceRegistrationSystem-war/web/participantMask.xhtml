@@ -8,10 +8,39 @@
         <title>My Conference Registration System</title>
     </h:head>
     <h:body>
+        <h:form>
+        <p:toolbar id="tb">
+            <f:facet name="left">
+                <p:commandButton action="#{conferenceController.startParticipantMask()}" disabled="#{!loginData.teilnehmer.loggedIn}" value="Teilnehmer" icon="ui-icon-person"/>
+                <p:commandButton action="#{conferenceController.startOrganizerMask()}" disabled="#{!loginData.veranstalter.loggedIn}" value="Veranstalter" icon="ui-icon-person"/>
+                <p:commandButton action="#{conferenceController.startConsultantMask()}" disabled="#{!loginData.gutachter.loggedIn}" value="Gutachter" icon="ui-icon-person"/>
+            </f:facet>
+            <f:facet name="right">
+                <p:commandButton action="#{conferenceController.startMainpage()}" disabled="#{!loginData.isLoggedIn()}" title="LogOut" icon="ui-icon-closethick"/>
+            </f:facet>
+        </p:toolbar>
+        <p:sticky target="tb" />
+        </h:form>
+        
+        <h:form acceptcharset="ISO-8859-1">
+            <h:panelGrid columns="5" cellpadding="5">
+                <h:outputLabel for="text" value="Suche:" />
+                <h:inputText id="text" value="#{participantController.suchText}" required="true" label="Suche">
+                    <f:validateLength minimum="2" />
+                </h:inputText>
+
+                <h:outputLabel for="type" value="Typ:" />
+                <h:selectOneMenu id="type" value="#{participantController.suchTyp}" required="true" label="Typ">
+                    <f:selectItem itemLabel="Typ wählen" itemValue="" noSelectionOption="false" />
+                    <f:selectItem itemLabel="Publikation" itemValue="1" />
+                    <f:selectItem itemLabel="Konferenz" itemValue="2" />
+                </h:selectOneMenu>
+                <p:commandButton value="Suche" action="#{participantController.doSearch()}"/>
+            </h:panelGrid>
+        </h:form>
         <h1>Participant Portal</h1>
         
         Herzlich Willkommen, #{participantController.teilnehmer.name}!
-        Current Time: #{participantController.currentTime}
         <p/>
         Sie sind bisher zu folgenden Konferenzen angemeldet: 
         <p/>
@@ -54,6 +83,9 @@
         Ihre vergangenen Konferenzen:
         <p/>
         <h:form acceptcharset="ISO-8859-1">
+            
+            
+            
             <p:dataTable value="#{participantController.vergangeneKonferenzen}" var="item">
                  <p:column>
                     <f:facet name="header">
@@ -74,16 +106,53 @@
                     <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}"/>
                 </p:column>
             </p:dataTable>
-            
+        </h:form>
+        <p/>
+        Ihre veröffentlichten Publikationen:
+        <p/>
+        <h:form acceptcharset="ISO-8859-1">
+            <p:dataTable value="#{participantController.publikationsListe}" var="item">
+                 
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Papertitel" />
+                    </f:facet>
+                     <h:outputText value="#{item.titel}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Konferenz" />
+                    </f:facet>
+                     <h:outputText value="#{item.konferenz.titel}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Datum" />
+                    </f:facet>
+                     <h:outputText value="#{item.konferenz.date}"></h:outputText>
+                 </p:column>
+                 <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="Bearbeiten" />
+                    </f:facet>
+                    <p:commandButton value="Bearbeiten" action="#{participantController.openPublicationEdit(item)}"/>
+                </p:column>
+            </p:dataTable>
             <p/>
             <p/>
             
             <br/><br/>
             
             <p:commandButton value="Verfügbare Konferenzen anzeigen" action="#{participantController.showAllConferences()}"/>
-            <p:commandButton value="LogOut" action="#{conferenceController.startMainpage()}"/>
             
         
+        </h:form>
+        <h:form>
+            <p/>
+            <p/>
+            <p/>
+            <p:commandButton value="LogOut" action="#{conferenceController.startMainpage()}" icon="ui-icon-close"/>
+            <p:clock />
         </h:form>
         
     </h:body>

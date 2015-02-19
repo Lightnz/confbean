@@ -24,6 +24,7 @@ import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.ejb.ConferenceRegisterEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreatePaperEJBLocal;
+import org.bonn.ooka.conference.ejb.PublicationSearchLocal;
 import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
@@ -35,13 +36,16 @@ import org.bonn.ooka.sessionbeans.LoginData;
 public class ParticipantController implements Serializable {
 
     @EJB
-    ConferenceSearchLocal searchService;
+    ConferenceSearchLocal conferenceSearchService;
     
     @EJB
     private ConferenceRegisterEJBLocal registerService;
     
     @EJB
     private CreatePaperEJBLocal paperService;
+    
+    @EJB
+    private PublicationSearchLocal publicationSearchService;
     
     @EJB
     private JPADao dao;
@@ -55,15 +59,27 @@ public class ParticipantController implements Serializable {
     
     private Publikation publicationToCreate;
     
+    private Publikation publicationToBeViewed;
+    
     private String registerResult;
     
     private String conferenceNameToSearch;
+    
+    private String suchText;
+    
+    private int suchTyp;
     
     private List<Konferenz> konferenzliste;
     
     private List<Konferenz> angemeldeteKonferenzen;
     
     private List<Konferenz> vergangeneKonferenzen;
+    
+    private List<Publikation> publikationsListe;
+    
+    private List<Konferenz> konferenzSuchErgebnis;
+    
+    private List<Publikation> publikationsSuchErgebnis;
     
     public ParticipantController(){
         
@@ -76,12 +92,60 @@ public class ParticipantController implements Serializable {
     public Publikation getPublicationToCreate(){
         return publicationToCreate;
     }
+    public Publikation getPublicationToBeViewed() {
+        return publicationToBeViewed;
+    }
+
+    public void setPublicationToBeViewed(Publikation publicationToBeViewed) {
+        this.publicationToBeViewed = publicationToBeViewed;
+    }
+
+    public List<Publikation> getPublikationsListe() {
+        return publikationsListe;
+    }
+
+    public void setPublikationsListe(List<Publikation> publikationsListe) {
+        this.publikationsListe = publikationsListe;
+    }
+
+    public String getSuchText() {
+        return suchText;
+    }
+
+    public void setSuchText(String suchText) {
+        this.suchText = suchText;
+    }
+
+    public int getSuchTyp() {
+        return suchTyp;
+    }
+
+    public void setSuchTyp(int suchTyp) {
+        this.suchTyp = suchTyp;
+    }
+
+    public List<Konferenz> getKonferenzSuchErgebnis() {
+        return konferenzSuchErgebnis;
+    }
+
+    public void setKonferenzSuchErgebnis(List<Konferenz> konferenzSuchErgebnis) {
+        this.konferenzSuchErgebnis = konferenzSuchErgebnis;
+    }
+
+    public List<Publikation> getPublikationsSuchErgebnis() {
+        return publikationsSuchErgebnis;
+    }
+
+    public void setPublikationsSuchErgebnis(List<Publikation> publikationsSuchErgebnis) {
+        this.publikationsSuchErgebnis = publikationsSuchErgebnis;
+    }
     
     @PostConstruct
     public void init(){
         teilnehmer = loginData.getTeilnehmer();
         angemeldeteKonferenzen = teilnehmer.getZukuenftigeKonferenzen();
         vergangeneKonferenzen = teilnehmer.getVergangeneKonferenzen();
+        publikationsListe = publicationSearchService.getAllPublicationsFor(teilnehmer);
         currentTime = new Date();
     }
 
@@ -130,17 +194,40 @@ public class ParticipantController implements Serializable {
     public String doPublicize(){
         publicationToCreate.setAutor(teilnehmer);
         Gutachten gutachten = new Gutachten();
-        gutachten.setGutachter(searchService.getDefaultGutachter());
+        gutachten.setGutachter(conferenceSearchService.getDefaultGutachter());
         publicationToCreate.setGutachten(gutachten);
         gutachten.setPublikation(publicationToCreate);
         paperService.createPaper(publicationToCreate);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
+    public String doUpdatePaper(){
+        paperService.updatePaper(publicationToCreate);
+        return Pages.PARTICIPENT_CONFIRM_PAGE;
+    }
+    
+    public String doSearch(){
+        System.out.println("test");
+        System.out.println(suchTyp);
+        if(suchTyp==1){
+            publikationsSuchErgebnis = publicationSearchService.findPublications(suchText);
+            return Pages.PUBLICATION_SEARCH_RESULT;
+        } if(suchTyp==2){
+            konferenzSuchErgebnis = conferenceSearchService.findConferences(suchText);
+            return Pages.CONFERENCE_SEARCH_RESULT;
+        }
+        return Pages.ERROR_PAGE;
+    }
+    
     public String openPublicationCreation(Konferenz konferenz){
         publicationToCreate = new Publikation();
         publicationToCreate.setKonferenz(konferenz);
         return Pages.PARTICIPENT_PAPER_CREATION_PAGE;
+    }
+    
+    public String openPublicationEdit(Publikation publikation){
+        publicationToCreate = publikation;
+        return Pages.PARTICIPENT_PAPER_EDIT_PAGE;
     }
     
     public String getConferenceNameToSearch() {
@@ -153,7 +240,7 @@ public class ParticipantController implements Serializable {
     
 
     public List<Konferenz> getKonferenzliste() {
-        //TODO Die Konferenzen, zu denen an bereits angemeldet ist, nicht mitanzeigen
+        //TODO Die Konferenzen, zu denen man bereits angemeldet ist, nicht mitanzeigen
         //funktioniert nicht mit konferenzliste.removeAll(getAngemeldeteKonferenzen());
         return konferenzliste;
     }
@@ -163,8 +250,13 @@ public class ParticipantController implements Serializable {
     }
     
     public String showAllConferences(){
-        setKonferenzliste(searchService.getAllConferences());
+        setKonferenzliste(conferenceSearchService.getAllConferences());
         return Pages.PARTICIPENT_RESULT_PAGE;
+    }
+    
+    public String showPublication(Publikation publikation){
+        publicationToBeViewed=publikation;
+        return Pages.PUBLICATION_VIEW;
     }
     
 }

@@ -10,7 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
@@ -30,7 +29,10 @@ public class ConferenceSearch implements ConferenceSearchLocal  {
         
     }
     
-    
+    @Override
+    public List<Konferenz> findConferences(String s) {
+        return dao.findKonferenzByName(s);
+    }
 
     @Override
     public List<Konferenz> getAllConferences() {

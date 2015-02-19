@@ -9,6 +9,7 @@ import java.util.List;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
+import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
@@ -17,8 +18,11 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
  */
 public interface PublicationSearchLocal {
     
+    List<Publikation> findPublications(String s);
        
     List<Publikation> getAllPublicationsFor(Gutachter g);
+    
+    List<Publikation> getAllPublicationsFor(Teilnehmer t);
     
     List<Publikation> getAllPublications();
     

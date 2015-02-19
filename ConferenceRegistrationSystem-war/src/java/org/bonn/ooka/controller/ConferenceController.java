@@ -89,7 +89,7 @@ public class ConferenceController implements Serializable {
         Benutzer user = loginService.login(username, password);
         if(user!=null){
             if(user instanceof Teilnehmer){
-                return startParticipantMask((Teilnehmer)user);
+                return ConferenceController.this.startParticipantMask((Teilnehmer)user);
             }
             if(user instanceof Veranstalter){
                 return startOrganizerMask((Veranstalter)user);
@@ -181,12 +181,13 @@ public class ConferenceController implements Serializable {
     public ConferenceController() {
     }
     
-    public String startParticipantMask(Teilnehmer teilnehmer){
-            loginData.setTeilnehmer(teilnehmer);
+    public String startParticipantMask(){
             return Pages.PARTICIPENT_INDEX_PAGE;
         }
     
-    public String startParticipantMask(){
+    public String startParticipantMask(Teilnehmer teilnehmer){
+            System.out.println("Debugggggggg: es ist etwas falsch! (Startparticipantmask)");
+            loginData.setTeilnehmer(teilnehmer);
             return Pages.PARTICIPENT_INDEX_PAGE;
         }
         

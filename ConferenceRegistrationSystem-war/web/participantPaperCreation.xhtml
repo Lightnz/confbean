@@ -8,25 +8,39 @@
         <title>My Conference Registration System</title>
     </h:head>
     <h:body>
+        <h:form>
+        <p:toolbar id="tb">
+            <f:facet name="left">
+                <p:commandButton action="#{conferenceController.startParticipantMask()}" disabled="#{!loginData.teilnehmer.loggedIn}" value="Teilnehmer" icon="ui-icon-person"/>
+                <p:commandButton action="#{conferenceController.startOrganizerMask()}" disabled="#{!loginData.veranstalter.loggedIn}" value="Veranstalter" icon="ui-icon-person"/>
+                <p:commandButton action="#{conferenceController.startConsultantMask()}" disabled="#{!loginData.gutachter.loggedIn}" value="Gutachter" icon="ui-icon-person"/>
+            </f:facet>
+            <f:facet name="right">
+                <p:commandButton action="#{conferenceController.startMainpage()}" disabled="#{!loginData.isLoggedIn()}" title="LogOut" icon="ui-icon-closethick"/>
+            </f:facet>
+        </p:toolbar>
+        <p:sticky target="tb" />
+        </h:form>
+        
         <h1>Participant Portal</h1>
         <h3>Publikation erstellen:</h3>
         
         <h:form>
         
             <h:panelGrid columns="2">
-                <h:outputLabel value="Titel"> </h:outputLabel>
-                <p/>
-                <h:inputText value="#{participantController.publicationToCreate.titel}"> </h:inputText>     
-                <p/>
-                <h:outputLabel value="Text"> </h:outputLabel>
-                <p/>
-                <h:inputText value="#{participantController.publicationToCreate.text}"> </h:inputText>
-                <p/>
-                <br/><br/>
-                <p:commandButton value="Publizieren" action="#{participantController.doPublicize()}"></p:commandButton>
+                <p:outputLabel value="Titel"> </p:outputLabel>
+                <p:inputText value="#{participantController.publicationToCreate.titel}"> </p:inputText>
+                <p:outputLabel value="Text"> </p:outputLabel>
+                <p:inputText value="#{participantController.publicationToCreate.text}"> </p:inputText>
+                <p:commandButton value="Publizieren" action="#{participantController.doPublicize()}"/>
                 <p:commandButton value="Abbrechen" action="#{conferenceController.startParticipantMask()}"/>
             </h:panelGrid>
               
+        </h:form><h:form>
+            <p/>
+            <p/>
+            <p/>
+            <p:clock />
         </h:form>
         
     </h:body>

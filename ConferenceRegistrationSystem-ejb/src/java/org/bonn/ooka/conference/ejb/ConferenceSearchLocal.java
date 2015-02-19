@@ -16,7 +16,8 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
  */
 public interface ConferenceSearchLocal {
     
-       
+    List<Konferenz> findConferences(String s);   
+    
     List<Konferenz> getAllConferences();
     
     List<Konferenz> getKonferenzenOf(Veranstalter v);

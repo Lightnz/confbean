@@ -8,21 +8,42 @@
         <title>My Conference Creation System</title>
     </h:head>
     <h:body>
+        <h:form>
+        <p:toolbar id="tb">
+            <f:facet name="left">
+                <p:commandButton action="#{conferenceController.startParticipantMask()}" disabled="#{!loginData.teilnehmer.loggedIn}" value="Teilnehmer" icon="ui-icon-person"/>
+                <p:commandButton action="#{conferenceController.startOrganizerMask()}" disabled="#{!loginData.veranstalter.loggedIn}" value="Veranstalter" icon="ui-icon-person"/>
+                <p:commandButton action="#{conferenceController.startConsultantMask()}" disabled="#{!loginData.gutachter.loggedIn}" value="Gutachter" icon="ui-icon-person"/>
+            </f:facet>
+            <f:facet name="right">
+                <p:commandButton action="#{conferenceController.startMainpage()}" disabled="#{!loginData.isLoggedIn()}" title="LogOut" icon="ui-icon-closethick"/>
+            </f:facet>
+        </p:toolbar>
+        <p:sticky target="tb" />
+        </h:form>
+        
         <h1>Consultant Portal</h1>
         <h3>Bewerten sie die Publikation:</h3>
         <h:form acceptcharset="ISO-8859-1">
-            <h:panelGrid columns="2">
-            <h:outputLabel value="Publikationstitel"> </h:outputLabel>
-            <h:inputText value="#{consultantController.publikationToBeReviewed.titel}"> </h:inputText>     
-            <h:outputLabel value="Text"> </h:outputLabel>
-            <h:inputText value="#{consultantController.publikationToBeReviewed.text}"> </h:inputText>
-            <h:outputText value="Zugelassen" />
+            <p:panelGrid columns="2">
+            <p:outputLabel value="Publikationstitel"> </p:outputLabel>
+            <p:outputLabel value="#{consultantController.publikationToBeReviewed.titel}"> </p:outputLabel>     
+            <p:outputLabel value="Text"> </p:outputLabel>
+            <p:outputLabel value="#{consultantController.publikationToBeReviewed.text}"> </p:outputLabel>
+            <p:outputLabel value="Zugelassen" />
             <p:selectBooleanCheckbox value="#{consultantController.akzeptiert}" />   
-            <h:outputLabel value="Kommentar"> </h:outputLabel>
-            <h:inputText value="#{consultantController.comment}"> </h:inputText>
+            <p:outputLabel value="Kommentar"> </p:outputLabel>
+            <p:inputText value="#{consultantController.comment}"> </p:inputText>
             <p:commandButton value="Bewerten" action="#{consultantController.doRate()}"></p:commandButton>
-            <p:commandButton value="Abbruch" action="#{consultantController.cancelRating()}"></p:commandButton>
-            </h:panelGrid>
+            <p:commandButton value="Abbruch" action="#{consultantController.cancelRating()}" icon="ui-icon-close"></p:commandButton>
+            </p:panelGrid>
+        </h:form>
+        <h:form>
+            <p/>
+            <p/>
+            <p/>
+            <p:commandButton value="LogOut" action="#{conferenceController.startMainpage()}" icon="ui-icon-close"/>
+            <p:clock />
         </h:form>
     </h:body>
 </html>

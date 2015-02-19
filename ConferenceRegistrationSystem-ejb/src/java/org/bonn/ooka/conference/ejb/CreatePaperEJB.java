@@ -34,4 +34,14 @@ public class CreatePaperEJB implements CreatePaperEJBLocal {
         }
     }
     
+    @Override
+    public String updatePaper(Publikation publikation){
+        //TODO schöner schreiben.
+        if(dao.update(publikation)){
+            return publikation.getAutor().getName()+", ihre Publikation "+publikation.getTitel()+" zur Konferenz '"+publikation.getKonferenz()+"' wurde erfolgreich geändert!";
+        }else{
+            return publikation.getAutor().getName()+", ihre Publikation "+publikation.getTitel()+" zur Konferenz '"+publikation.getKonferenz()+"' konnte nicht geändert werden. <p/>Bitte versuchen sie es zu einem späteren Zeitpunkt erneut.";
+        }
+    }
+    
 }

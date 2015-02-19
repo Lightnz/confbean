@@ -22,6 +22,10 @@ public class Pages {
     public static final String PARTICIPENT_RESULT_PAGE = "participantResult";
     public static final String PARTICIPENT_CONFIRM_PAGE = "participantConfirm";
     public static final String PARTICIPENT_PAPER_CREATION_PAGE = "participantPaperCreation";
+    public static final String PARTICIPENT_PAPER_EDIT_PAGE = "participantPaperEdit";
+    
+    public static final String PUBLICATION_SEARCH_RESULT = "publicationSearchResult";
+    public static final String CONFERENCE_SEARCH_RESULT = "conferenceSearchResult";
     
     public static final String ORGANIZER_INDEX_PAGE = "organizerMask";
     public static final String ORGANIZER_RESULT_PAGE = "organizerResult";

@@ -22,36 +22,63 @@
         <p:sticky target="tb" />
         </h:form>
         
-        <h1>Consultant Portal</h1>
+        <h1>Conference Portal</h1>
+        <h3>Gefundene Konferenzen:</h3>
         
-        Herzlich Willkommen, #{consultantController.gutachter.name}!
-        <p/>
-        Folgende Publikationen müssen noch begutachtet werden: 
-        <p/>
+          <h:form>
         
-        <h:form acceptcharset="ISO-8859-1">
-            <p:dataTable value="#{consultantController.publikationsliste}" var="item">
+              <p:dataTable value="#{participantController.konferenzSuchErgebnis}" var="item">
                  <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Publikation" />
+                        <h:outputText value="Konferenz" />
                     </f:facet>
                      <h:outputText value="#{item.titel}"></h:outputText>
-                 </p:column>
+
+                </p:column>
+                  
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Autor" />
+                        <h:outputText value="Veranstalter" />
                     </f:facet>
-                     <h:outputText value="#{item.autor.name}"></h:outputText>
-                 </p:column>
-                 <p:column>
-                    <f:facet name="header">
-                        <h:outputText value="Gutachten erstellen" />
-                    </f:facet>
-                    <p:commandButton value="Gutachten erstellen" action="#{consultantController.doReview(item)}"/>
+                    <h:outputText value="#{item.veranstalter.name}"></h:outputText>
+
                 </p:column>
+                  
+                  <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Datum" />
+                    </f:facet>
+                    <h:outputText value="#{item.getDate()}"></h:outputText>
+
+                </p:column>
+                                  
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Verfügbare Plätze" />
+                    </f:facet>
+                    <h:outputText value="#{item.getRemainingSlots()}"></h:outputText>
+
+                </p:column>
+                
+                <p:column>
+
+                    <f:facet name="header">
+                        <h:outputText value="Registrieren" />
+                    </f:facet>
+                    <h:commandLink value="Registrieren" action="#{participantController.doRegister(item)}"/>
+
+                </p:column>
+                
             </p:dataTable>
+                
+            
+            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>  
+              
+          
         </h:form>
         <h:form>
             <p/>

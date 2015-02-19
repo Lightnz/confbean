@@ -15,6 +15,7 @@ import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
+import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
@@ -32,10 +33,25 @@ public class PublicationSearch implements PublicationSearchLocal  {
     }
     
     @Override
+    public List<Publikation> findPublications(String s){
+        return dao.findPublikationByName(s);
+    }
+    
+    @Override
     public List<Publikation> getAllPublicationsFor(Gutachter g) {
         List<Publikation> publikationen = new ArrayList<Publikation>();
         for(Publikation publikation : dao.findAll(Publikation.class)){
-            if(publikation.getGutachten().getGutachter().getID()==g.getID() && !publikation.getGutachten().getAkzeptiert())
+            if(publikation.getGutachten().getGutachter().getId()==g.getId() && !publikation.getGutachten().getAkzeptiert())
+                publikationen.add(publikation);
+        }
+        return publikationen;
+    } 
+    
+    @Override
+    public List<Publikation> getAllPublicationsFor(Teilnehmer t) {
+        List<Publikation> publikationen = new ArrayList<Publikation>();
+        for(Publikation publikation : dao.findAll(Publikation.class)){
+            if(publikation.getAutor().getId()==t.getId() && !publikation.getGutachten().getAkzeptiert())
                 publikationen.add(publikation);
         }
         return publikationen;
