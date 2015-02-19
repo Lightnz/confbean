@@ -186,7 +186,6 @@ public class ConferenceController implements Serializable {
         }
     
     public String startParticipantMask(Teilnehmer teilnehmer){
-            System.out.println("Debugggggggg: es ist etwas falsch! (Startparticipantmask)");
             loginData.setTeilnehmer(teilnehmer);
             return Pages.PARTICIPENT_INDEX_PAGE;
         }
@@ -210,6 +209,7 @@ public class ConferenceController implements Serializable {
     }
     
     public String startMainpage(){
+        loginData.invalidate();
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         //return "/home.xhtml?faces-redirect=true";
         return Pages.CONFSYS_MAINPAGE;

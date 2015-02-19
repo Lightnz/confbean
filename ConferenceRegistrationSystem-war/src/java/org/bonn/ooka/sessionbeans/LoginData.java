@@ -87,5 +87,11 @@ public class LoginData implements Serializable{
         gutachter.setLoggedIn(true);
         this.gutachter=gutachter;
     }
+    
+    public void invalidate(){
+        this.teilnehmer = new Teilnehmer();
+        this.veranstalter = new Veranstalter();
+        this.gutachter = new Gutachter();
+    }
 
 }
