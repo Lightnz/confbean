@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/EditConferenceEJB.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/CreatePaperEJB.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Konferenz.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/QueryUsersEJBLocal.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Konferenz.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Gutachten.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dao/BenutzerDao.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dao/JPADao.java</file>
@@ -20,6 +20,7 @@
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/LoginEJB.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/RegisterEJB.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/LoginEJBLocal.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Gutachter.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/ConferenceSearch.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Benutzer.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/conf/persistence.xml</file>

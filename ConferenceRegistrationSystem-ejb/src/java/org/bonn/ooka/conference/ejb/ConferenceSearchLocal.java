@@ -22,6 +22,4 @@ public interface ConferenceSearchLocal {
     
     List<Konferenz> getKonferenzenOf(Veranstalter v);
     
-    Gutachter getDefaultGutachter();
-    
 }

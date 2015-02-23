@@ -18,4 +18,6 @@ public interface CreatePaperEJBLocal {
     String createPaper(Publikation publikation);
     
     String updatePaper(Publikation publikation);
+    
+    String deletePaper(Publikation publikation);
 }

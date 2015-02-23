@@ -79,6 +79,8 @@ public class OrganizerController implements Serializable {
      */
     private String datum;
     
+    private Konferenz conferenceToCreate;
+    
     private Konferenz conferenceToEdit;
 
     /**
@@ -112,6 +114,22 @@ public class OrganizerController implements Serializable {
 
     public void setPublicationToBeViewed(Publikation publicationToBeViewed) {
         this.publicationToBeViewed = publicationToBeViewed;
+    }
+
+    public Publikation getPublikationToEdit() {
+        return publikationToEdit;
+    }
+
+    public void setPublikationToEdit(Publikation publikationToEdit) {
+        this.publikationToEdit = publikationToEdit;
+    }
+
+    public Konferenz getConferenceToCreate() {
+        return conferenceToCreate;
+    }
+
+    public void setConferenceToCreate(Konferenz conferenceToCreate) {
+        this.conferenceToCreate = conferenceToCreate;
     }
     
     public Konferenz getConferenceToEdit(){
@@ -157,9 +175,10 @@ public class OrganizerController implements Serializable {
         } catch (ParseException ex) {
             Logger.getLogger(OrganizerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Konferenz konferenz = new Konferenz(veranstalter, titel, anzahl, date);
-        creationResult = creationService.createConference(konferenz);
-        veranstalter.addKonferenz(konferenz);
+        conferenceToCreate.setDate(date);
+        System.out.println("Datum: "+datum+"\nTitel: "+conferenceToCreate.getTitel()+"\nSlots: "+conferenceToCreate.getSlots()+"\nVeranstalter: "+conferenceToCreate.getVeranstalter().getName());
+        veranstalter.addKonferenz(conferenceToCreate);
+        creationResult = creationService.createConference(conferenceToCreate);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
@@ -189,9 +208,8 @@ public class OrganizerController implements Serializable {
     }
     
     public String showConferenceCreation(){
-        anzahl = 0;
-        titel = "";
-        datum = "";
+        conferenceToCreate = new Konferenz();
+        conferenceToCreate.setVeranstalter(veranstalter);
         return Pages.ORGANIZER_RESULT_PAGE;
     }
     

@@ -8,10 +8,13 @@ package org.bonn.ooka.conference.dtos;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,6 +51,13 @@ public class Konferenz implements Serializable{
 	List<Teilnehmer> teilnehmerliste = new ArrayList<Teilnehmer>();
         @OneToMany(mappedBy = "konferenz", cascade = CascadeType.REMOVE)
 	List<Publikation> publikationen = new ArrayList<Publikation>();
+        @ManyToMany
+            @JoinTable(
+            name="konf_guta",
+            schema="confsys",
+            joinColumns={@JoinColumn(name="KONF_ID", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="GUTA_ID", referencedColumnName="id")})
+        List<Gutachter> committee = new ArrayList<Gutachter>();
         @Transient
         boolean registerflag;
         @Temporal(TemporalType.DATE)
@@ -63,6 +73,40 @@ public class Konferenz implements Serializable{
                 this.slots=slots;
                 this.date=date;
 	}
+
+        public Gutachter[] getCommittee() {
+            Gutachter[] committee = new Gutachter[this.committee.size()];
+            this.committee.toArray(committee);
+            return committee;
+        }
+        
+        public void setCommittee(List<Gutachter> committee){
+            this.committee=committee;
+        }
+
+        public void setCommittee(Gutachter[] committee) {
+            this.committee = new ArrayList<Gutachter>();
+            for(int i=0; i<committee.length; i++){
+                this.committee.add(committee[i]);
+            }
+        }
+        
+        public void setDate(Date date){
+            this.date=date;
+        }
+        
+        public void setDate(String date){
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                this.date = sdf.parse(date);
+            } catch (ParseException ex) {
+                Logger.getLogger(Konferenz.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        public Date getDatum(){
+            return date;
+        }
         
         public String getDate(){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -85,10 +129,10 @@ public class Konferenz implements Serializable{
         public void setTitel(String titel){
             this.titel=titel;
         }
-        
-        public Date getDatum(){
-            return date;
-        }
+	
+	public void setVeranstalter(Veranstalter veranstalter){
+		this.veranstalter=veranstalter;
+	}
 	
 	public Veranstalter getVeranstalter(){
 		return veranstalter;

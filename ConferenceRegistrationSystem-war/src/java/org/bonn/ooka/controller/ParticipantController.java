@@ -61,7 +61,7 @@ public class ParticipantController implements Serializable {
     
     private Publikation publicationToBeViewed;
     
-    private String registerResult;
+    private String result;
     
     private String conferenceNameToSearch;
     
@@ -166,12 +166,12 @@ public class ParticipantController implements Serializable {
     }
 
     
-    public String getRegisterResult() {
-        return registerResult;
+    public String getResult() {
+        return result;
     }
     
     public String doRegister(Konferenz konferenz){
-        registerResult = registerService.registerToConference(teilnehmer, konferenz);
+        result = registerService.registerToConference(teilnehmer, konferenz);
         if(konferenz.getDatum().getTime()<currentTime.getTime()){
             vergangeneKonferenzen.add(konferenz);
         }else{
@@ -181,7 +181,7 @@ public class ParticipantController implements Serializable {
     }
       
     public String doUnregister(Konferenz konferenz){
-        registerResult = registerService.unregisterFromConference(teilnehmer, konferenz);
+        result = registerService.unregisterFromConference(teilnehmer, konferenz);
         currentTime = new Date();
         if(konferenz.getDatum().getTime()<currentTime.getTime()){
             vergangeneKonferenzen.remove(konferenz);
@@ -194,7 +194,7 @@ public class ParticipantController implements Serializable {
     public String doPublicize(){
         publicationToCreate.setAutor(teilnehmer);
         Gutachten gutachten = new Gutachten();
-        gutachten.setGutachter(conferenceSearchService.getDefaultGutachter());
+        gutachten.setGutachter(publicationToCreate.getKonferenz().getCommittee()[0]);
         publicationToCreate.setGutachten(gutachten);
         gutachten.setPublikation(publicationToCreate);
         paperService.createPaper(publicationToCreate);
@@ -217,6 +217,13 @@ public class ParticipantController implements Serializable {
             return Pages.CONFERENCE_SEARCH_RESULT;
         }
         return Pages.ERROR_PAGE;
+    }
+    
+    public String doDelete(Publikation publikation){
+        publikation.setAutor(new Teilnehmer());
+        publikationsListe = publicationSearchService.getAllPublicationsFor(teilnehmer);
+        paperService.deletePaper(publikation);
+        return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
     public String openPublicationCreation(Konferenz konferenz){

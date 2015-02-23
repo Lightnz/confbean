@@ -37,6 +37,7 @@ public class Pages {
     public static final String CONSULTANT_RATE_PAGE = "consultantRating";
     public static final String CONSULTANT_CONFIRM_PAGE = "consultantConfirm";
     
-    public static final String PUBLICATION_VIEW = "publicationReader";
+    public static final String PUBLICATION_VIEW = "publicationMask";
+    public static final String PUBLICATION_READER_VIEW = "publicationReader";
     
 }

@@ -5,7 +5,10 @@
  */
 package org.bonn.ooka.conference.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -17,15 +20,11 @@ import javax.persistence.Transient;
 @Table(name = "gutachter", schema="confsys")
 public class Gutachter extends Benutzer {
 	
-    //@OneToOne(cascade = CascadeType.ALL)
-    //private Teilnehmer user;
+    @ManyToMany(mappedBy="committee")
+    List<Konferenz> consultantFor = new ArrayList<Konferenz>();
     
     public Gutachter(){
         
     }
-	
-    //public Teilnehmer getTeilnehmer(){
-    //    return user;
-    //}
     
 }

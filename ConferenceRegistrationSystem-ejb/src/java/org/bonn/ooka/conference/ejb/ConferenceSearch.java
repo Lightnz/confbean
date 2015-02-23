@@ -44,9 +44,4 @@ public class ConferenceSearch implements ConferenceSearchLocal  {
         return dao.getKonferenzenOf(v);
     }
     
-    @Override
-    public Gutachter getDefaultGutachter(){
-        return dao.getDefault(Gutachter.class);
-    }
-    
 }

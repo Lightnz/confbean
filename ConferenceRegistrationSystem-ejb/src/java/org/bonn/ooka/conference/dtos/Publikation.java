@@ -34,7 +34,7 @@ public class Publikation implements Serializable{
         @OneToOne(cascade = CascadeType.ALL)
         private Gutachten gutachten;
         private String text;
-        @ManyToOne(cascade = CascadeType.REMOVE)
+        @ManyToOne
         private Konferenz konferenz;
 	
         public Publikation(){

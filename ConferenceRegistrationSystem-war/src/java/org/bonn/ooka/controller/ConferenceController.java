@@ -215,8 +215,16 @@ public class ConferenceController implements Serializable {
         return Pages.CONFSYS_MAINPAGE;
     }
     
-    public String startPublicationMask(Publikation publikation){
+    public String startLogin(){
+        return Pages.CONFSYS_MAINPAGE;
+    }
+    
+    public String startPublicationReader(Publikation publikation){
         publicationToBeViewed=publikation;
+        return Pages.PUBLICATION_READER_VIEW;
+    }
+    
+    public String startPublicationMask(){
         return Pages.PUBLICATION_VIEW;
     }
     
