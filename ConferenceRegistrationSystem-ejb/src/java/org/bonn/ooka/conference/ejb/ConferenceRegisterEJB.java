@@ -5,8 +5,9 @@
  */
 package org.bonn.ooka.conference.ejb;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 
@@ -17,17 +18,31 @@ import org.bonn.ooka.conference.dtos.Teilnehmer;
 @Stateless
 public class ConferenceRegisterEJB implements ConferenceRegisterEJBLocal {
 
-    
+    @EJB
+    JPADao dao;
     
     @Override
     public String registerToConference(Teilnehmer teilnehmer, Konferenz konferenz) {
         
-        FakeDB.registerParticipantToConference(teilnehmer, konferenz);
+        if(teilnehmer.addConference(konferenz)){
+            dao.update(teilnehmer);
+            return teilnehmer.getName() + ", Sie wurden erfolgreich zur Konferenz "+ konferenz.getTitel() + " hinzugefügt. Viel Spaß!";
+        }else{
+            return teilnehmer.getName() + ", die von Ihnen gewählte Konferenz "+ konferenz.getTitel() + " ist leider bereits voll.";
+        }
+    }
+    
+    @Override
+    public String unregisterFromConference(Teilnehmer teilnehmer, Konferenz konferenz){
+        if(teilnehmer.removeConference(konferenz)){
+            dao.update(teilnehmer);
+            dao.update(konferenz);
+            return teilnehmer.getName() + ", Sie wurden erfolgreich von Konferenz "+ konferenz.getTitel() + " abgemeldet.";
+        }
+        else{
+            return teilnehmer.getName() + ", leider ist beim abmelden von der Konferenz "+ konferenz.getTitel() + " ein Fehler aufgetreten.";
+        }
         
-        
-        //TODO: dem Teilnehmer eine Konferenz hinzufügen
-        
-        return teilnehmer.getName() + ", Sie wurden erfolgreich zur Konferenz "+ konferenz.getTitel() + " hinzugefügt. Viel Spaß!";
     }
 
     // Add business logic below. (Right-click in editor and choose

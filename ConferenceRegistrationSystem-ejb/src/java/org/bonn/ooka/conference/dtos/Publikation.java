@@ -5,34 +5,78 @@
  */
 package org.bonn.ooka.conference.dtos;
 
-import org.bonn.ooka.conference.dao.FakeDB;
+import java.io.Serializable;
+import javax.ejb.EJB;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import org.bonn.ooka.conference.dao.JPADao;
 
 /**
  *
  * @author Fabian
  */
-public class Publikation {
+@Entity
+@Table(name = "publikation", schema="confsys")
+public class Publikation implements Serializable{
 	
+        @Id
+        @GeneratedValue
+        int id;
+        String titel;
+        @OneToOne(cascade = CascadeType.MERGE)
 	private Teilnehmer autor;
-	private String titel;
-	private int ID;
-	private boolean visible;
-        private Gutachter gutachter;
+        @OneToOne(cascade = CascadeType.ALL)
+        private Gutachten gutachten;
+        private String text;
+        @ManyToOne
+        private Konferenz konferenz;
 	
+        public Publikation(){
+            
+        }
 
-	public Publikation(Teilnehmer autor, String titel, int ID){
+	public Publikation(Teilnehmer autor, String titel, Gutachten gutachten){
 		this.autor=autor;
-		this.titel=titel;
-		this.ID=ID;
-		visible=false;
-	}
-	
-	public String getTitel(){
-		return titel;
-	}
-	
-        public void setTitel(String titel){
                 this.titel=titel;
+                this.gutachten=gutachten;
+	}
+        
+       public int getId(){
+            return id;
+        }
+
+        public void setId(int id){
+            this.id=id;
+        }
+
+        public String getTitel(){
+            return titel;
+        }
+
+        public void setTitel(String titel){
+            this.titel=titel;
+        }
+        
+        public Konferenz getKonferenz(){
+            return konferenz;
+        }
+        
+        public void setKonferenz(Konferenz konferenz){
+            this.konferenz=konferenz;
+        }
+        
+        public String getText(){
+            return text;
+        }
+        
+        public void setText(String text){
+            this.text=text;
         }
         
         public void setAutor(Teilnehmer autor){
@@ -42,28 +86,13 @@ public class Publikation {
 	public Teilnehmer getAutor(){
 		return autor;
 	}
-        
-        public Gutachter getGutachter(){
-            if(gutachter==null)
-                return FakeDB.getDefaultGutachter();
-            return gutachter;
-        }
-        
-        public void setGutachter(Gutachter gutachter){
-            this.gutachter=gutachter;
-        }
 	
-	public int getID(){
-		return ID;
-	}
-        
-	
-	public void setVisible(){
-		visible=true;
+	public void setGutachten(Gutachten gutachten){
+		this.gutachten=gutachten;
 	}
 	
-	public boolean getVisible(){
-		return visible;
+	public Gutachten getGutachten(){
+		return gutachten;
 	}
 
 }

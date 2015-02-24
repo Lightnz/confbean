@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <body>
+	    <ui:composition>
+ 
+		<h:form>
+        
+                    <h1> Conference System </h1>
+
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputLabel for="username" value="Benutzername:" />
+                            <p:inputText id="username" value="#{conferenceController.username}" label="username" />
+
+                            <h:outputLabel for="password" value="Passwort:" />
+                            <p:password id="password" value="#{conferenceController.password}" label="password" />
+
+                            <f:facet name="footer">
+                                <p:commandButton value="Login" update="growl" action="#{conferenceController.login}" icon="ui-icon-check"/>
+                                <p:commandButton value="Registrieren" action="#{conferenceController.openRegisterPage}" icon="ui-icon-clipboard"/>
+                            </f:facet> 
+
+                        </h:panelGrid>
+                </h:form>
+ 
+	    </ui:composition>
+    </body>
+</html>

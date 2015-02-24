@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"  
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>My Conference Registration System</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="template/common/commonLayout.xhtml">
+		<ui:define name="content">
+        
+        <h1>Participant Portal</h1>
+        <h3>Publikation editieren:</h3>
+        
+        <h:form>
+        
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Titel"> </p:outputLabel>
+                <p:inputText value="#{participantController.publicationToCreate.titel}"> </p:inputText>
+                <p:outputLabel value="Text"> </p:outputLabel>
+                <p:inputText value="#{participantController.publicationToCreate.text}"> </p:inputText>
+                <p:commandButton value="Ändern" action="#{participantController.doUpdatePaper()}" icon="ui-icon-check"/>
+                <p:commandButton value="Abbrechen" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>
+            </h:panelGrid>
+              
+        </h:form>
+    		</ui:define>
+    	</ui:composition>
+        
+    </h:body>
+</html>
+

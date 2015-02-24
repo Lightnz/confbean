@@ -6,29 +6,49 @@
 package org.bonn.ooka.conference.dtos;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Fabian
  */
-public class Veranstalter implements Serializable {
+@Entity
+@Table(name = "veranstalter", schema="confsys")
+public class Veranstalter extends Benutzer {
     
-    private int ID;
-    private String name;
     private int rep;
+    @OneToMany(mappedBy = "veranstalter", cascade = CascadeType.ALL)
+    private List<Konferenz> konferenzen = new ArrayList<Konferenz>();
+    /**/
     
-    public Veranstalter(int ID, String name){
-        this.name = name;
-        this.ID=ID;
-        this.rep = 10;
+    public Veranstalter(){
+        
     }
     
-    public String getName(){
-        return name;
+    public List<Konferenz> getKonferenzen(){
+        return konferenzen;
     }
     
-    public int getID(){
-        return ID;
+    public void setKonferenzen(List<Konferenz> konferenzen){
+        this.konferenzen=konferenzen;
+    }
+    
+    public void addKonferenz(Konferenz konferenz){
+        konferenzen.add(konferenz);
+    }
+    
+    public void removeKonferenz(Konferenz konferenz){
+        konferenzen.remove(konferenz);
     }
     
     public void incRep(){

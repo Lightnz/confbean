@@ -8,9 +8,12 @@ package org.bonn.ooka.conference.ejb;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import org.bonn.ooka.conference.dao.FakeDB;
+import org.bonn.ooka.conference.dao.JPADao;
+import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
  *
@@ -19,34 +22,26 @@ import org.bonn.ooka.conference.dtos.Konferenz;
 @Stateless
 public class ConferenceSearch implements ConferenceSearchLocal  {
 
+    @EJB
+    JPADao dao;
     
-
     public ConferenceSearch() {
         
     }
     
-    
+    @Override
+    public List<Konferenz> findConferences(String s) {
+        return dao.findKonferenzByName(s);
+    }
 
     @Override
     public List<Konferenz> getAllConferences() {
-        
-        return FakeDB.getKonferenzen();
+        return dao.findAll(Konferenz.class);
+    } 
+    
+    @Override
+    public List<Konferenz> getKonferenzenOf(Veranstalter v){
+        return dao.getKonferenzenOf(v);
     }
-
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
-
-   
-
-    
-  
-    
-    
-    
-    
-  
-
-    
     
 }

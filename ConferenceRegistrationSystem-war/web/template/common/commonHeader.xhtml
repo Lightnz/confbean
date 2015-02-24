@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:p="http://primefaces.org/ui"    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      >
+    <body>
+	    <ui:composition>
+ 
+		<h:form>
+                    <p:toolbar id="tb">
+                        <f:facet name="left">
+                            <p:commandButton action="#{conferenceController.startPublicationMask()}" value="Publikationen" icon="ui-icon-script"/>
+                            <p:commandButton action="#{conferenceController.startParticipantMask()}" disabled="#{!loginData.teilnehmer.loggedIn}" value="Teilnehmer" icon="ui-icon-person"/>
+                            <p:commandButton action="#{conferenceController.startOrganizerMask()}" disabled="#{!loginData.veranstalter.loggedIn}" value="Veranstalter" icon="ui-icon-person"/>
+                            <p:commandButton action="#{conferenceController.startConsultantMask()}" disabled="#{!loginData.gutachter.loggedIn}" value="Gutachter" icon="ui-icon-person"/>
+                        </f:facet>
+                        <f:facet name="right">
+                            <!--<p:clock />-->
+                            <p:commandButton action="#{conferenceController.startLogin()}" value="Neuen Login" icon="ui-icon-plusthick"/>
+                            <p:commandButton action="#{conferenceController.startMainpage()}" disabled="#{!loginData.isLoggedIn()}" title="LogOut" icon="ui-icon-closethick"/>
+                        </f:facet>
+                    </p:toolbar>
+                    <p:sticky target="tb" />
+                </h:form>
+	    </ui:composition>
+    </body>
+</html>

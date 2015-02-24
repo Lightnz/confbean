@@ -5,38 +5,26 @@
  */
 package org.bonn.ooka.conference.dtos;
 
-import java.io.Serializable;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
  * @author Fabian
  */
-public class Gutachter implements Serializable {
+@Entity
+@Table(name = "gutachter", schema="confsys")
+public class Gutachter extends Benutzer {
 	
-    private String name;
-    private int id;
+    @ManyToMany(mappedBy="committee")
+    List<Konferenz> consultantFor = new ArrayList<Konferenz>();
     
-    public Gutachter(int id, String name){
-        this.id=id;
-        this.name=name;
+    public Gutachter(){
+        
     }
     
-    public void setID(int id){
-        this.id=id;
-    }
-    
-    public int getID(){
-        return id;
-    }
-    
-    public void setName(String name){
-        this.name=name;
-    }
-    
-    public String getName(){
-        return name;
-    }
-	
 }
