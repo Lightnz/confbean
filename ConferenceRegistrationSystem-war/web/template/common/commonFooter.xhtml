@@ -11,7 +11,25 @@
 	    <ui:composition>
  
                 
-                <div class="footer" id="footer">2015 Copyright @ FabianAlex Corp.</div>
+                <div class="footer" id="footer">
+                    <h:form>
+                        <div id="copyright">
+                            <h:outputLabel for="text" value="2015 Copyright @ FabianAlex Corp." />
+                        </div>
+                        <div id="search">
+                            <h:outputLabel for="text" value="Suche:" />
+                            <h:inputText id="text" value="#{conferenceController.suchText}" required="true" label="Suche">
+                                <f:validateLength minimum="2" />
+                            </h:inputText>
+                            <h:selectOneMenu id="type" value="#{conferenceController.suchTyp}" required="true" label="Typ">
+                                <f:selectItem itemLabel="Typ wählen" itemValue="" noSelectionOption="false" />
+                                <f:selectItem itemLabel="Publikation" itemValue="1" />
+                                <f:selectItem itemLabel="Konferenz" itemValue="2" />
+                            </h:selectOneMenu>
+                            <h:commandButton value="Suche" action="#{conferenceController.doSearch()}"/>
+                        </div>
+                    </h:form>
+                </div>
                 
                 
  

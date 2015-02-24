@@ -17,15 +17,15 @@
                     <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
                         <h:panelGrid columns="2" cellpadding="5">
-                            <h:outputLabel for="username" value="Username:" />
+                            <h:outputLabel for="username" value="Benutzername:" />
                             <p:inputText id="username" value="#{conferenceController.username}" label="username" />
 
-                            <h:outputLabel for="password" value="Password:" />
+                            <h:outputLabel for="password" value="Passwort:" />
                             <p:password id="password" value="#{conferenceController.password}" label="password" />
 
                             <f:facet name="footer">
                                 <p:commandButton value="Login" update="growl" action="#{conferenceController.login}" icon="ui-icon-check"/>
-                                <p:commandButton value="Register" action="#{conferenceController.openRegisterPage}" icon="fa fa-bolt"/>
+                                <p:commandButton value="Registrieren" action="#{conferenceController.openRegisterPage}" icon="ui-icon-clipboard"/>
                             </f:facet> 
 
                         </h:panelGrid>

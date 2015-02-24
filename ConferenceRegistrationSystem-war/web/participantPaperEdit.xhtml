@@ -22,7 +22,7 @@
                 <p:inputText value="#{participantController.publicationToCreate.titel}"> </p:inputText>
                 <p:outputLabel value="Text"> </p:outputLabel>
                 <p:inputText value="#{participantController.publicationToCreate.text}"> </p:inputText>
-                <p:commandButton value="Publizieren" action="#{participantController.doUpdatePaper()}"/>
+                <p:commandButton value="Ändern" action="#{participantController.doUpdatePaper()}" icon="ui-icon-check"/>
                 <p:commandButton value="Abbrechen" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>
             </h:panelGrid>
               

@@ -17,9 +17,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.bonn.ooka.conference.dtos.Benutzer;
 import org.bonn.ooka.conference.dtos.Gutachter;
+import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
+import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateReviewEJBLocal;
 import org.bonn.ooka.conference.ejb.LoginEJB;
 import org.bonn.ooka.conference.ejb.LoginEJBLocal;
@@ -47,6 +49,12 @@ public class ConferenceController implements Serializable {
     
     @EJB
     RegisterEJBLocal registerService;
+
+    @EJB
+    ConferenceSearchLocal conferenceSearchService;
+    
+    @EJB
+    private PublicationSearchLocal publicationSearchService;
     
     @Inject
     LoginData loginData;
@@ -68,6 +76,22 @@ public class ConferenceController implements Serializable {
     String rolle;
     
     String[] rollen={"Teilnehmer", "Veranstalter", "Gutachter"};
+    
+    private String conferenceNameToSearch;
+    
+    private String suchText;
+    
+    private int suchTyp;
+    
+    private List<Konferenz> konferenzSuchErgebnis;
+    
+    private List<Publikation> publikationsSuchErgebnis;
+    
+    /**
+     * Creates a new instance of ConferenceController
+     */
+    public ConferenceController() {
+    }
 
     public String getRolle() {
         return rolle;
@@ -174,11 +198,45 @@ public class ConferenceController implements Serializable {
         publikationsliste = publicationService.getAllPublications();    
         return publikationsliste;
     }
+
+    public String getSuchText() {
+        return suchText;
+    }
+
+    public void setSuchText(String suchText) {
+        this.suchText = suchText;
+    }
+
+    public int getSuchTyp() {
+        return suchTyp;
+    }
+
+    public void setSuchTyp(int suchTyp) {
+        this.suchTyp = suchTyp;
+    }
+
+    public List<Konferenz> getKonferenzSuchErgebnis() {
+        return konferenzSuchErgebnis;
+    }
+
+    public void setKonferenzSuchErgebnis(List<Konferenz> konferenzSuchErgebnis) {
+        this.konferenzSuchErgebnis = konferenzSuchErgebnis;
+    }
+
+    public List<Publikation> getPublikationsSuchErgebnis() {
+        return publikationsSuchErgebnis;
+    }
+
+    public void setPublikationsSuchErgebnis(List<Publikation> publikationsSuchErgebnis) {
+        this.publikationsSuchErgebnis = publikationsSuchErgebnis;
+    }
     
-    /**
-     * Creates a new instance of ConferenceController
-     */
-    public ConferenceController() {
+    public String getConferenceNameToSearch() {
+        return conferenceNameToSearch;
+    }
+
+    public void setConferenceNameToSearch(String conferenceNameToSearch) {
+        this.conferenceNameToSearch = conferenceNameToSearch;
     }
     
     public String startParticipantMask(){
@@ -225,6 +283,22 @@ public class ConferenceController implements Serializable {
     }
     
     public String startPublicationMask(){
+        return Pages.PUBLICATION_VIEW;
+    }
+    
+    public String doSearch(){
+        if(suchTyp==1){
+            publikationsSuchErgebnis = publicationSearchService.findPublications(suchText);
+            return Pages.PUBLICATION_SEARCH_RESULT;
+        } if(suchTyp==2){
+            konferenzSuchErgebnis = conferenceSearchService.findConferences(suchText);
+            return Pages.CONFERENCE_SEARCH_RESULT;
+        }
+        return Pages.ERROR_PAGE;
+    }
+    
+    public String showPublication(Publikation publikation){
+        publicationToBeViewed=publikation;
         return Pages.PUBLICATION_VIEW;
     }
     

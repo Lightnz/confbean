@@ -24,7 +24,7 @@
             <p:selectBooleanCheckbox value="#{consultantController.akzeptiert}" />   
             <p:outputLabel value="Kommentar"> </p:outputLabel>
             <p:inputText value="#{consultantController.comment}"> </p:inputText>
-            <p:commandButton value="Bewerten" action="#{consultantController.doRate()}"></p:commandButton>
+            <p:commandButton value="Bewerten" action="#{consultantController.doRate()}" icon="ui-icon-check"></p:commandButton>
             <p:commandButton value="Abbruch" action="#{consultantController.cancelRating()}" icon="ui-icon-close"></p:commandButton>
             </p:panelGrid>
         </h:form>

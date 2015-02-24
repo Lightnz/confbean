@@ -19,9 +19,9 @@
                  <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Gutachter" />
+                        <p:outputLabel value="Gutachter" />
                     </f:facet>
-                     <h:outputText value="#{item.name}"></h:outputText>
+                     <p:outputLabel value="#{item.name}"></p:outputLabel>
 
                 </p:column>
                   
@@ -29,9 +29,9 @@
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Action" />
+                        <p:outputLabel value="Auswählen" />
                     </f:facet>
-                    <h:commandButton value="Auswählen" action="#{organizerController.doSetConsultant(item)}"/>
+                    <p:commandButton value="Auswählen" action="#{organizerController.doSetConsultant(item)}" icon="ui-icon-check"/>
 
                 </p:column>
                 

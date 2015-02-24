@@ -12,52 +12,52 @@
         <ui:composition template="template/common/commonLayout.xhtml">
 		<ui:define name="content">
         
-        <h1>Participant Portal</h1>
+        <h1>Conference Portal</h1>
         <h3>Gefundene Publikationen</h3>
         
           <h:form>
         
-              <p:dataTable value="#{participantController.publikationsSuchErgebnis}" var="item">
+              <p:dataTable value="#{conferenceController.publikationsSuchErgebnis}" var="item">
                  <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Publikationstitel" />
+                        <p:outputLabel value="Publikationstitel" />
                     </f:facet>
-                     <h:outputText value="#{item.titel}"></h:outputText>
+                     <p:outputLabel value="#{item.titel}"></p:outputLabel>
 
                 </p:column>
                   
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Autor" />
+                        <p:outputLabel value="Autor" />
                     </f:facet>
-                    <h:outputText value="#{item.autor.name}"></h:outputText>
+                    <p:outputLabel value="#{item.autor.name}"></p:outputLabel>
 
                 </p:column>
                   
                   <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="zu Konferenz" />
+                        <p:outputLabel value="zu Konferenz" />
                     </f:facet>
-                    <h:outputText value="#{item.konferenz.titel}"></h:outputText>
+                    <p:outputLabel value="#{item.konferenz.titel}"></p:outputLabel>
 
                 </p:column>
                                   
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Ansehen" />
+                        <p:outputLabel value="Ansehen" />
                     </f:facet>
-                    <h:commandLink value="Ansehen" action="#{participantController.showPublication(item)}"/>
+                    <p:commandButton value="Ansehen" action="#{conferenceController.showPublication(item)}" icon="ui-icon-extlink"/>
 
                 </p:column>
                 
             </p:dataTable>
                 
             
-            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>  
+            <p:commandButton value="Abbruch" action="#{conferenceController.startLogin()}" icon="ui-icon-close"/>  
               
         </h:form>
     		</ui:define>

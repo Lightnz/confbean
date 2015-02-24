@@ -39,13 +39,13 @@ public class ParticipantController implements Serializable {
     ConferenceSearchLocal conferenceSearchService;
     
     @EJB
+    private PublicationSearchLocal publicationSearchService;
+    
+    @EJB
     private ConferenceRegisterEJBLocal registerService;
     
     @EJB
     private CreatePaperEJBLocal paperService;
-    
-    @EJB
-    private PublicationSearchLocal publicationSearchService;
     
     @EJB
     private JPADao dao;
@@ -63,12 +63,6 @@ public class ParticipantController implements Serializable {
     
     private String result;
     
-    private String conferenceNameToSearch;
-    
-    private String suchText;
-    
-    private int suchTyp;
-    
     private List<Konferenz> konferenzliste;
     
     private List<Konferenz> angemeldeteKonferenzen;
@@ -76,10 +70,6 @@ public class ParticipantController implements Serializable {
     private List<Konferenz> vergangeneKonferenzen;
     
     private List<Publikation> publikationsListe;
-    
-    private List<Konferenz> konferenzSuchErgebnis;
-    
-    private List<Publikation> publikationsSuchErgebnis;
     
     public ParticipantController(){
         
@@ -106,38 +96,6 @@ public class ParticipantController implements Serializable {
 
     public void setPublikationsListe(List<Publikation> publikationsListe) {
         this.publikationsListe = publikationsListe;
-    }
-
-    public String getSuchText() {
-        return suchText;
-    }
-
-    public void setSuchText(String suchText) {
-        this.suchText = suchText;
-    }
-
-    public int getSuchTyp() {
-        return suchTyp;
-    }
-
-    public void setSuchTyp(int suchTyp) {
-        this.suchTyp = suchTyp;
-    }
-
-    public List<Konferenz> getKonferenzSuchErgebnis() {
-        return konferenzSuchErgebnis;
-    }
-
-    public void setKonferenzSuchErgebnis(List<Konferenz> konferenzSuchErgebnis) {
-        this.konferenzSuchErgebnis = konferenzSuchErgebnis;
-    }
-
-    public List<Publikation> getPublikationsSuchErgebnis() {
-        return publikationsSuchErgebnis;
-    }
-
-    public void setPublikationsSuchErgebnis(List<Publikation> publikationsSuchErgebnis) {
-        this.publikationsSuchErgebnis = publikationsSuchErgebnis;
     }
     
     @PostConstruct
@@ -197,26 +155,14 @@ public class ParticipantController implements Serializable {
         gutachten.setGutachter(publicationToCreate.getKonferenz().getCommittee()[0]);
         publicationToCreate.setGutachten(gutachten);
         gutachten.setPublikation(publicationToCreate);
-        paperService.createPaper(publicationToCreate);
+        result = paperService.createPaper(publicationToCreate);
+        publikationsListe.add(publicationToCreate);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
     public String doUpdatePaper(){
-        paperService.updatePaper(publicationToCreate);
+        result = paperService.updatePaper(publicationToCreate);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
-    }
-    
-    public String doSearch(){
-        System.out.println("test");
-        System.out.println(suchTyp);
-        if(suchTyp==1){
-            publikationsSuchErgebnis = publicationSearchService.findPublications(suchText);
-            return Pages.PUBLICATION_SEARCH_RESULT;
-        } if(suchTyp==2){
-            konferenzSuchErgebnis = conferenceSearchService.findConferences(suchText);
-            return Pages.CONFERENCE_SEARCH_RESULT;
-        }
-        return Pages.ERROR_PAGE;
     }
     
     public String doDelete(Publikation publikation){
@@ -237,14 +183,6 @@ public class ParticipantController implements Serializable {
         return Pages.PARTICIPENT_PAPER_EDIT_PAGE;
     }
     
-    public String getConferenceNameToSearch() {
-        return conferenceNameToSearch;
-    }
-
-    public void setConferenceNameToSearch(String conferenceNameToSearch) {
-        this.conferenceNameToSearch = conferenceNameToSearch;
-    }
-    
 
     public List<Konferenz> getKonferenzliste() {
         //TODO Die Konferenzen, zu denen man bereits angemeldet ist, nicht mitanzeigen
@@ -259,11 +197,6 @@ public class ParticipantController implements Serializable {
     public String showAllConferences(){
         setKonferenzliste(conferenceSearchService.getAllConferences());
         return Pages.PARTICIPENT_RESULT_PAGE;
-    }
-    
-    public String showPublication(Publikation publikation){
-        publicationToBeViewed=publikation;
-        return Pages.PUBLICATION_VIEW;
     }
     
 }

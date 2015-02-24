@@ -21,52 +21,52 @@
                  <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Konferenz" />
+                        <p:outputLabel value="Konferenz" />
                     </f:facet>
-                     <h:outputText value="#{item.titel}"></h:outputText>
+                     <p:outputLabel value="#{item.titel}"></p:outputLabel>
 
                 </p:column>
                   
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Veranstalter" />
+                        <p:outputLabel value="Veranstalter" />
                     </f:facet>
-                    <h:outputText value="#{item.veranstalter.name}"></h:outputText>
+                    <p:outputLabel value="#{item.veranstalter.name}"></p:outputLabel>
 
                 </p:column>
                   
                   <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Datum" />
+                        <p:outputLabel value="Datum" />
                     </f:facet>
-                    <h:outputText value="#{item.getDate()}"></h:outputText>
+                      <p:outputLabel value="#{item.getDate()}"></p:outputLabel>
 
                 </p:column>
                                   
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Verfügbare Plätze" />
+                        <p:outputLabel value="Verfügbare Plätze" />
                     </f:facet>
-                    <h:outputText value="#{item.getRemainingSlots()}"></h:outputText>
+                    <p:outputLabel value="#{item.getRemainingSlots()}"></p:outputLabel>
 
                 </p:column>
                 
                 <p:column>
 
                     <f:facet name="header">
-                        <h:outputText value="Registrieren" />
+                        <p:outputLabel value="Registrieren" />
                     </f:facet>
-                    <h:commandLink value="Registrieren" action="#{participantController.doRegister(item)}"/>
+                    <p:commandButton value="Registrieren" action="#{participantController.doRegister(item)}" icon="ui-icon-pin-s"/>
 
                 </p:column>
                 
             </p:dataTable>
                 
             
-            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}"/>  
+            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>  
               
         </h:form>
     		</ui:define>

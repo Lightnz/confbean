@@ -55,7 +55,7 @@
                             <f:facet name="header">
                                 <h:outputText value="Gutachter Ändern" />
                             </f:facet>
-                     <p:commandButton value="Ändern" action="#{organizerController.showSetConsultant(itempub)}"></p:commandButton>
+                     <p:commandButton value="Ändern" action="#{organizerController.showSetConsultant(itempub)}" icon="ui-icon-pencil"></p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </p:column>
@@ -83,7 +83,7 @@
                         <h:outputText value="Ändern" />
                         <f:attribute name="width" value="10%"/>
                     </f:facet>
-                     <p:commandButton value="Ändern" action="#{organizerController.showConferenceEdit(item)}"></p:commandButton>
+                     <p:commandButton value="Ändern" action="#{organizerController.showConferenceEdit(item)}" icon="ui-icon-pencil"></p:commandButton>
 
                 </p:column>
                 <p:column>
@@ -92,7 +92,7 @@
                         <h:outputText value="Entfernen" />
                         <f:attribute name="width" value="10%"/>
                     </f:facet>
-                     <p:commandButton value="Entfernen" action="#{organizerController.doDelete(item)}"></p:commandButton>
+                     <p:commandButton value="Entfernen" action="#{organizerController.doDelete(item)}" icon="ui-icon-trash"></p:commandButton>
 
                 </p:column>
             </p:dataTable>

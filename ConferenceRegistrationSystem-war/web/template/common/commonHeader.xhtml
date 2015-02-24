@@ -13,20 +13,19 @@
 		<h:form>
                     <p:toolbar id="tb">
                         <f:facet name="left">
-                            <p:commandButton action="#{conferenceController.startPublicationMask()}" value="Publikationen" icon="ui-icon-document"/>
+                            <p:commandButton action="#{conferenceController.startPublicationMask()}" value="Publikationen" icon="ui-icon-script"/>
                             <p:commandButton action="#{conferenceController.startParticipantMask()}" disabled="#{!loginData.teilnehmer.loggedIn}" value="Teilnehmer" icon="ui-icon-person"/>
                             <p:commandButton action="#{conferenceController.startOrganizerMask()}" disabled="#{!loginData.veranstalter.loggedIn}" value="Veranstalter" icon="ui-icon-person"/>
                             <p:commandButton action="#{conferenceController.startConsultantMask()}" disabled="#{!loginData.gutachter.loggedIn}" value="Gutachter" icon="ui-icon-person"/>
                         </f:facet>
                         <f:facet name="right">
-                            <p:clock />
-                            <p:commandButton action="#{conferenceController.startLogin()}" value="Neuen Login" icon="ui-icon-person"/>
+                            <!--<p:clock />-->
+                            <p:commandButton action="#{conferenceController.startLogin()}" value="Neuen Login" icon="ui-icon-plusthick"/>
                             <p:commandButton action="#{conferenceController.startMainpage()}" disabled="#{!loginData.isLoggedIn()}" title="LogOut" icon="ui-icon-closethick"/>
                         </f:facet>
                     </p:toolbar>
                     <p:sticky target="tb" />
                 </h:form>
- 
 	    </ui:composition>
     </body>
 </html>

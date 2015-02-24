@@ -11,6 +11,7 @@
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dao/BenutzerDao.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dao/JPADao.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/dtos/Publikation.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/CreatePaperEJBLocal.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/PublicationSearch.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/ConferenceRegisterEJB.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-ejb/src/java/org/bonn/ooka/conference/ejb/CreateReviewEJB.java</file>

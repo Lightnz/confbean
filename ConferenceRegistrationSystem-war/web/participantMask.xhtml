@@ -12,22 +12,6 @@
         <ui:composition template="template/common/commonLayout.xhtml">
 		<ui:define name="content">
         
-        <h:form acceptcharset="ISO-8859-1">
-            <h:panelGrid columns="5" cellpadding="5">
-                <h:outputLabel for="text" value="Suche:" />
-                <h:inputText id="text" value="#{participantController.suchText}" required="true" label="Suche">
-                    <f:validateLength minimum="2" />
-                </h:inputText>
-
-                <h:outputLabel for="type" value="Typ:" />
-                <h:selectOneMenu id="type" value="#{participantController.suchTyp}" required="true" label="Typ">
-                    <f:selectItem itemLabel="Typ wählen" itemValue="" noSelectionOption="false" />
-                    <f:selectItem itemLabel="Publikation" itemValue="1" />
-                    <f:selectItem itemLabel="Konferenz" itemValue="2" />
-                </h:selectOneMenu>
-                <p:commandButton value="Suche" action="#{participantController.doSearch()}"/>
-            </h:panelGrid>
-        </h:form>
         <h1>Participant Portal</h1>
         
         Herzlich Willkommen, #{participantController.teilnehmer.name}!
@@ -59,13 +43,13 @@
                     <f:facet name="header">
                         <h:outputText value="Abmelden" />
                     </f:facet>
-                    <p:commandButton value="Abmelden" action="#{participantController.doUnregister(item)}"/>
+                    <p:commandButton value="Abmelden" action="#{participantController.doUnregister(item)}" icon="ui-icon-trash"/>
                 </p:column>
                  <p:column>
                     <f:facet name="header">
                         <h:outputText value="Paper erstellen" />
                     </f:facet>
-                    <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}"/>
+                    <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}" icon="ui-icon-script"/>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -93,7 +77,7 @@
                     <f:facet name="header">
                         <h:outputText value="Paper erstellen" />
                     </f:facet>
-                    <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}"/>
+                    <p:commandButton value="Publizieren" action="#{participantController.openPublicationCreation(item)}" icon="ui-icon-script"/>
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -125,13 +109,13 @@
                     <f:facet name="header">
                         <h:outputText value="Bearbeiten" />
                     </f:facet>
-                    <p:commandButton value="Bearbeiten" action="#{participantController.openPublicationEdit(item)}"/>
+                    <p:commandButton value="Bearbeiten" action="#{participantController.openPublicationEdit(item)}" icon="ui-icon-pencil"/>
                 </p:column>
                 <p:column>
                     <f:facet name="header">
                         <h:outputText value="Löschen" />
                     </f:facet>
-                    <p:commandButton value="Löschen" action="#{participantController.doDelete(item)}"/>
+                    <p:commandButton value="Löschen" action="#{participantController.doDelete(item)}" icon="ui-icon-trash"/>
                 </p:column>
             </p:dataTable>
             <p/>

@@ -17,7 +17,7 @@
         
           <h:form>
         
-              <p:dataTable value="#{participantController.konferenzSuchErgebnis}" var="item">
+              <p:dataTable value="#{conferenceController.konferenzSuchErgebnis}" var="item">
                  <p:column>
 
                     <f:facet name="header">
@@ -59,15 +59,15 @@
                     <f:facet name="header">
                         <h:outputText value="Registrieren" />
                     </f:facet>
-                    <h:commandLink value="Registrieren" action="#{participantController.doRegister(item)}"/>
+                    <p:commandButton value="Registrieren" action="#{participantController.doRegister(item)}" disabled="#{!loginData.teilnehmer.loggedIn}" icon="ui-icon-pin-s"/>
 
                 </p:column>
                 
             </p:dataTable>
                 
             
-            <p:commandButton value="Abbruch" action="#{conferenceController.startParticipantMask()}" icon="ui-icon-close"/>  
-              
+            <p:commandButton value="Abbruch" action="#{conferenceController.startLogin()}" icon="ui-icon-close"/>  
+              </h:form>
     		</ui:define>
     	</ui:composition>
         
