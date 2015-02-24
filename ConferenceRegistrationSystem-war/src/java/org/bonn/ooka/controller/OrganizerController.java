@@ -50,7 +50,7 @@ public class OrganizerController implements Serializable {
     @Inject
     LoginData loginData;
     
-    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     
     private Veranstalter veranstalter;
     
@@ -77,7 +77,7 @@ public class OrganizerController implements Serializable {
     /**
      * Datum für anzulegende Konferenz
      */
-    private String datum;
+    private Date datum;
     
     private Konferenz conferenceToCreate;
     
@@ -104,8 +104,12 @@ public class OrganizerController implements Serializable {
         return anzahl;
     }
     
-    public String getDatum(){
+    public Date getDatum(){
         return datum;
+    }
+    
+    public void setDatum(Date datum){
+        this.datum=datum;
     }
 
     public Publikation getPublicationToBeViewed() {
@@ -144,10 +148,6 @@ public class OrganizerController implements Serializable {
         this.anzahl=anzahl;
     }
     
-    public void setDatum(String datum){
-        this.datum=datum;
-    }
-    
     public void setConferenceToEdit(Konferenz conferenceToEdit){
         this.conferenceToEdit = conferenceToEdit;
     }
@@ -169,13 +169,7 @@ public class OrganizerController implements Serializable {
     }
     
     public String doCreate(){
-        Date date = null;
-        try {
-            date = formatter.parse(datum);
-        } catch (ParseException ex) {
-            Logger.getLogger(OrganizerController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        conferenceToCreate.setDate(date);
+        conferenceToCreate.setDate(datum);
         System.out.println("Datum: "+datum+"\nTitel: "+conferenceToCreate.getTitel()+"\nSlots: "+conferenceToCreate.getSlots()+"\nVeranstalter: "+conferenceToCreate.getVeranstalter().getName());
         veranstalter.addKonferenz(conferenceToCreate);
         creationResult = creationService.createConference(conferenceToCreate);

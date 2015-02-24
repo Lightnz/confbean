@@ -58,7 +58,7 @@ public class LoginData implements Serializable{
     }*/
 
     public boolean isLoggedIn() {
-        return teilnehmer.isLoggedIn()||veranstalter.isLoggedIn()||veranstalter.isLoggedIn();
+        return teilnehmer.isLoggedIn()||veranstalter.isLoggedIn()||gutachter.isLoggedIn();
     }
     
     public Teilnehmer getTeilnehmer(){

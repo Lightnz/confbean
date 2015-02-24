@@ -23,9 +23,9 @@
             <p:outputLabel value="Teilnehmeranzahl:"> </p:outputLabel>
             <p:inputText id="id_anzahl" value="#{organizerController.conferenceToCreate.slots}" required="true"> </p:inputText>
             <p:watermark for="id_anzahl" value="20" />
-            <p:outputLabel value="Datum"> </p:outputLabel>
-            <p:inputText id="id_datum" value="#{organizerController.datum}" required="true"> </p:inputText>
-            <p:watermark for="id_datum" value="dd-MM-yyyy" />
+            <p:outputLabel value="Datum und Zeit"> </p:outputLabel>
+            <p:calendar id="id_datum" value="#{organizerController.datum}" pattern="MM/dd/yyyy HH:mm:ss" required="true"/>
+            <p:watermark for="id_datum" value="dd/MM/yyyy" />
             <p:outputLabel value="Kommittee"> </p:outputLabel>
             <p:selectManyCheckbox value="#{organizerController.conferenceToCreate.committee}" required="true">
                 <f:converter converterId="gutachterConverter"/>

@@ -96,7 +96,7 @@ public class Konferenz implements Serializable{
         }
         
         public void setDate(String date){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("ddd/MM/yyyy HH:mm:ss");
             try {
                 this.date = sdf.parse(date);
             } catch (ParseException ex) {
@@ -109,7 +109,7 @@ public class Konferenz implements Serializable{
         }
         
         public String getDate(){
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String time = sdf.format(date);
             return time;
         }
