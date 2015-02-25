@@ -6,17 +6,28 @@
 package org.bonn.ooka.conference.ejb;
 
 import java.util.List;
+import javax.ejb.Local;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
-import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
  *
  * @author alex
  */
-public interface PublicationSearchLocal {
+@Local
+public interface CRUDPaperEJBLocal {
+    
+    String createPaper(Publikation publikation);
+    
+    String updatePaper(Publikation publikation);
+    
+    String deletePaper(Publikation publikation);
+    
+    String addPublikationToConference(Publikation publikation, Konferenz konferenz);
+    
+    String addGutachterToPublikation(Gutachter gutachter, Publikation publikation);
     
     List<Publikation> findPublications(String s);
        

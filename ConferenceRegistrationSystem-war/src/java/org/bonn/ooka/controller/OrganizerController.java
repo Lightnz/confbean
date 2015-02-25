@@ -20,12 +20,13 @@ import javax.inject.Named;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
+import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
+import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
 import org.bonn.ooka.conference.ejb.EditConferenceEJBLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
-import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
  *
@@ -43,6 +44,9 @@ public class OrganizerController implements Serializable {
     
     @EJB
     EditConferenceEJBLocal editService;
+    
+    @EJB
+    CRUDPaperEJBLocal publicationService;
     
     @EJB
     QueryUsersEJBLocal userService;
@@ -196,7 +200,15 @@ public class OrganizerController implements Serializable {
     }
     
     public String doSetConsultant(Gutachter gutachter){
-        creationResult = editService.addGutachterToPublikation(gutachter, publikationToEdit);
+        creationResult = publicationService.addGutachterToPublikation(gutachter, publikationToEdit);
+        refreshConferences();
+        return Pages.ORGANIZER_CONFIRM_PAGE;
+    }
+    
+    public String doDeletePublication(Publikation publikation){
+        publikation.getKonferenz().removePublikation(publikation);
+        publikation.setAutor(new Teilnehmer());
+        creationResult = publicationService.deletePaper(publikation);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }

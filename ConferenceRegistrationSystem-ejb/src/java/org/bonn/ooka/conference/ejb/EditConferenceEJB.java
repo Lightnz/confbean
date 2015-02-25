@@ -38,21 +38,6 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
             return konferenz.getVeranstalter().getName() + ", es ist bei der Löschung ihrer Konferenz '"+ konferenz.getTitel() + " zu einem Fehler gekommen.";
     }
     
-    @Override
-    public String addPublikationToConference(Publikation publikation, Konferenz konferenz){
-        if(konferenz.addPublikation(publikation))
-            return konferenz.getVeranstalter().getName() + ", ihre Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Konferenz '"+konferenz.getTitel()+"' hinzugefügt.";
-        else
-            return konferenz.getVeranstalter().getName() + ", es ist beim Hinzufügen ihrer Publikation '"+ publikation.getTitel() + "' zu einem Fehler gekommen.";
-    }
     
-    @Override
-    public String addGutachterToPublikation(Gutachter gutachter, Publikation publikation){
-        publikation.getGutachten().setGutachter(gutachter);
-        if(dao.update(publikation))
-            return "Der Publikation '" + publikation.getTitel() + "' wurde erfolgreich der Gutachter '"+gutachter.getName()+"' hinzugefügt.";
-        else
-            return "Es ist beim Hinzufügen eines Gutachters zu ihrer Publikation '"+ publikation.getTitel() + "' zu einem Fehler gekommen.";
-    }
     
 }

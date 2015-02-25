@@ -21,9 +21,7 @@ public interface EditConferenceEJBLocal {
     
     String deleteConference(Konferenz konferenz);
     
-    String addPublikationToConference(Publikation publikation, Konferenz konferenz);
     
-    String addGutachterToPublikation(Gutachter gutachter, Publikation publikation);
 
     
 }

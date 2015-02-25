@@ -57,6 +57,9 @@
                             </f:facet>
                      <p:commandButton value="Ändern" action="#{organizerController.showSetConsultant(itempub)}" icon="ui-icon-pencil"></p:commandButton>
                         </p:column>
+                        <p:column>
+                            <p:commandButton value="Löschen" action="#{organizerController.doDeletePublication(itempub)}" icon="ui-icon-trash"></p:commandButton>
+                        </p:column>
                     </p:dataTable>
                 </p:column>
                 <p:column>

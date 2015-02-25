@@ -36,14 +36,14 @@ public class JPADao {
     
     public <E> boolean create(E entity){
         this.em.persist(entity);
-        //evictAll weil scheiße und keine aktualisierungen sonst.
+        //evictAll weil keine aktualisierungen sonst.
         this.em.getEntityManagerFactory().getCache().evictAll();
         return true;
     }
     
     public <E> boolean update(E entity){
         this.em.merge(entity);
-        //evictAll weil scheiße und keine aktualisierungen sonst.
+        //evictAll weil keine aktualisierungen sonst.
         this.em.getEntityManagerFactory().getCache().evictAll();
         return true;
     }
@@ -51,7 +51,7 @@ public class JPADao {
     public <E> boolean delete(E entity){
         E toBeRemoved = this.em.merge(entity);
         this.em.remove(toBeRemoved);
-        //evictAll weil scheiße und keine aktualisierungen sonst.
+        //evictAll weil keine aktualisierungen sonst.
         this.em.getEntityManagerFactory().getCache().evictAll();
         return true;
     }

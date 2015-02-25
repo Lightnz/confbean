@@ -151,6 +151,11 @@ public class Konferenz implements Serializable{
                 return true;
 	}
         
+        public boolean removePublikation(Publikation p){
+                publikationen.remove(p);
+                return true;
+        }
+        
         public List<Publikation> getPublikationen(){
             return publikationen;
         }

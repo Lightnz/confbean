@@ -21,10 +21,9 @@ import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
+import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.CreateReviewEJBLocal;
-import org.bonn.ooka.conference.ejb.PublicationSearchLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
-import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
  *
@@ -38,7 +37,7 @@ public class ConsultantController implements Serializable {
     Publikation publikationToBeReviewed;
     
     @EJB
-    PublicationSearchLocal publicationService;
+    CRUDPaperEJBLocal publicationService;
     
     @EJB
     CreateReviewEJBLocal reviewService;

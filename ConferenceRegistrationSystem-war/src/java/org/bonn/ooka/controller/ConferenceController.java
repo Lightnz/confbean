@@ -21,14 +21,13 @@ import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
+import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
 import org.bonn.ooka.conference.ejb.CreateReviewEJBLocal;
 import org.bonn.ooka.conference.ejb.LoginEJB;
 import org.bonn.ooka.conference.ejb.LoginEJBLocal;
-import org.bonn.ooka.conference.ejb.PublicationSearchLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
 import org.bonn.ooka.conference.ejb.RegisterEJBLocal;
-import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
  *
@@ -42,7 +41,7 @@ public class ConferenceController implements Serializable {
     QueryUsersEJBLocal userService;
     
     @EJB
-    PublicationSearchLocal publicationService;
+    CRUDPaperEJBLocal publicationService;
     
     @EJB
     LoginEJBLocal loginService;
@@ -52,9 +51,6 @@ public class ConferenceController implements Serializable {
 
     @EJB
     ConferenceSearchLocal conferenceSearchService;
-    
-    @EJB
-    private PublicationSearchLocal publicationSearchService;
     
     @Inject
     LoginData loginData;
@@ -288,7 +284,7 @@ public class ConferenceController implements Serializable {
     
     public String doSearch(){
         if(suchTyp==1){
-            publikationsSuchErgebnis = publicationSearchService.findPublications(suchText);
+            publikationsSuchErgebnis = publicationService.findPublications(suchText);
             return Pages.PUBLICATION_SEARCH_RESULT;
         } if(suchTyp==2){
             konferenzSuchErgebnis = conferenceSearchService.findConferences(suchText);

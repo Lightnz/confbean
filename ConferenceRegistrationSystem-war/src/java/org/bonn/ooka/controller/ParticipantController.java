@@ -21,11 +21,9 @@ import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
+import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceRegisterEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
-import org.bonn.ooka.conference.ejb.CreatePaperEJBLocal;
-import org.bonn.ooka.conference.ejb.PublicationSearchLocal;
-import org.bonn.ooka.sessionbeans.LoginData;
 
 /**
  *
@@ -39,13 +37,10 @@ public class ParticipantController implements Serializable {
     ConferenceSearchLocal conferenceSearchService;
     
     @EJB
-    private PublicationSearchLocal publicationSearchService;
+    private CRUDPaperEJBLocal publicationService;
     
     @EJB
     private ConferenceRegisterEJBLocal registerService;
-    
-    @EJB
-    private CreatePaperEJBLocal paperService;
     
     @EJB
     private JPADao dao;
@@ -103,7 +98,7 @@ public class ParticipantController implements Serializable {
         teilnehmer = loginData.getTeilnehmer();
         angemeldeteKonferenzen = teilnehmer.getZukuenftigeKonferenzen();
         vergangeneKonferenzen = teilnehmer.getVergangeneKonferenzen();
-        publikationsListe = publicationSearchService.getAllPublicationsFor(teilnehmer);
+        publikationsListe = publicationService.getAllPublicationsFor(teilnehmer);
         currentTime = new Date();
     }
 
@@ -155,20 +150,20 @@ public class ParticipantController implements Serializable {
         gutachten.setGutachter(publicationToCreate.getKonferenz().getCommittee()[0]);
         publicationToCreate.setGutachten(gutachten);
         gutachten.setPublikation(publicationToCreate);
-        result = paperService.createPaper(publicationToCreate);
+        result = publicationService.createPaper(publicationToCreate);
         publikationsListe.add(publicationToCreate);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
     public String doUpdatePaper(){
-        result = paperService.updatePaper(publicationToCreate);
+        result = publicationService.updatePaper(publicationToCreate);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
     public String doDelete(Publikation publikation){
         publikation.setAutor(new Teilnehmer());
-        publikationsListe = publicationSearchService.getAllPublicationsFor(teilnehmer);
-        paperService.deletePaper(publikation);
+        publikationsListe = publicationService.getAllPublicationsFor(teilnehmer);
+        publicationService.deletePaper(publikation);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.bonn.ooka.sessionbeans;
+package org.bonn.ooka.controller;
 
 import java.io.Serializable;
 import javax.ejb.Stateful;
@@ -26,36 +26,6 @@ public class LoginData implements Serializable{
     private Teilnehmer teilnehmer = new Teilnehmer();
     
     private Gutachter gutachter = new Gutachter();
-   
-    /*private boolean veranstalterLoggedIn = false;
-   
-    private boolean teilnehmerLoggedIn = false;
-   
-    private boolean gutachterLoggedIn = false;
-
-    public boolean isVeranstalterLoggedIn() {
-        return veranstalterLoggedIn;
-    }
-
-    public void setVeranstalterLoggedIn(boolean veranstalterLoggedIn) {
-        this.veranstalterLoggedIn = veranstalterLoggedIn;
-    }
-
-    public boolean isTeilnehmerLoggedIn() {
-        return teilnehmerLoggedIn;
-    }
-
-    public void setTeilnehmerLoggedIn(boolean teilnehmerLoggedIn) {
-        this.teilnehmerLoggedIn = teilnehmerLoggedIn;
-    }
-
-    public boolean isGutachterLoggedIn() {
-        return gutachterLoggedIn;
-    }
-
-    public void setGutachterLoggedIn(boolean gutachterLoggedIn) {
-        this.gutachterLoggedIn = gutachterLoggedIn;
-    }*/
 
     public boolean isLoggedIn() {
         return teilnehmer.isLoggedIn()||veranstalter.isLoggedIn()||gutachter.isLoggedIn();

@@ -18,14 +18,14 @@
 
                         <h:panelGrid columns="2" cellpadding="5">
                             <h:outputLabel for="username" value="Benutzername:" />
-                            <p:inputText id="username" value="#{conferenceController.username}" label="username" />
+                            <p:inputText id="username" value="#{conferenceController.username}" label="username" required="true" />
 
                             <h:outputLabel for="password" value="Passwort:" />
-                            <p:password id="password" value="#{conferenceController.password}" label="password" />
+                            <p:password id="password" value="#{conferenceController.password}" label="password" required="true" />
 
                             <f:facet name="footer">
                                 <p:commandButton value="Login" update="growl" action="#{conferenceController.login}" icon="ui-icon-check"/>
-                                <p:commandButton value="Registrieren" action="#{conferenceController.openRegisterPage}" icon="ui-icon-clipboard"/>
+                                <p:commandButton value="Registrieren" action="#{conferenceController.openRegisterPage}" icon="ui-icon-clipboard" immediate="true" />
                             </f:facet> 
 
                         </h:panelGrid>

@@ -19,7 +19,7 @@
                             <p:commandButton action="#{conferenceController.startConsultantMask()}" disabled="#{!loginData.gutachter.loggedIn}" value="Gutachter" icon="ui-icon-person"/>
                         </f:facet>
                         <f:facet name="right">
-                            <!--<p:clock />-->
+                            <p:clock />
                             <p:commandButton action="#{conferenceController.startLogin()}" value="Neuen Login" icon="ui-icon-plusthick"/>
                             <p:commandButton action="#{conferenceController.startMainpage()}" disabled="#{!loginData.isLoggedIn()}" title="LogOut" icon="ui-icon-closethick"/>
                         </f:facet>
