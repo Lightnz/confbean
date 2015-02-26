@@ -26,10 +26,11 @@
             <p:inputText value="#{organizerController.conferenceToEdit.date}"> </p:inputText>
             <p/>
             <p:outputLabel value="Kommittee"> </p:outputLabel>
-            <p:selectManyCheckbox value="#{organizerController.conferenceToEdit.committee}" required="true">
+            <p:selectCheckboxMenu id="menu" value="#{organizerController.conferenceToEdit.committee}" label="Kommittee"
+                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
                 <f:converter converterId="gutachterConverter"/>
-                <f:selectItems value="#{organizerController.gutachterListe}" var="n" itemLabel="#{n.name}" itemValue="#{n}"/>
-            </p:selectManyCheckbox>
+                <f:selectItems value="#{organizerController.gutachterListe}" var="n" itemLabel="#{n.name}" itemValue="#{n}" />
+            </p:selectCheckboxMenu>
             <p/>     
             <p:commandButton value="Ändern" action="#{organizerController.doChange()}" icon="ui-icon-check"></p:commandButton>
             </h:panelGrid>

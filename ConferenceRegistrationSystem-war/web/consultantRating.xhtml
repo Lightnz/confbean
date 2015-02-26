@@ -15,7 +15,7 @@
         <h1>Consultant Portal</h1>
         <h3>Bewerten sie die Publikation:</h3>
         <h:form acceptcharset="ISO-8859-1">
-            <p:panelGrid columns="2">
+            <h:panelGrid columns="2">
             <p:outputLabel value="Publikationstitel"> </p:outputLabel>
             <p:outputLabel value="#{consultantController.publikationToBeReviewed.titel}"> </p:outputLabel>     
             <p:outputLabel value="Text"> </p:outputLabel>
@@ -26,7 +26,7 @@
             <p:inputText value="#{consultantController.comment}"> </p:inputText>
             <p:commandButton value="Bewerten" action="#{consultantController.doRate()}" icon="ui-icon-check"></p:commandButton>
             <p:commandButton value="Abbruch" action="#{consultantController.cancelRating()}" icon="ui-icon-close"></p:commandButton>
-            </p:panelGrid>
+            </h:panelGrid>
         </h:form>
     		</ui:define>
     	</ui:composition>
