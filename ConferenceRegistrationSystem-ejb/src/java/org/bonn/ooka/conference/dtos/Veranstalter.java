@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,7 +28,7 @@ import javax.persistence.Transient;
 public class Veranstalter extends Benutzer {
     
     private int rep;
-    @OneToMany(mappedBy = "veranstalter", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "veranstalter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Konferenz> konferenzen = new ArrayList<Konferenz>();
     /**/
     

@@ -28,6 +28,7 @@ import org.bonn.ooka.conference.ejb.LoginEJB;
 import org.bonn.ooka.conference.ejb.LoginEJBLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
 import org.bonn.ooka.conference.ejb.RegisterEJBLocal;
+import org.bonn.ooka.util.Utils;
 
 /**
  *
@@ -54,12 +55,6 @@ public class ConferenceController implements Serializable {
     
     @Inject
     LoginData loginData;
-    
-    List<Veranstalter> veranstalterliste;
-    
-    List<Teilnehmer> teilnehmerliste;
-    
-    List<Gutachter> gutachterliste;
     
     List<Publikation> publikationsliste;
     
@@ -109,7 +104,7 @@ public class ConferenceController implements Serializable {
         Benutzer user = loginService.login(username, password);
         if(user!=null){
             if(user instanceof Teilnehmer){
-                return ConferenceController.this.startParticipantMask((Teilnehmer)user);
+                return startParticipantMask((Teilnehmer)user);
             }
             if(user instanceof Veranstalter){
                 return startOrganizerMask((Veranstalter)user);
@@ -173,21 +168,6 @@ public class ConferenceController implements Serializable {
     
     public void setPublicationToBeViewed(Publikation publicationToBeViewed){
         this.publicationToBeViewed=publicationToBeViewed;
-    }
-    
-    public List<Veranstalter> getVeranstalterliste(){
-        veranstalterliste = userService.getUsers(Veranstalter.class);    
-        return veranstalterliste;
-    }
-    
-    public List<Teilnehmer> getTeilnehmerliste(){
-        teilnehmerliste = userService.getUsers(Teilnehmer.class);    
-        return teilnehmerliste;
-    }
-    
-    public List<Gutachter> getGutachterliste(){
-        gutachterliste = userService.getUsers(Gutachter.class);    
-        return gutachterliste;
     }
     
     public List<Publikation> getPublikationsliste(){
@@ -285,9 +265,11 @@ public class ConferenceController implements Serializable {
     public String doSearch(){
         if(suchTyp==1){
             publikationsSuchErgebnis = publicationService.findPublications(suchText);
+            publikationsSuchErgebnis = Utils.sortPublikationen(publikationsSuchErgebnis);
             return Pages.PUBLICATION_SEARCH_RESULT;
         } if(suchTyp==2){
             konferenzSuchErgebnis = conferenceSearchService.findConferences(suchText);
+            konferenzSuchErgebnis = Utils.sortKonferenzen(konferenzSuchErgebnis);
             return Pages.CONFERENCE_SEARCH_RESULT;
         }
         return Pages.ERROR_PAGE;

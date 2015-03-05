@@ -24,6 +24,7 @@ import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceRegisterEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
+import org.bonn.ooka.util.Utils;
 
 /**
  *
@@ -90,7 +91,7 @@ public class ParticipantController implements Serializable {
     }
 
     public void setPublikationsListe(List<Publikation> publikationsListe) {
-        this.publikationsListe = publikationsListe;
+        this.publikationsListe = Utils.sortPublikationen(publikationsListe);
     }
     
     @PostConstruct
@@ -98,7 +99,7 @@ public class ParticipantController implements Serializable {
         teilnehmer = loginData.getTeilnehmer();
         angemeldeteKonferenzen = teilnehmer.getZukuenftigeKonferenzen();
         vergangeneKonferenzen = teilnehmer.getVergangeneKonferenzen();
-        publikationsListe = publicationService.getAllPublicationsFor(teilnehmer);
+        setPublikationsListe(publicationService.getAllPublicationsFor(teilnehmer));
         currentTime = new Date();
     }
 
@@ -125,10 +126,16 @@ public class ParticipantController implements Serializable {
     
     public String doRegister(Konferenz konferenz){
         result = registerService.registerToConference(teilnehmer, konferenz);
-        if(konferenz.getDatum().getTime()<currentTime.getTime()){
-            vergangeneKonferenzen.add(konferenz);
-        }else{
-            angemeldeteKonferenzen.add(konferenz);
+        currentTime = new Date();
+        if(konferenz.getTeilnehmer().contains(teilnehmer)){
+            if(konferenz.getDatum().getTime()<currentTime.getTime()){
+                vergangeneKonferenzen.add(konferenz);
+                vergangeneKonferenzen = Utils.sortKonferenzen(vergangeneKonferenzen);
+            }
+            else{
+                angemeldeteKonferenzen.add(konferenz); 
+                angemeldeteKonferenzen = Utils.sortKonferenzen(angemeldeteKonferenzen);
+            }
         }
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
@@ -138,20 +145,30 @@ public class ParticipantController implements Serializable {
         currentTime = new Date();
         if(konferenz.getDatum().getTime()<currentTime.getTime()){
             vergangeneKonferenzen.remove(konferenz);
-        }else{
+            vergangeneKonferenzen = Utils.sortKonferenzen(vergangeneKonferenzen);
+        }
+        else{
             angemeldeteKonferenzen.remove(konferenz);
+            angemeldeteKonferenzen = Utils.sortKonferenzen(angemeldeteKonferenzen);
         }
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
     public String doPublicize(){
+        List<Publikation> publikationen = getPublikationsListe();
         publicationToCreate.setAutor(teilnehmer);
         Gutachten gutachten = new Gutachten();
-        gutachten.setGutachter(publicationToCreate.getKonferenz().getCommittee()[0]);
+        Gutachter[] kommittee = publicationToCreate.getKonferenz().getCommittee();
+        if(kommittee.length>0){
+            int randomGutachter = (int)(kommittee.length*Math.random());
+            gutachten.setGutachter(kommittee[randomGutachter]);
+        }
         publicationToCreate.setGutachten(gutachten);
         gutachten.setPublikation(publicationToCreate);
         result = publicationService.createPaper(publicationToCreate);
-        publikationsListe.add(publicationToCreate);
+        publicationToCreate.getKonferenz().addPublikation(publicationToCreate);
+        publikationen.add(publicationToCreate);
+        setPublikationsListe(publikationen);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
@@ -161,9 +178,9 @@ public class ParticipantController implements Serializable {
     }
     
     public String doDelete(Publikation publikation){
-        publikation.setAutor(new Teilnehmer());
-        publikationsListe = publicationService.getAllPublicationsFor(teilnehmer);
+        publikation.setAutor(null);
         publicationService.deletePaper(publikation);
+        publikationsListe.remove(publikation);
         return Pages.PARTICIPENT_CONFIRM_PAGE;
     }
     
@@ -180,17 +197,16 @@ public class ParticipantController implements Serializable {
     
 
     public List<Konferenz> getKonferenzliste() {
-        //TODO Die Konferenzen, zu denen man bereits angemeldet ist, nicht mitanzeigen
-        //funktioniert nicht mit konferenzliste.removeAll(getAngemeldeteKonferenzen());
         return konferenzliste;
     }
 
     public void setKonferenzliste(List<Konferenz> konferenzliste) {
-        this.konferenzliste = konferenzliste;
+        this.konferenzliste = Utils.sortKonferenzen(konferenzliste);
     }
     
     public String showAllConferences(){
-        setKonferenzliste(conferenceSearchService.getAllConferences());
+        List<Konferenz> konferenzen = conferenceSearchService.getAvailableConferences(teilnehmer);
+        setKonferenzliste(konferenzen);
         return Pages.PARTICIPENT_RESULT_PAGE;
     }
     

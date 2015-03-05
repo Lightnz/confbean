@@ -22,8 +22,8 @@
             <p:outputLabel value="Teilnehmeranzahl:"> </p:outputLabel>
             <p:inputText value="#{organizerController.conferenceToEdit.slots}"> </p:inputText>
             <p/>
-            <p:outputLabel value="Datum"> </p:outputLabel>
-            <p:inputText value="#{organizerController.conferenceToEdit.date}"> </p:inputText>
+            <p:outputLabel value="Datum und Zeit"> </p:outputLabel>
+            <p:calendar id="id_datum" value="#{organizerController.conferenceToEdit.date}" pattern="MM/dd/yyyy HH:mm:ss" required="true"/>
             <p/>
             <p:outputLabel value="Kommittee"> </p:outputLabel>
             <p:selectCheckboxMenu id="menu" value="#{organizerController.conferenceToEdit.committee}" label="Kommittee"

@@ -108,11 +108,15 @@ public class Konferenz implements Serializable{
             return date;
         }
         
-        public String getDate(){
+        public Date getDate(){
+            return date;
+        }
+        
+        /*public String getDate(){
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             String time = sdf.format(date);
             return time;
-        }
+        }*/
         
         public int getId(){
             return id;
@@ -192,6 +196,6 @@ public class Konferenz implements Serializable{
         public int getBewertung(){
             return bewertung;
         }
-	
+        
 }
 

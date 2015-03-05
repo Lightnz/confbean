@@ -13,6 +13,7 @@ import javax.ejb.Stateless;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
+import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 
 /**
@@ -42,6 +43,25 @@ public class ConferenceSearch implements ConferenceSearchLocal  {
     @Override
     public List<Konferenz> getKonferenzenOf(Veranstalter v){
         return dao.getKonferenzenOf(v);
+    }
+    
+    @Override
+    public List<Konferenz> getAvailableConferences(Teilnehmer t){
+        List<Konferenz> konferenzen = new ArrayList<Konferenz>();
+        boolean notRegisteredYet;
+        for(Konferenz konferenz : getAllConferences()){
+            notRegisteredYet = true;
+            for(Teilnehmer teilnehmer : konferenz.getTeilnehmer()){
+                if(t.getId()==teilnehmer.getId()){
+                    notRegisteredYet = false;
+                    break;
+                }
+            }
+            if(notRegisteredYet){
+                konferenzen.add(konferenz);
+            }
+        }
+        return konferenzen;
     }
     
 }

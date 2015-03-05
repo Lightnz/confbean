@@ -28,7 +28,7 @@ import javax.persistence.Transient;
 @Table(name = "teilnehmer", schema="confsys")
 public class Teilnehmer extends Benutzer {
     
-    @ManyToMany(cascade = CascadeType.MERGE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
      @JoinTable(
       name="teiln_konf",
       schema="confsys",
@@ -70,21 +70,18 @@ public class Teilnehmer extends Benutzer {
     }
 
     public boolean addConference(Konferenz konferenz) {
-        if(konferenz.teilnehmerliste.size()<=konferenz.getSlots()){
-            this.angemeldeteKonferenzen.add(konferenz);
-            konferenz.addTeilnehmer(this);
-            //TODO Unschönes selbst-überschreiben durch signal an JPA vermeiden (möglich?)
-            List<Konferenz> tmp = angemeldeteKonferenzen;
-            angemeldeteKonferenzen = tmp;
-            return true;
-        }
-        else
-            return false;
+        angemeldeteKonferenzen.add(konferenz);
+        //TODO Unschönes selbst-überschreiben durch signal an JPA vermeiden (möglich?)
+        List<Konferenz> tmp = angemeldeteKonferenzen;
+        angemeldeteKonferenzen = tmp;
+        return true;
     }
     
     public boolean removeConference(Konferenz konferenz) {
-        this.angemeldeteKonferenzen.remove(konferenz);
-        konferenz.removeTeilnehmer(this);
+        angemeldeteKonferenzen.remove(konferenz);
+        //TODO Unschönes selbst-überschreiben durch signal an JPA vermeiden (möglich?)
+        List<Konferenz> tmp = angemeldeteKonferenzen;
+        angemeldeteKonferenzen = tmp;
         return true;
     }
     
