@@ -13,6 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NamedQuery;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContexts;
+import javax.persistence.PersistenceException;
+import javax.persistence.TransactionRequiredException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -35,18 +37,42 @@ public class JPADao {
     protected EntityManager em;
     
     public <E> boolean create(E entity){
-        this.em.persist(entity);
+        try{
+            this.em.persist(entity);
+        }catch(PersistenceException e){
+            e.printStackTrace();
+            return false;
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
     
     public <E> boolean update(E entity){
-        this.em.merge(entity);
+        try{
+            this.em.merge(entity);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }catch(TransactionRequiredException e){
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
     
     public <E> boolean delete(E entity){
         E toBeRemoved = this.em.merge(entity);
-        this.em.remove(toBeRemoved);
+        try{
+            this.em.remove(toBeRemoved);
+        }catch(IllegalArgumentException e){
+            e.printStackTrace();
+            return false;
+        }catch(TransactionRequiredException e){
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
     

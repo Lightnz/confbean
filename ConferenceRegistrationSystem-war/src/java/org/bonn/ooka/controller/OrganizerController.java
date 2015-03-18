@@ -200,9 +200,13 @@ public class OrganizerController implements Serializable {
     
     public String doDelete(Konferenz conferenceToDelete){
         Iterator<Publikation> publikationsIterator = conferenceToDelete.getPublikationen().iterator();
+        //Verschobenes delete um concurrency-fehlern auszuweichen
+        Publikation pub = publikationsIterator.next();
         while(publikationsIterator.hasNext()){
-            doDeletePublication(publikationsIterator.next());
+            doDeletePublication(pub);
+            pub = publikationsIterator.next();
         }
+        doDeletePublication(pub);
         for(Teilnehmer t : conferenceToDelete.getTeilnehmer()){
             t.removeConference(conferenceToDelete);
             userUpdateService.updateUser(t);
