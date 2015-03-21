@@ -28,8 +28,7 @@ import org.bonn.ooka.conference.dtos.Teilnehmer;
 import org.bonn.ooka.conference.dtos.Veranstalter;
 import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
-import org.bonn.ooka.conference.ejb.CreateConferenceEJBLocal;
-import org.bonn.ooka.conference.ejb.EditConferenceEJBLocal;
+import org.bonn.ooka.conference.ejb.CRUDConferenceEJBLocal;
 import org.bonn.ooka.conference.ejb.QueryUsersEJBLocal;
 import org.bonn.ooka.conference.ejb.UserUpdateEJBLocal;
 import org.bonn.ooka.util.Utils;
@@ -46,10 +45,7 @@ public class OrganizerController implements Serializable {
     ConferenceSearchLocal searchService;
     
     @EJB
-    CreateConferenceEJBLocal creationService;
-    
-    @EJB
-    EditConferenceEJBLocal editService;
+    CRUDConferenceEJBLocal conferenceService;
     
     @EJB
     CRUDPaperEJBLocal publicationService;
@@ -186,14 +182,14 @@ public class OrganizerController implements Serializable {
         conferenceToCreate.setDate(datum);
         System.out.println("Datum: "+datum+"\nTitel: "+conferenceToCreate.getTitel()+"\nSlots: "+conferenceToCreate.getSlots()+"\nVeranstalter: "+conferenceToCreate.getVeranstalter().getName());
         veranstalter.addKonferenz(conferenceToCreate);
-        userUpdateService.updateUser(veranstalter);
-        creationResult = creationService.createConference(conferenceToCreate);
+        creationResult = userUpdateService.updateUser(veranstalter);
+        //creationResult = conferenceService.createConference(conferenceToCreate);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
     
     public String doChange(){
-        creationResult = editService.editConference(conferenceToEdit);
+        creationResult = conferenceService.editConference(conferenceToEdit);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
@@ -201,19 +197,20 @@ public class OrganizerController implements Serializable {
     public String doDelete(Konferenz conferenceToDelete){
         Iterator<Publikation> publikationsIterator = conferenceToDelete.getPublikationen().iterator();
         //Verschobenes delete um concurrency-fehlern auszuweichen
-        Publikation pub = publikationsIterator.next();
-        while(publikationsIterator.hasNext()){
+        if(publikationsIterator.hasNext()){
+            Publikation pub = publikationsIterator.next();
+            while(publikationsIterator.hasNext()){
+                doDeletePublication(pub);
+                pub = publikationsIterator.next();
+            }
             doDeletePublication(pub);
-            pub = publikationsIterator.next();
         }
-        doDeletePublication(pub);
         for(Teilnehmer t : conferenceToDelete.getTeilnehmer()){
             t.removeConference(conferenceToDelete);
             userUpdateService.updateUser(t);
         }
         veranstalter.removeKonferenz(conferenceToDelete);
-        userUpdateService.updateUser(veranstalter);
-        creationResult = editService.deleteConference(conferenceToDelete);
+        creationResult = conferenceService.deleteConference(conferenceToDelete);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
@@ -252,7 +249,7 @@ public class OrganizerController implements Serializable {
     }
     
     public void refreshConferences(){
-        erstellteKonferenzen = veranstalter.getKonferenzen();
+        erstellteKonferenzen = searchService.getKonferenzenOf(veranstalter);
     }
     
     public String showPublication(Publikation publikation){

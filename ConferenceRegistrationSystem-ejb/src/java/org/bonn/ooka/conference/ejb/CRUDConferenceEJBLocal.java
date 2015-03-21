@@ -15,13 +15,12 @@ import org.bonn.ooka.conference.dtos.Publikation;
  * @author Fabian
  */
 @Local
-public interface EditConferenceEJBLocal {
+public interface CRUDConferenceEJBLocal {
     
     String editConference(Konferenz konferenz);
     
     String deleteConference(Konferenz konferenz);
     
-    
+    String createConference(Konferenz konferenz);
 
-    
 }

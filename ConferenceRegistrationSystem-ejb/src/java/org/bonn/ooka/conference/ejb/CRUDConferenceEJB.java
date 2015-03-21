@@ -17,7 +17,7 @@ import org.bonn.ooka.conference.dtos.Publikation;
  * @author Fabian
  */
 @Stateless
-public class EditConferenceEJB implements EditConferenceEJBLocal {
+public class CRUDConferenceEJB implements CRUDConferenceEJBLocal {
 
     @EJB
     JPADao dao;
@@ -38,6 +38,14 @@ public class EditConferenceEJB implements EditConferenceEJBLocal {
             return konferenz.getVeranstalter().getName() + ", es ist bei der Löschung ihrer Konferenz '"+ konferenz.getTitel() + " zu einem Fehler gekommen.";
     }
     
-    
+    @Override
+    public String createConference(Konferenz konferenz){
+        
+        if(dao.create(konferenz))
+            return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' wurde erfolgreich erstellt.";
+        else{
+            return konferenz.getVeranstalter().getName() + ", ihre Konferenz '" + konferenz.getTitel() + "' darf aufgrund negativer Bewertungen nicht mehr als 200 Teilnehmer groß sein. Die Konferenz wurde nicht erstellt.";
+        }
+    }
     
 }

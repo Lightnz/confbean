@@ -15,6 +15,6 @@ import org.bonn.ooka.conference.dtos.Benutzer;
 @Local
 public interface UserUpdateEJBLocal {
     
-    void updateUser(Benutzer user);
+    String updateUser(Benutzer user);
     
 }

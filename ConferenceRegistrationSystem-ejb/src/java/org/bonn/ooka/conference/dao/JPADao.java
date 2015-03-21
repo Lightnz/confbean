@@ -51,7 +51,8 @@ public class JPADao {
     
     public <E> boolean update(E entity){
         try{
-            this.em.merge(entity);
+            if(!this.em.contains(entity))
+                this.em.merge(entity);
         }catch(IllegalArgumentException e){
             e.printStackTrace();
             return false;
@@ -63,9 +64,13 @@ public class JPADao {
     }
     
     public <E> boolean delete(E entity){
-        E toBeRemoved = this.em.merge(entity);
         try{
-            this.em.remove(toBeRemoved);
+            if(this.em.contains(entity))
+                this.em.remove(entity);
+            else{
+                E toBeRemoved = this.em.merge(entity);
+                this.em.remove(toBeRemoved);
+            }
         }catch(IllegalArgumentException e){
             e.printStackTrace();
             return false;
@@ -108,7 +113,7 @@ public class JPADao {
     public List<Konferenz> getKonferenzenOf(Veranstalter v){
         List<Konferenz> result = new ArrayList<Konferenz>();
         for(Konferenz k : findAll(Konferenz.class)){
-            if(k.getVeranstalter()==v){
+            if(k.getVeranstalter().getId()==v.getId()){
                 result.add(k);
             }
         }

@@ -23,7 +23,11 @@ public class UserUpdateEJB implements UserUpdateEJBLocal {
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
     @Override
-    public void updateUser(Benutzer user){
-        dao.update(user);
+    public String updateUser(Benutzer user){
+        if(dao.update(user))
+            return user.getName() + ", ihre Konferenz wurde erfolgreich erstellt.";
+        else{
+            return user.getName() + ", ihre Konferenz darf aufgrund negativer Bewertungen nicht mehr als 200 Teilnehmer groß sein. Die Konferenz wurde nicht erstellt.";
+        }
     }
 }
