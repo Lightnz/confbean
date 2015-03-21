@@ -6,8 +6,6 @@
 package org.bonn.ooka.controller;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -21,6 +19,7 @@ import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Publikation;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
+import org.bonn.ooka.conference.ejb.CRUDConferenceEJBLocal;
 import org.bonn.ooka.conference.ejb.CRUDPaperEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceRegisterEJBLocal;
 import org.bonn.ooka.conference.ejb.ConferenceSearchLocal;
@@ -39,6 +38,9 @@ public class ParticipantController implements Serializable {
     
     @EJB
     private CRUDPaperEJBLocal publicationService;
+    
+    @EJB
+    private CRUDConferenceEJBLocal conferenceService;
     
     @EJB
     private ConferenceRegisterEJBLocal registerService;

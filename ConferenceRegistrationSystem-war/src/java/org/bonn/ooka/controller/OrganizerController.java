@@ -195,15 +195,9 @@ public class OrganizerController implements Serializable {
     }
     
     public String doDelete(Konferenz conferenceToDelete){
-        Iterator<Publikation> publikationsIterator = conferenceToDelete.getPublikationen().iterator();
-        //Verschobenes delete um concurrency-fehlern auszuweichen
-        if(publikationsIterator.hasNext()){
-            Publikation pub = publikationsIterator.next();
-            while(publikationsIterator.hasNext()){
-                doDeletePublication(pub);
-                pub = publikationsIterator.next();
-            }
-            doDeletePublication(pub);
+        List<Publikation> publikationenToDelete = conferenceToDelete.getPublikationen();
+        while(!publikationenToDelete.isEmpty()){
+            doDeletePublication(publikationenToDelete.get(0));
         }
         for(Teilnehmer t : conferenceToDelete.getTeilnehmer()){
             t.removeConference(conferenceToDelete);
@@ -229,9 +223,6 @@ public class OrganizerController implements Serializable {
     public String doDeletePublication(Publikation publikation){
         publikation.getKonferenz().removePublikation(publikation);
         creationResult = publicationService.deletePaper(publikation);
-        
-        //publikation.setAutor(null);
-        //publikation.setKonferenz(null);
         refreshConferences();
         return Pages.ORGANIZER_CONFIRM_PAGE;
     }
