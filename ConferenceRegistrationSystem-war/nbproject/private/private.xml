@@ -3,26 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/errorPage.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/participantPaperCreation.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/util/Utils.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/organizerConfirm.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/ConferenceController.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/consultantMask.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/participantPaperEdit.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/ConsultantController.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/publicationReader.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/organizerMask.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/OrganizerController.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/registerMask.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/LoginData.java</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/organizerSetConsultant.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/conferenceSearchResult.xhtml</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/publicationSearchResult.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/registerSuccess.xhtml</file>
-            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/consultantConfirm.xhtml</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/publicationReader.xhtml</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/OrganizerController.java</file>
             <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/src/java/org/bonn/ooka/controller/ParticipantController.java</file>
+            <file>file:/C:/Users/Fabian/Documents/NetBeansProjects/confbean/ConferenceRegistrationSystem-war/web/participantMask.xhtml</file>
         </group>
     </open-files>
 </project-private>

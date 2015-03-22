@@ -6,16 +6,9 @@ package org.bonn.ooka.controller;
  * and open the template in the editor.
  */
 import java.io.Serializable;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
@@ -166,6 +159,7 @@ public class OrganizerController implements Serializable {
     }
     
     public List<Konferenz> getErstellteKonferenzen(){
+        refreshConferences();
         erstellteKonferenzen = Utils.sortKonferenzen(erstellteKonferenzen);
         return erstellteKonferenzen;
     }

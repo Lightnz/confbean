@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
 
 /**
@@ -18,7 +19,7 @@ import org.bonn.ooka.conference.dao.JPADao;
 @Stateless
 public class QueryUsersEJB implements QueryUsersEJBLocal {
     
-    @EJB
+    @Inject
     JPADao dao;
     
     @Override

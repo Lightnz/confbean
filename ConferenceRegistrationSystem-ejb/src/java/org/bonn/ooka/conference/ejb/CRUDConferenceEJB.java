@@ -7,6 +7,7 @@ package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
@@ -19,7 +20,7 @@ import org.bonn.ooka.conference.dtos.Publikation;
 @Stateless
 public class CRUDConferenceEJB implements CRUDConferenceEJBLocal {
 
-    @EJB
+    @Inject
     JPADao dao;
     
     @Override

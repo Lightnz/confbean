@@ -55,6 +55,8 @@ public class ConferenceController implements Serializable {
     
     Publikation publicationToBeViewed;
     
+    String previousPublicationMask;
+    
     String username;
     
     String password;
@@ -209,6 +211,14 @@ public class ConferenceController implements Serializable {
     public void setConferenceNameToSearch(String conferenceNameToSearch) {
         this.conferenceNameToSearch = conferenceNameToSearch;
     }
+
+    public String getPreviousPublicationMask() {
+        return previousPublicationMask;
+    }
+
+    public void setPreviousPublicationMask(String previousPublicationMask) {
+        this.previousPublicationMask = previousPublicationMask;
+    }
     
     public String startParticipantMask(){
             return Pages.PARTICIPENT_INDEX_PAGE;
@@ -254,6 +264,7 @@ public class ConferenceController implements Serializable {
     }
     
     public String startPublicationMask(){
+        previousPublicationMask = Pages.PUBLICATION_VIEW;
         return Pages.PUBLICATION_VIEW;
     }
     
@@ -261,6 +272,7 @@ public class ConferenceController implements Serializable {
         if(suchTyp==1){
             publikationsSuchErgebnis = publicationService.findPublications(suchText);
             publikationsSuchErgebnis = Utils.sortPublikationen(publikationsSuchErgebnis);
+            previousPublicationMask = Pages.PUBLICATION_SEARCH_RESULT;
             return Pages.PUBLICATION_SEARCH_RESULT;
         } if(suchTyp==2){
             konferenzSuchErgebnis = conferenceSearchService.findConferences(suchText);
@@ -272,7 +284,7 @@ public class ConferenceController implements Serializable {
     
     public String showPublication(Publikation publikation){
         publicationToBeViewed=publikation;
-        return Pages.PUBLICATION_VIEW;
+        return Pages.PUBLICATION_READER_VIEW;
     }
     
 }

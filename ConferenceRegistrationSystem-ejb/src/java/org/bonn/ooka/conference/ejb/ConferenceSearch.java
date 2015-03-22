@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachter;
 import org.bonn.ooka.conference.dtos.Konferenz;
@@ -23,7 +24,7 @@ import org.bonn.ooka.conference.dtos.Veranstalter;
 @Stateless
 public class ConferenceSearch implements ConferenceSearchLocal  {
 
-    @EJB
+    @Inject
     JPADao dao;
     
     public ConferenceSearch() {

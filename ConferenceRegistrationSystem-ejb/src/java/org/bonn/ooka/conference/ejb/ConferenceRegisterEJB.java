@@ -7,6 +7,7 @@ package org.bonn.ooka.conference.ejb;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Konferenz;
 import org.bonn.ooka.conference.dtos.Teilnehmer;
@@ -18,7 +19,7 @@ import org.bonn.ooka.conference.dtos.Teilnehmer;
 @Stateless
 public class ConferenceRegisterEJB implements ConferenceRegisterEJBLocal {
 
-    @EJB
+    @Inject
     JPADao dao;
     
     @Override

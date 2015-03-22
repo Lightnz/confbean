@@ -9,6 +9,7 @@ package org.bonn.ooka.conference.ejb;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import org.bonn.ooka.conference.dao.JPADao;
 import org.bonn.ooka.conference.dtos.Gutachten;
 
@@ -20,7 +21,7 @@ import org.bonn.ooka.conference.dtos.Gutachten;
 @LocalBean
 public class CreateReviewEJB implements CreateReviewEJBLocal {
 
-    @EJB
+    @Inject
     JPADao dao;
     
     @Override

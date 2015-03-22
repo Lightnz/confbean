@@ -82,7 +82,12 @@ public class CRUDPaperEJB implements CRUDPaperEJBLocal {
     
     @Override
     public List<Publikation> findPublications(String s){
-        return dao.findPublikationByName(s);
+        List<Publikation> publikationen = new ArrayList<Publikation>();
+        for(Publikation publikation : dao.findPublikationByName(s)){
+            if(publikation.getGutachten().getAkzeptiert())
+                publikationen.add(publikation);
+        }
+        return publikationen;
     }
     
     @Override
